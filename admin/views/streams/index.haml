@@ -1,0 +1,43 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:streams, :index)
+      %li=link_to pat(:new), url(:streams, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:streams)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:stream, :url)
+          %th=mat(:stream, :type)
+          %th=mat(:stream, :date)
+          %th=mat(:stream, :timend)
+          %th=mat(:stream, :price)
+          %th=mat(:stream, :mobile)
+          %th=mat(:stream, :facebook)
+          %th=mat(:stream, :thumbnails)
+          %th=mat(:stream, :created_at)
+          %th=mat(:stream, :updated_at)
+          %th.last="&nbsp;"
+        -@streams.each do |stream|
+          %tr
+            %td.first=stream.url
+            %td=stream.type
+            %td=stream.date
+            %td=stream.timend
+            %td=stream.price
+            %td=stream.mobile
+            %td=stream.facebook
+            %td=stream.thumbnails
+            %td=stream.created_at
+            %td=stream.updated_at
+            %td.last
+              =button_to pat(:edit), url(:streams, :edit, :id => stream.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:streams, :destroy, :id => stream.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

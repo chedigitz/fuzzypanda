@@ -1,0 +1,57 @@
+/* 
+jFlow Plus Demo CSS 
+
+Description: Demo styles NOT for use with jFlow Plus
+Creator: Devin Walker
+Date: July 29, 2010
+
+*/
+
+body {
+	
+	padding: 0 50px 50px 50px;
+	
+	font-family: Georgia, serif;
+}
+
+#jFlowCredits {
+	text-align: center;
+	margin: 0 auto;
+	width: 800px;
+}
+
+#jFlowCredits h1 {
+	color: #666;
+	font-weight: normal;
+	font-size: 90px;
+	line-height: 1.1em;
+	text-shadow: 1px 1px 1px #FFF;
+	margin: 20px 0 0 0;
+}
+
+
+#jFlowCredits h1 span {
+	font-style: italic;
+	background-color: #CCC;
+	font-size: 40px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #999;
+
+}
+
+#jFlowCredits h2 {
+	margin: 0 0 30px 0;	
+}
+
+#jFlowCredits h2 a {
+	color: #FFF;
+	text-decoration: none;
+		text-shadow: 1px 1px 1px #999;
+
+}
+	
+#jFlowCredits h2 a:hover { 
+	text-decoration: underline;
+	background-color: #CCC;
+	color: #FFF;
+}

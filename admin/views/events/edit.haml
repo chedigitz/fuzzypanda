@@ -1,0 +1,47 @@
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Events
+      %li= link_to pat(:list), url(:events, :index)
+      %li= link_to pat(:new), url(:events, :new)
+      %li.active= link_to pat(:edit), url(:events, :edit, :id => @event.id)
+  .span6
+    -form_for :event, url(:events, :update, :id => @event.id), :method => :put, :class => "form-horizontal" do |f|
+      =partial "events/form", :locals => { :f => f }
+      :javascript
+        $(function () {
+          $('datetime1').datetimepicker();
+        })      
+  .span5
+    .tabbable
+      %ul.nav.nav-tabs
+        %li.active
+          %a{:href => "#videos", "data-toggle" => "tab"} Videos
+        %li
+          %a{:href => "#fights", "data-toggle" => "tab"} Fights
+        %li
+          %a{:href => "#Actors", "data-toggle" => "tab"} Actors
+        %li
+          %a{:href => "#Streams", "data-toggle" => "tab"} Streams
+        %li
+          %a{:href => "#production", "data-toggle" => "tab"} Production
+      .tab-content
+        .tab-pane.active.well#videos
+          %h6 Event Videos 
+          -if @event.videos.empty?
+            Event has no videos
+          -else
+            -@event.videos.each do |video|
+              %li=link_to video.title, (url_for(:videos, :edit, :id =>video.id))
+          =link_to 'Add Videos', url_for(:videos, :new, :id => @event.id), :class => 'btn btn-small'
+        .tab-pane.well#production
+          %h6 Production Call Sheets
+          -if @callsheets.empty?
+            %p Event has no call sheets
+          -else
+            -@callsheets.each do |sheet|
+              %li=link_to sheet.call_time.strftime("at %I:%M%p"), (url_for(:callsheets, :edit, :id => sheet.id))
+          =link_to 'Add', url_for(:callsheets, :new, :id => @event.id), :class => 'btn btn-small btn-primary'
+        .tab-pane#actors
+        .tab-pane#streams 
+-content_for :sidebar, partial("base/sidebar")

@@ -1,0 +1,37 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:events, :index)
+      %li=link_to pat(:new), url(:events, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:events)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:event, :title)
+          %th=mat(:event, :url)
+          %th=mat(:event, :price)
+          %th=mat(:event, :location)
+          %th=mat(:event, :hashtag)
+          %th=mat(:event, :created_at)
+          %th=mat(:event, :updated_at)
+          %th.last="&nbsp;"
+        -@events.each do |event|
+          %tr
+            %td.first=event.title
+            %td=event.url
+            %td=event.price
+            %td=to_address(event.location)
+            %td=event.hashtag
+            %td=event.created_at
+            %td=event.updated_at
+            %td.last
+              =button_to pat(:edit), url(:events, :edit, :id => event.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:events, :destroy, :id => event.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

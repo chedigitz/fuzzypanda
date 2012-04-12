@@ -1,0 +1,15 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:callsheets, :index)
+      %li=link_to pat(:new), url(:callsheets, :new)
+      %li.active=link_to pat(:edit), url(:callsheets, :edit, :id => @callsheet.id)
+  .content
+    %h2.title
+      =pat(:edit)
+      =mt(:callsheet)
+    .inner
+      -form_for :callsheet, url(:callsheets, :update, :id => @callsheet.id), :method => :put, :class => :form do |f|
+        =partial "callsheets/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

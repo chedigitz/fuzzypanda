@@ -1,0 +1,31 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:callsheets, :index)
+      %li=link_to pat(:new), url(:callsheets, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:callsheets)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:callsheet, :call_time)
+          %th=mat(:callsheet, :notes)
+          %th=mat(:callsheet, :created_at)
+          %th=mat(:callsheet, :updated_at)
+          %th.last="&nbsp;"
+        -@callsheets.each do |callsheet|
+          %tr
+            %td.first=callsheet.call_time
+            %td=callsheet.notes
+            %td=callsheet.created_at
+            %td=callsheet.updated_at
+            %td.last
+              =button_to pat(:edit), url(:callsheets, :edit, :id => callsheet.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:callsheets, :destroy, :id => callsheet.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")
