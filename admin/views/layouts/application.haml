@@ -1,0 +1,39 @@
+!!! Strict
+%html{:lang => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %title iGFL Admin
+    =stylesheet_link_tag 'bootstrap', 'jquery-ui-timepicker-addon'
+    =javascript_include_tag 'jquery', 'bootstrap','bootstrap-tab','bootstrap-dropdown', 'bootstrap-modal', 'jquery-ui-timepicker-addon', 'jquery-ui-1.8.18.custom.min'
+  %body
+    %div.navbar
+      %div.navbar-inner
+        %div.container-fluid
+          =link_to "iGFL Admin", url(:base_index), :class => "brand"
+          %ul.nav
+            -project_modules.each do |project_module|
+              %li{:class => ("active" if request.path_info =~ /^#{project_module.path}/)}
+                =link_to project_module.human_name, project_module.path("/admin")
+          %ul.nav.pull-right
+            %li#fatmenu.dropdown
+              %a.dropdown-toggle{:href=> "#", "data-toggle" => "dropdown"}
+                = current_account.email
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to pat(:account), url(:accounts, :edit, :id => current_account.id)
+                %li.divider 
+                %li= button_to pat(:logout), url(:sessions, :destroy), :method => :delete
+          :javascript
+            $(function () {
+              $('.dropdown-toggle').dropdown();
+            })   
+    .container-fluid
+      =yield
+    #footer
+      .block
+        %p
+          Copyright &copy;
+          =Time.now.year
+          GFL.TV - Powered by
+          =link_to "MixdMatchdSoft", "http://mysocksdontmatch.com", :target => :_blank
+

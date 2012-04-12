@@ -1,0 +1,43 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:streamhubs, :index)
+      %li=link_to pat(:new), url(:streamhubs, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:streamhubs)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:streamhub, :url)
+          %th=mat(:streamhub, :type)
+          %th=mat(:streamhub, :date)
+          %th=mat(:streamhub, :endtime)
+          %th=mat(:streamhub, :price)
+          %th=mat(:streamhub, :mobile)
+          %th=mat(:streamhub, :facebook)
+          %th=mat(:streamhub, :thumbnails)
+          %th=mat(:streamhub, :created_at)
+          %th=mat(:streamhub, :updated_at)
+          %th.last="&nbsp;"
+        -@streamhubs.each do |streamhub|
+          %tr
+            %td.first=streamhub.url
+            %td=streamhub.type
+            %td=streamhub.date
+            %td=streamhub.endtime
+            %td=streamhub.price
+            %td=streamhub.mobile
+            %td=streamhub.facebook
+            %td=streamhub.thumbnails
+            %td=streamhub.created_at
+            %td=streamhub.updated_at
+            %td.last
+              =button_to pat(:edit), url(:streamhubs, :edit, :id => streamhub.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:streamhubs, :destroy, :id => streamhub.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

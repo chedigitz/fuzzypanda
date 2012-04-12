@@ -1,0 +1,34 @@
+.group
+  =f.label :title
+  =f.error_message_on :title
+  =f.text_field :title, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :url
+  =f.error_message_on :url
+  =f.text_field :url, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :price
+  =f.error_message_on :price
+  =f.text_field :price, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :location
+  =f.error_message_on :location
+  =f.text_field :location, :class => :text_field
+  %span.description= to_address(@event.location)
+
+.group
+  =f.label :hashtag
+  =f.error_message_on :hashtag
+  =f.text_field :hashtag, :class => :text_field
+  %span.description Ex: a simple text
+
+
+.group.navform.wat-cf
+  =f.submit pat(:save), :class => :button
+  =f.submit pat(:cancel), :onclick => "window.location='#{url(:events, :index)}';return false", :class => :button
