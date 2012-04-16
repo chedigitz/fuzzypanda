@@ -1,0 +1,15 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:assigments, :index)
+      %li=link_to pat(:new), url(:assigments, :new)
+      %li.active=link_to pat(:edit), url(:assigments, :edit, :id => @assigment.id)
+  .content
+    %h2.title
+      =pat(:edit)
+      =mt(:assigment)
+    .inner
+      -form_for :assigment, url(:assigments, :update, :id => @assigment.id), :method => :put, :class => :form do |f|
+        =partial "assigments/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

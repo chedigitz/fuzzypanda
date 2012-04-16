@@ -1,0 +1,52 @@
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.first=link_to pat(:list), url(:callsheets, :index)
+      %li=link_to pat(:new), url(:callsheets, :new)
+      %li=link_to pat(:edit), url(:callsheets, :edit, :id => @callsheet.id)
+  .span6
+    .content
+      %h3.title
+        =@callsheet.event.title
+        %p
+    .span6
+      .tabbable
+        %ul.nav.nav-tabs
+          %li.active
+            %a{:href => "#crew", "data-toggle" => "tab"} Crew
+          %li
+            %a{:href => "#event", "data-toggle" => "tab"} Event Info
+          %li
+            %a{:href => "#map", "data-toggle" => "tab"} Venue
+          %li
+            %a{:href => "#city", "data-toggle" => "tab"} Food
+
+        .tab-content
+          .tab-pane.active#crew
+            -if @callsheet.assigments.empty?
+              no crew members are on call 
+            -else
+              - @callsheet.assigments.each do |a|
+                %h3= link_to a.account.name, url_for(:accounts, :edit, :id => a.id)
+                %h5= a.task 
+                %h6 #{distance_between(a.account.location, a.callsheet.event.location).to_i} miles 
+            %h2= @callsheet.call_time.strftime("at %I:%M%p")
+            #map_canvas.well{:style => "width: 310px; height:350px; padding-top:10px;"} 
+          .tab-pane.well#event
+            %ul.thumbnails
+              %li
+              .thumbnail
+              
+                .caption
+                  %h5= @callsheet.event.title
+                  %p awesome event description goes here
+                  :javascript
+                    $(function () {
+                      $('.tabs').tabs();
+                      $('#crewpicker').modal(options);
+                    })
+
+        
+          
+             
+             

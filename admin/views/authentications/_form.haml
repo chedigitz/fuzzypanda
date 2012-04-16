@@ -1,0 +1,22 @@
+.group
+  =f.label :provider
+  =f.error_message_on :provider
+  =f.text_field :provider, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :uid
+  =f.error_message_on :uid
+  =f.text_field :uid, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :Account_id
+  =f.error_message_on :Account_id
+  =f.text_field :Account_id, :class => :text_field
+  %span.description Ex: a simple text
+
+
+.group.navform.wat-cf
+  =f.submit pat(:save), :class => :button
+  =f.submit pat(:cancel), :onclick => "window.location='#{url(:authentications, :index)}';return false", :class => :button

@@ -20,7 +20,10 @@
   =f.label :location
   =f.error_message_on :location
   =f.text_field :location, :class => :text_field
-  %span.description= to_address(@event.location)
+  -if @event.location.empty?
+    %span.description= "Bally's Casino Atlantic City"
+  -else
+    %span.description= to_address(@event.location)
 
 .group
   =f.label :hashtag

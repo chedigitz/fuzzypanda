@@ -1,0 +1,36 @@
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header= "#{current_account.role} account"
+      -if current_account.role == "admin"
+        %li=link_to pat(:new), url(:accounts, :new)
+      %li=link_to pat(:edit), url(:accounts, :edit, :id => current_account.id)
+      %li.active=link_to pat(:services), url(:authentications, :index) 
+  .span6
+    -if current_account.authentications.empty?
+      %h5 no services linked, you should add some
+    -else 
+      #authentication.well
+        %h6 Authorized Providers
+        - current_account.authentications.each do |authentication|
+          .row
+            .span1
+              = image_tag "#{authentication.provider}_64.png", :size => "64x64"
+            .span1
+              -if authentication.provider == "facebook"
+                = image_tag "https://graph.facebook.com/#{authentication.uid}/picture", :class => "thumbnail"
+              -elsif authentication.provider =="twitter"
+                %h5= authentication.uid
+
+            .span1
+              -form_for authentication, url(:authentications, :destroy, :id => authentication.id), :method => :delete, :class => "form-horizontal" do |f|
+                =f.image_submit "bin.png"
+                
+                  
+      %strong Add another Awesome service to GFL 
+    .row
+      .span1
+        
+        %a{:href => "/admin/auth/facebook"}= image_tag "facebook_64.png", :size => "64x64"
+      .span1
+        %a{:href => "/admin/auth/twitter"}= image_tag "twitter_64.png", :size => "64x64"

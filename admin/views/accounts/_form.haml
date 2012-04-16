@@ -15,6 +15,14 @@
   =f.error_message_on :email
   =f.text_field :email, :class => :text_field
   %span.description Ex: a simple text
+.group
+  =f.label :location
+  =f.error_message_on :location
+  =f.text_field :location, :class => :text_field
+  -if @account.location.empty?
+    %span.description= "123 awesometown 19123"
+  -else
+    %span.description= to_address(@account.location)
 
 .group
   =f.label :password
@@ -34,7 +42,6 @@
   =f.select :role, :options => access_control.roles
   %span.description Ex: a simple text
 
-
-.group.navform.wat-cf
+  .group.navform.wat-cf
   =f.submit pat(:save), :class => :button
   =f.submit pat(:cancel), :onclick => "window.location='#{url(:accounts, :index)}';return false", :class => :button

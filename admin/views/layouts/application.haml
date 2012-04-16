@@ -5,11 +5,29 @@
     %title iGFL Admin
     =stylesheet_link_tag 'bootstrap', 'jquery-ui-timepicker-addon'
     =javascript_include_tag 'jquery', 'bootstrap','bootstrap-tab','bootstrap-dropdown', 'bootstrap-modal', 'jquery-ui-timepicker-addon', 'jquery-ui-1.8.18.custom.min'
-  %body
+    %script{:type => "application/javascript", :src => "http://maps.googleapis.com/maps/api/js?key=AIzaSyCarC9Mc24ezPR2Q-joO6fiZNRTxHqKq9Q&sensor=false"}
+    -if @callsheet
+      :javascript
+        function initialize() {
+          var eventlatlng = new google.maps.LatLng(#{@callsheet.event.location[0].to_s+@callsheet.event.location[1].to_s});
+          var myOptions = {
+            center: eventlatlng,
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map_canvas"),
+              myOptions);
+          var marker = new google.maps.Marker({
+            position: eventlatlng,
+            map: map,
+            title: "#{to_address(@callsheet.event.location)}"
+          });
+        }
+  %body{ :onload => "initialize()"}
     %div.navbar
       %div.navbar-inner
         %div.container-fluid
-          =link_to "iGFL Admin", url(:base_index), :class => "brand"
+          =link_to "Panda Feed", url(:base_index), :class => "brand"
           %ul.nav
             -project_modules.each do |project_module|
               %li{:class => ("active" if request.path_info =~ /^#{project_module.path}/)}
