@@ -22,6 +22,7 @@ Admin.controllers :accounts do
 
   get :edit, :with => :id do
     @account = Account.find(params[:id])
+
     render 'accounts/edit'
   end
 

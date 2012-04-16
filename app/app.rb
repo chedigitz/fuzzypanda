@@ -5,7 +5,7 @@ class Jp2 < Padrino::Application
   register Padrino::Helpers
 
   enable :sessions
-
+  
   ##
   # Caching support
   #

@@ -13,7 +13,7 @@ class Event
   many :callsheets, :in => :callsheet_id
   many :images
   many :videos
-
+  
   before_save :get_location_points, :if => :location_points_set 
 
   private 

@@ -10,7 +10,7 @@
   =f.text_field :notes, :class => :text_field
   %span.description Ex: a simple text
 
-=f.text_field_block :event_id
+=f.hidden_field :event_id, :value => @callsheet.event_id
 .group.navform.wat-cf
   =f.submit pat(:save), :class => :button
   =f.submit pat(:cancel), :onclick => "window.location='#{url(:callsheets, :index)}';return false", :class => :button

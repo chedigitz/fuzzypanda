@@ -34,7 +34,18 @@ Admin.controllers :callsheets do
   get :edit, :with => :id do
     @callsheet = Callsheet.find(params[:id])
     logger.debug @callsheet.to_json
+    @crew = Account.all("role" => "crew")
+    @squad = @callsheet.assigments
+    logger.debug @squad.to_json
     render 'callsheets/edit'
+  end
+
+  get :show, :with => :id do 
+     @callsheet = Callsheet.find(params[:id])
+     @venue = venue_search(@callsheet.event.location[0])
+     logger.debug @venue.to_json
+     logger.debug @venue.groups
+    render 'callsheets/show'
   end
 
   put :update, :with => :id do

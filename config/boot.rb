@@ -10,7 +10,7 @@ Bundler.require(:default, PADRINO_ENV)
 ##
 # Enable devel logging
 #
-# Padrino::Logger::Config[:development][:log_level]  = :devel
+#Padrino::Logger::Config[:development][:log_level]  = :devel
 # Padrino::Logger::Config[:development][:log_static] = true
 #
 
@@ -18,8 +18,7 @@ Bundler.require(:default, PADRINO_ENV)
 # Add your before load hooks here
 #
 Padrino.before_load do
-
-    Time.zone =  "EST"
+    Time.zone =  "America/New_York"
 
 end
 
@@ -29,5 +28,8 @@ end
 Padrino.after_load do
 
 end
+Padrino.use Rack::Session::Cookie, :session_secret => '23f112b248acd1bb8d0ffe4755c4763103d53f69f748cadc0db124752dbd0330'
+
+
 
 Padrino.load!

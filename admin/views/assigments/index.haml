@@ -1,0 +1,35 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:assigments, :index)
+      %li=link_to pat(:new), url(:assigments, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:assigments)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:assigment, :task)
+          %th=mat(:assigment, :account_id)
+          %th=mat(:assigment, :callsheet_id)
+          %th=mat(:assigment, :created_at)
+          %th=mat(:assigment, :updated_at)
+
+          %th.last="&nbsp;"
+        -@assigments.each do |assigment|
+          %tr
+            %td.first=assigment.task
+            %td=assigment.account_id
+            %td=assigment.callsheet_id
+            %td=assigment.created_at
+            %td=assigment.updated_at
+
+            %td.last
+              =button_to pat(:edit), url(:assigments, :edit, :id => assigment.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:assigments, :destroy, :id => assigment.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

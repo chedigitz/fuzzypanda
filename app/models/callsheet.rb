@@ -1,6 +1,6 @@
 class Callsheet
   include MongoMapper::Document
-
+  
   # key <name>, <type>
   key :call_time, Time
   key :notes, String
@@ -8,6 +8,8 @@ class Callsheet
   belongs_to :event
   key :event_id, ObjectId
   
+  many :assigments
+
   timestamps!
   
 end
