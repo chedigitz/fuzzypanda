@@ -21,6 +21,7 @@ gem 'omniauth', :require => "omniauth"
 gem 'omniauth-twitter', :require => "omniauth-twitter"
 gem 'omniauth-facebook', :require => "omniauth-facebook"
 gem 'foursquare2', :require => "foursquare2"
+
 # Test requirements
 gem 'shoulda', :group => "test"
 gem 'rack-test', :require => "rack/test", :group => "test"

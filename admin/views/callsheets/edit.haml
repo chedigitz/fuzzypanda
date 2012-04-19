@@ -4,6 +4,7 @@
       %li.first=link_to pat(:list), url(:callsheets, :index)
       %li=link_to pat(:new), url(:callsheets, :new)
       %li.active=link_to pat(:edit), url(:callsheets, :edit, :id => @callsheet.id)
+      %li=link_to pat(:show), url(:callsheets, :show, :id => @callsheet.id)
   .span6
     .content
       %h2.title
@@ -30,7 +31,7 @@
             - @callsheet.assigments.each do |a|
               %h3=link_to a.account.name, url_for(:accounts, :edit, :id => a.id)
               %h6= a.task
-          %h2= @callsheet.call_time.strftime("at %I:%M%p")
+          %h2= @callsheet.call_time.localtime.strftime("at %I:%M%p")
           %a.btn.btn-small.btn-primary{ "data-toggle" => "modal", :href => "#crewpicker"} Add
           %p
           #map_canvas{:style => "width: 270px; height:350px; padding-top:10px;"} 
@@ -40,6 +41,7 @@
             .thumbnail
               
               .caption
+                =image_tag @callsheet.event.poster_url, :width => "200", :class => "thumbnail"
                 %h5= @callsheet.event.title
                 %p awesome event description goes here
                 :javascript

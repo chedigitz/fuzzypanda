@@ -17,10 +17,7 @@
             .span1
               = image_tag "#{authentication.provider}_64.png", :size => "64x64"
             .span1
-              -if authentication.provider == "facebook"
-                = image_tag "https://graph.facebook.com/#{authentication.uid}/picture", :class => "thumbnail"
-              -elsif authentication.provider =="twitter"
-                %h5= authentication.uid
+              = image_tag authentication.info["image"], :class => "thumbnail"
 
             .span1
               -form_for authentication, url(:authentications, :destroy, :id => authentication.id), :method => :delete, :class => "form-horizontal" do |f|

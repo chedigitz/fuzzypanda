@@ -17,7 +17,7 @@
           %th.last="&nbsp;"
         -@callsheets.each do |callsheet|
           %tr
-            %td.first=callsheet.call_time
+            %td.first=callsheet.call_time.to_date
             %td=callsheet.notes
             %td=callsheet.created_at
             %td=callsheet.updated_at
