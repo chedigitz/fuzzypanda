@@ -4,10 +4,15 @@ class Authentication
   # key <name>, <type>
   key :provider, String
   key :uid, String
-  key :profile_dump, Array
+  key :info, Hash
 
   belongs_to :account 
   key :account_id, ObjectId
   
   timestamps!
+
+
+  
+
+
 end

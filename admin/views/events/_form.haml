@@ -11,6 +11,18 @@
   %span.description Ex: a simple text
 
 .group
+  =f.label :showdate
+  =f.error_message_on :showdate
+  =f.text_field :showdate, :class => :text_field
+  %span.description Ex: 1/1/11
+
+.group
+  =f.label :gfl_id
+  =f.error_message_on :gfl_id
+  =f.text_field :gfl_id, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
   =f.label :price
   =f.error_message_on :price
   =f.text_field :price, :class => :text_field
@@ -21,9 +33,22 @@
   =f.error_message_on :location
   =f.text_field :location, :class => :text_field
   -if @event.location.empty?
-    %span.description= "Bally's Casino Atlantic City"
+    %span.description= "EX: Bally's Casino Atlantic City, NJ"
   -else
     %span.description= to_address(@event.location)
+
+.group
+  =f.label :venue_tag
+  =f.error_message_on :venue_tag
+  =f.text_field :venue_tag, :class => :text_field
+  %span.description= "Ex: Bally's"
+
+
+.group
+  =f.label :budget
+  =f.error_message_on :budget
+  =f.text_field :budget, :class => :text_field
+  %span.description Ex: 5000
 
 .group
   =f.label :hashtag

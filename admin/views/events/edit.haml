@@ -18,7 +18,7 @@
         %li.active
           %a{:href => "#videos", "data-toggle" => "tab"} Videos
         %li
-          %a{:href => "#fights", "data-toggle" => "tab"} Fights
+          %a{:href => "#fights", "data-toggle" => "tab"} Venue
         %li
           %a{:href => "#Actors", "data-toggle" => "tab"} Actors
         %li
@@ -40,7 +40,7 @@
             %p Event has no call sheets
           -else
             -@callsheets.each do |sheet|
-              %li=link_to sheet.call_time.strftime("at %I:%M%p"), (url_for(:callsheets, :edit, :id => sheet.id))
+              %li=link_to sheet.call_time.localtime.strftime("%I:%M%p"), (url_for(:callsheets, :show, :id => sheet.id))
           =link_to 'Add', url_for(:callsheets, :new, :id => @event.id), :class => 'btn btn-small btn-primary'
         .tab-pane#actors
         .tab-pane#streams 

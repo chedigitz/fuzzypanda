@@ -44,6 +44,28 @@ class Account
     ::BCrypt::Password.new(crypted_password) == password
   end
 
+  ##
+  # This method returns the latest saved social url
+  def avatar
+   
+    last_auth = Authentication.last( :account_id => self.id)
+    logger.debug last_auth.to_json
+    if last_auth 
+      
+      url = last_auth.info["image"]
+    elsif last_auth.nil?
+       url = "placeholder.png"
+    end 
+       logger.info url
+    url
+  end
+  
+  def add_to_callsheet(callsheet)
+    callsheet.accounts << self
+    callsheet.save!
+    
+  end
+
   private
     def encrypt_password
       self.crypted_password = ::BCrypt::Password.create(password)
@@ -55,7 +77,8 @@ class Account
 
   #geo code the location info
   def get_location_points
-      #only set location when there is location data 
+      #only set location when there is location data s
+      logger.info location
       if location
         location_points = GeoKit::Geocoders::YahooGeocoder.geocode location[0]
         self.location = location_points.ll

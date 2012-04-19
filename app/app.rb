@@ -5,7 +5,8 @@ class Jp2 < Padrino::Application
   register Padrino::Helpers
 
   enable :sessions
-  
+  Time.zone =  "America/New_York"
+
   ##
   # Caching support
   #

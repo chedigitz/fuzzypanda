@@ -12,9 +12,14 @@ Admin.controllers :assigments do
 
   post :create do
     logger.debug params["assigment"].to_json
+    
     @assigment = Assigment.new(params["assigment"])
     
     if @assigment.save
+        @callsheet = Callsheet.find(@assigment.callsheet_id)
+        @assigment.add_to_callsheet(@callsheet)
+        @account = Account.find(@assigment.account_id)
+        @account.add_to_callsheet(@callsheet)
       flash[:notice] = 'Assigment was successfully created.'
       redirect url(:callsheets, :edit, :id => @assigment.callsheet_id)
     else

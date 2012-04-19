@@ -30,6 +30,7 @@ class Admin < Padrino::Application
     provider :twitter, '78dWjnUfFYEq2Ucdvd6Q', 'kKq99vTtStdhTMSSeUbG1mFdKMsUY6gtAwAy6h80'
     provider :facebook, '309232419150548', 'd2cea9bd1d33224ff4581f7c61476a76'
  end
+ Geokit::Geocoders::google = 'AIzaSyCarC9Mc24ezPR2Q-joO6fiZNRTxHqKq9Q'
 
   access_control.roles_for :any do |role|
     role.protect "/"
@@ -42,7 +43,6 @@ class Admin < Padrino::Application
     role.project_module :assigments, '/assigments'
     role.project_module :authentications, "/authentications"
      role.project_module :callsheets, "/callsheets"
-    role.project_module :fights, "/fights"
     role.project_module :events, "/events"
     role.project_module :videos, "/videos"
     role.project_module :accounts, "/accounts"
@@ -66,7 +66,7 @@ class Admin < Padrino::Application
   access_control.roles_for :crew do |role|
     role.allow "/accounts/edit"
     role.allow "/accounts/update"
-    role.project_module :callsheets, "/callsheets"
+    role.allow "/callsheets/show"
     role.project_module :assigments, "/assigments"
     role.project_module :authentications, "/authentications"
   end
@@ -89,6 +89,7 @@ class Admin < Padrino::Application
         credentials = Hash.new
         credentials['provider'] = omniauth['provider']
         credentials['uid'] = omniauth['uid']
+        credentials['info'] = omniauth['info']
         logger.info credentials
         logger.info omniauth.to_json
         current_account.authentications.create(credentials)

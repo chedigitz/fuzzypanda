@@ -23,6 +23,12 @@
   %span.description Ex: a simple text
 
 .group
+  =f.label :dayrate
+  =f.error_message_on :dayrate
+  =f.text_field :dayrate, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
   =f.label :callsheet_id_id
   =f.error_message_on :callsheet_id_id
   =f.text_field :callsheet_id_id, :class => :text_field
