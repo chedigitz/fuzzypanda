@@ -37,7 +37,9 @@
               .span2
                 %p
                   %h2= @callsheet.call_time.localtime.strftime("%I:%M%p")
-                  = link_to "#{to_address(@callsheet.event.location)}", g_maps_directions_url(current_account.location, @callsheet.event.location), :target => "_blank"
+                  %address
+                    %strong= to_address(@callsheet.event.location)
+                  %h5= link_to "directions", g_maps_directions_url(current_account.location, @callsheet.event.location), :target => "_blank"
             .row
               .span4{:style => "padding-top:20px;"}
                 %p
@@ -49,7 +51,8 @@
             = link_to pat(:edit), url(:events, :edit, :id => @callsheet.event.id)          
             .caption
               %h5= @callsheet.event.title 
-              %p awesome event description goes here
+            %p
+              = truncate_words(@callsheet.event.description, :length => 40) 
               :javascript
                 $(function () {
                   $('.tabs').tabs();

@@ -43,6 +43,13 @@
   =f.text_field :venue_tag, :class => :text_field
   %span.description= "Ex: Bally's"
 
+.group
+  =f.label :description
+  =f.error_message_on :description
+  =f.text_field :description, :class => :text_field
+  %span.description Drop the press release here. 
+
+
 
 .group
   =f.label :budget

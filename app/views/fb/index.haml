@@ -1,0 +1,66 @@
+!!! Strict
+%html
+  %head
+    = stylesheet_link_tag 'fbbootstrap'
+    = javascript_include_tag 'jquery','bootstrap','bootstrap-carousel','popcorn-complete','popcorn.sequence'
+  %body
+    :javascript
+      document.addEventListener("DOMContentLoaded", function () {
+        var count=0;
+        var $pop =Popcorn("#video"); 
+        var videos = #{@videos.to_json};             
+        $pop.listen('ended', function() {
+            var nextindex= "#nowplaying" + count;
+            $(nextindex).hide("slow");
+            count++;
+            if (count >= (videos.length))
+              {
+              count=0;
+              }
+            var nextVideo= videos[count];
+            nextindex= "#nowplaying" + count;
+            video.src = nextVideo;
+            
+            $(nextindex).show("slow");
+            $pop.play();
+                   
+          });
+        
+        $pop.play();
+        $("#nowplaying1").show("slow");  
+      }, false);
+    .topbar
+      .topbar-inner
+        .container-fluid
+          %a.brand{:href => "#"} iGFL
+          %ul.nav
+            %li.active  
+              %a{:href => "fb/all"} Events
+            %li.active
+              %a{:href => "#about"} about
+          %p.pull-right Logged in as 
+    .container-fluid
+      .hero-unit
+        .row
+          .span.8
+            %h6 GFL on Facebook
+            %video#video{"controls" => ""}
+              %source{:src => @videos.first}
+          .span.1
+            .page-header
+              %h6 Featured Events
+            %ul.media-grid
+              -@events.each do |event|
+                %li
+                  =link_to (image_tag event.poster_url, :class => 'thumbnail', :width => 110 ), url_for(:fb, :show, :id => event)
+        -@events.each_with_index do |event, i|
+          %div{:id => "nowplaying" + i.to_s, :style => "display:none;"}
+            %a.btn.primary.large $#{event.price}
+            %a.btn.large Share
+            %a.btn.large Info
+            %h6= event.title  
+      .row
+        .span.12
+          .page-header
+            %h6 Past Events
+          %ul.media-grid 

@@ -1,0 +1,82 @@
+- @title = "Welcome"
+:javascript
+  document.addEventListener("DOMContentLoaded", function () {
+    var count=0;
+    var $pop =Popcorn("#video"); 
+    var videos = #{@videos.to_json};             
+    $pop.listen('ended', function() {
+        var nextindex= "#nowplaying" + count;
+        var nextindexinfo= "#nowplayinginfo" + count;
+        $(nextindex).hide("slow");
+        $(nextindexinfo).hide("slow");
+        count++;
+        if (count >= (videos.length))
+          {
+          count=0;
+          }
+        var nextVideo= videos[count];
+        nextindex= "#nowplaying" + count;
+        nextindexinfo= "#nowplayinginfo" + count;
+        video.src = nextVideo;
+        
+        $(nextindex).show("slow");
+        $(nextindexinfo).show("slow")
+        $pop.play();
+               
+      });
+    
+    $pop.play();
+    $("#nowplaying0").show("slow");
+    $("#nowplayinginfo0").show("slow");  
+  }, false);
+.container
+  .row
+    .span7
+      .page-header
+        %h6 Featured Events 
+      %video#video.well{"controls" => ""}
+        %source{:src => @videos.first}
+      -@events.each_with_index do |event, i|
+        .info{:id => "nowplaying" + i.to_s, :style => "display:none;"}
+          .btn-toolbar
+            .btn-group  
+              %a.btn.btn-large{:href => "#"} 
+                %i.icon-calendar
+                Remind Me
+              %a.btn.btn-large{:href => "#", "data-toggle" => "collapse", "data-target" => "#share"}
+                %i.icon-retweet
+                Share
+            .btn-group  
+              %a.btn.btn-large.btn-success.btn-large{:href => "#buy"}
+                %i.icon-shopping-cart
+                $ #{event.price}.99
+                     
+    .span4
+      .page-header
+        %h6 Event Info
+      -@events.each_with_index do |event, i|
+        %div{:id => "nowplayinginfo" + i.to_s, :style => "display:none;"}
+          %ul.thumbnails
+            %li
+            .thumbnail.well
+              =link_to (image_tag event.posterurl, :width => "250"  ), url_for(:events, :show, :id => event)
+              .caption
+                - if event.description
+                  %p= truncate_words(event.description, :line_width => 20)
+                  %strong= link_to 'read more', url_for(:events, :show, :id => event) 
+                -else 
+                  %h6= event.title               
+  .row
+    .span10
+      .page-header
+        %h3 Upcoming Events on GFL
+        %thumbs
+          %ul.thumbnails
+            -@events.each_with_index do |event, i|
+              %li.span2{:id=> i}
+                %thumbnail
+                  =link_to (image_tag event.posterurl, :class => 'thumbnail', :width => 120 ), url_for(:events, :show, :id => event)
+  .row
+    .span8
+      .page-header
+        %h6 Popular Fighters

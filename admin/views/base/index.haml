@@ -12,7 +12,7 @@
         %ul
           -@callsheets.each_with_index do |a, index|
             %p
-              %h5= a.event.showdate
+              %h4= link_to a.event.showdate.localtime.strftime('%a %d %b %Y'), url(:callsheets, :show, :id => a.id)
               %h5= a.call_time.localtime.strftime("%I:%M%p")
               %h6= a.event.title
     .span4
