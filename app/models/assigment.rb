@@ -24,6 +24,7 @@ class Assigment
   private
   def remove_from_callsheets
      Callsheet.pull({:assigment_ids => id}, {:assigment_ids => id})
+     Callsheet.pull({:account_ids => account_id}, {:account_ids => account_id})
   end 
 
   

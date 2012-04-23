@@ -5,6 +5,8 @@ class Authentication
   key :provider, String
   key :uid, String
   key :info, Hash
+  key :credentials, Hash
+
 
   belongs_to :account 
   key :account_id, ObjectId

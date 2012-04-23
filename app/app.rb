@@ -1,12 +1,24 @@
 class Jp2 < Padrino::Application
+  register SecureOnlyInitializer
   register SassInitializer
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+  register Padrino::Admin::AccessControl
+  register Padrino::Admin::Helpers
 
-  enable :sessions
   Time.zone =  "America/New_York"
 
+
+
+
+  Panda.configure do
+  access_key "panda_access_key"
+  secret_key "panda_secret_key"
+  cloud_id "panda_cloud_id"
+  # Uncomment below if you have register for an EU account
+  # api_host "api-eu.pandastream.com" 
+end
   ##
   # Caching support
   #

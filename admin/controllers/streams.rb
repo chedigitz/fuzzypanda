@@ -1,7 +1,7 @@
 Admin.controllers :streams do
 
   get :index do
-    @streams = Stream.a;;
+    @streams = Stream.all
     render 'streams/index'
   end
 

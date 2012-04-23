@@ -25,6 +25,7 @@ class Account
   #ASSOCIATIONS
   many :authentications
   many :assigments
+  many :orders
 
 
   # Callbacks
@@ -60,6 +61,19 @@ class Account
     url
   end
   
+  def fb_friends
+    friends = Array.new
+    fb_auth = Authentication.find_by_provider("facebook")
+    if fb_auth.credentials["token"].present?
+      graph = Koala::Facebook::GraphAPI.new(fb_auth.credentials["token"])
+      friends = graph.get_connections("me","friends")
+    end 
+    logger.info "This is friends #{friends.to_json}"
+    friends
+  end
+
+
+
   def add_to_callsheet(callsheet)
     callsheet.accounts << self
     callsheet.save!

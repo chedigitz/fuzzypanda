@@ -13,12 +13,17 @@ class Event
   key :venue_tag, String
   key :showdate, Time
   key :showtime, Time
+  key :streamhub_ids, Array, :typecast => "ObjectId"
+  key :video_ids, Array, :typecast => "ObjectId"
+  key :description, String, :default =>" "
   timestamps!
 
   many :callsheets, :in => :callsheet_id
+  many :streamhubs, :in => :streamhub_ids
+  many :videos, :in => :video_ids
   many :images
-  many :videos
-  
+  many :orders 
+
   before_save :get_location_points, :if => :location_points_set 
  #method returns latest poter url
  def poster_url
@@ -26,6 +31,22 @@ class Event
     gfl_url = "http://smedia.gfl.tv/images/events/#{gfl_id}.JPG"
   end
   gfl_url
+ end
+
+ def fb_pay_request
+   #returns a json object to generate the facebook pay dialog
+   response = Hash.new
+   response['method'] = 'pay'
+   response['action'] = 'buy_item'
+   order = Hash.new
+   order['event_id'] = id 
+   
+   response['oder_info'] = order
+   
+   dev = Hash.new
+   dev['oscif']= true
+   response['dev_purchase_params'] = dev
+   response.to_json
  end
 
   private 

@@ -23,7 +23,7 @@ class Admin < Padrino::Application
   set :admin_model, 'Account'
   set :login_page, "/admin/sessions/new"
 
-  enable  :sessions
+
   disable :store_location
 
   use OmniAuth::Builder do
@@ -46,6 +46,7 @@ class Admin < Padrino::Application
     role.project_module :events, "/events"
     role.project_module :videos, "/videos"
     role.project_module :accounts, "/accounts"
+    role.project_module :streamhubs, "/streamhubs"
   end
 
    access_control.roles_for :batman do |role|
@@ -90,7 +91,8 @@ class Admin < Padrino::Application
         credentials['provider'] = omniauth['provider']
         credentials['uid'] = omniauth['uid']
         credentials['info'] = omniauth['info']
-        logger.info credentials
+        credentials['credentials'] = omniauth['credentials']
+        logger.info "saved credentials #{credentials.to_json}"
         logger.info omniauth.to_json
         current_account.authentications.create(credentials)
         if current_account.save

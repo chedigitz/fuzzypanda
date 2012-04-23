@@ -9,6 +9,7 @@ gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 
 # Component requirements
+gem 'rack-secure_only', :require => "rack/secure_only"
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sass'
 gem 'haml'
@@ -21,11 +22,13 @@ gem 'omniauth', :require => "omniauth"
 gem 'omniauth-twitter', :require => "omniauth-twitter"
 gem 'omniauth-facebook', :require => "omniauth-facebook"
 gem 'foursquare2', :require => "foursquare2"
-
+gem 'panda'
+gem 'addressable', :require => "addressable/uri"
+gem 'queryparams', :require => 'queryparams'
 # Test requirements
 gem 'shoulda', :group => "test"
 gem 'rack-test', :require => "rack/test", :group => "test"
-
+gem 'rack-ssl-enforcer', :require => 'rack-ssl-enforcer'
 # Padrino Stable Gem
 gem 'padrino', '0.10.6'
 

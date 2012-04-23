@@ -17,16 +17,17 @@
   %span.description Ex: a simple text
 
 .group
-  =f.label :date
-  =f.error_message_on :date
-  =f.text_field :date, :class => :text_field
+
+  =f.hidden_field :event_id, :class => :event_id
   %span.description Ex: a simple text
+
+
 
 .group
   =f.label :featured
   =f.error_message_on :featured
   =f.check_box :featured, :class => :check_box
-  %span.description Ex: a simple text
+  %span.description Featured
 
 
 .group.navform.wat-cf

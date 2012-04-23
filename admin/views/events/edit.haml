@@ -5,6 +5,7 @@
       %li= link_to pat(:list), url(:events, :index)
       %li= link_to pat(:new), url(:events, :new)
       %li.active= link_to pat(:edit), url(:events, :edit, :id => @event.id)
+      %li= link_to "show", "/fb/show/#{@event.id}"
   .span6
     -form_for :event, url(:events, :update, :id => @event.id), :method => :put, :class => "form-horizontal" do |f|
       =partial "events/form", :locals => { :f => f }
