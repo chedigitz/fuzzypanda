@@ -70,13 +70,7 @@
               FB.init({appId: "309232419150548", status: true, cookie: true});
 
               function buy(){
-                var obj = {
-                  method: 'pay',
-                  action: 'buy_item',
-                  order_info: '#{@event.id}',
-
-                  dev_purchase_params: {'oscif': true}
-                };
+                var obj = #{@event.fb_pay_request};
 
                 FB.ui(obj, js_callback);   
               };
