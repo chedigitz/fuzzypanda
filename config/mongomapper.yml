@@ -1,0 +1,30 @@
+# config/mongoid.yml
+
+options: &options
+  parameterize_keys: false
+
+defaults: &defaults
+  host: localhost
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
+
+development:
+  <<: *defaults
+  <<: *options
+  database: tweetup_dev
+
+test:
+  <<: *defaults
+  <<: *options
+  database: tweetup_test
+
+production:
+  <<: *options
+  uri: mongodb://flame.mongohq.com
+  database: pf_test
+  username: chedigitz
+  password: youknow11
+  port: 27103
