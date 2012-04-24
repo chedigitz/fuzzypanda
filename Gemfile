@@ -9,7 +9,6 @@ gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 
 # Component requirements
-gem 'rack-secure_only', :require => "rack/secure_only"
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sass'
 gem 'haml'
@@ -31,7 +30,7 @@ gem 'rack-test', :require => "rack/test", :group => "test"
 gem 'rack-ssl-enforcer', :require => 'rack-ssl-enforcer'
 # Padrino Stable Gem
 gem 'padrino', '0.10.6'
-
+gem 'thin', :require => 'thin'
 # Or Padrino Edge
 # gem 'padrino', :git => 'git://github.com/padrino/padrino-framework.git'
 

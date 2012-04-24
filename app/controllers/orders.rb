@@ -21,11 +21,36 @@ Jp2.controllers :orders do
     
 
   end
+  
+  get :fb do 
+    logger.info params[" method"]
+    method = params[" method"]
 
-  get :fb do
-  
-  "im hit"
-  
+    if method == "payments_get_items" 
+      order_info = params["order_info"]
+      item_id = order_info["item_id"]
+
+      #retrieve order 
+      
+      localitem = Order.find(item_id)
+      if localitem
+        #returns a facebook json item description 
+        item = localitem.fb_pay
+        
+      response = item
+      end 
+    elsif  method == "payment_status_update"
+
+
+    elsif method == "" 
+
+    end
+      
+   response
+  end
+
+  post :fb do
+    logger.info params['method']
 
   end  
   

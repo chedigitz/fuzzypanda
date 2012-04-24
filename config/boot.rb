@@ -5,6 +5,7 @@ PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
+require 'webrick/https'
 Bundler.require(:default, PADRINO_ENV)
 
 ##
@@ -18,7 +19,7 @@ Bundler.require(:default, PADRINO_ENV)
 # Add your before load hooks here
 #
 Padrino.before_load do
-    
+
 end
 
 ##
@@ -31,4 +32,4 @@ Padrino.use Rack::Session::Cookie, :session_secret => '23f112b248acd1bb8d0ffe475
 
 
 
-Padrino.load!
+Padrino.load! 

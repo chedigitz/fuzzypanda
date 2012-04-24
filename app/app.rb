@@ -1,5 +1,4 @@
 class Jp2 < Padrino::Application
-  register SecureOnlyInitializer
   register SassInitializer
   register Padrino::Rendering
   register Padrino::Mailer
@@ -10,6 +9,7 @@ class Jp2 < Padrino::Application
   Time.zone =  "America/New_York"
 
 
+  set :protection, :except => [:frame_options, :remote_token]
 
 
   Panda.configure do
