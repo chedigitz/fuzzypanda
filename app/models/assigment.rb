@@ -5,7 +5,7 @@ class Assigment
   # key <name>, <type>
   key :task, String
   key :dayrate, Float
-  key :settled, Boolean, :default => "false"
+  key :settled, Boolean, :default => false
   timestamps!
 
   #associations

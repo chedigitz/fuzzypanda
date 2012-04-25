@@ -1,9 +1,36 @@
-.block
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first=link_to pat(:list), url(:events, :index)
-      %li.active=link_to pat(:new), url(:events, :new)
-  .content
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+
+      %li.nav-header= "#{current_account.role} account"
+      -if current_account.role == "admin"       
+        %li
+          %a{ :href => "#{url(:accounts, :new)}"}
+            %i.icon-plus
+            Add User
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+
+      
+      -if current_account.role == 'admin'
+        %li.nav-header Callsheets
+        %li.first=link_to pat(:list), url(:callsheets, :index)
+        %li.nav-header Events
+        %li.first=link_to pat(:list), url(:events, :index)
+        %li.active=link_to pat(:new), url(:events, :new)
+  .span6
     %h2.title
       =pat(:new)
       =mt(:event)

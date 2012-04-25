@@ -1,9 +1,48 @@
 Admin.controllers :assigments do
 
   get :index do
-    @assigments = Assigment.all
+    if current_account.role == 'admin'
+      @assigments = Assigment.where(:conditions => {:settled => false}).sort(:update_at.desc)
+
+    else 
+      #for crew 
+      @assigments = Assigment.where(:conditions => {:account_id => current_account.id }).sort(:updated_at.desc)
+
+ 
+    end
+    #calculate total payments    
+
+    @dwolladollaz = sumup(@assigments)
     render 'assigments/index'
   end
+
+  get :all do 
+    if current_account.role == 'admin'
+      @assigments = Assigment.all
+    else
+      @assigments = Assigment.where(:conditions => {:account_id => current_account.id }).sort(:updated_at.desc)
+    end
+
+    render 'assigments/index'
+
+
+  end 
+
+  get :booked do
+    @callsheets = Callsheet.where(:conditions => {:call_time.gte =>Time.now, :account_ids => current_account.id })
+    @assigments = []
+              logger.info "this is ASSIGMENTS IN @CALLSHEET = #{@callsheets.to_json}"
+
+    @callsheets.each do |c|
+          logger.info "this is ASSIGMENTS IN @CALLSHEET = #{c.to_json}"
+      @assigments << Assigment.where(:conditions => {:callsheet_id => c.id, :account_id => current_account.id})
+    end 
+    @dwolladollaz = sumup(@assiments)
+    render 'assigments/index' 
+  end 
+
+
+
 
   get :new do
     @assigment = Assigment.new

@@ -1,35 +1,80 @@
-.block
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first.active=link_to pat(:list), url(:assigments, :index)
-      %li=link_to pat(:new), url(:assigments, :new)
-  .content
-    %h2.title
-      =pat(:all)
-      =mt(:assigments)
-    .inner
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li.first.active
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+      %li
+        %a{ :href => "#{url(:assigments, :booked)}"}
+          %i.icon-road
+          Future
+
+      %li.nav-header= "#{current_account.role} account"
+      -if current_account.role == "admin"
+        %li
+          %a{ :href => "#{url(:accounts, :new)}"}
+            %i.icon-plus
+            Add User
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+ 
+  .span10
+    .page-header
+      %h1
+        All Gigs
+        %small throughout the history of time, legends, and folklore
       %table.table
         %tr
           %th.first=mat(:assigment, :task)
-          %th name
           %th=mat(:assigment, :callsheet_id)
+          -if current_account.role == 'admin'
+            %th Name
+          
           %th=mat(:event, :show_date)
-          %th=mat(:assigment, :updated_at)
+
+          %th Day Rate
+          %th Payed
+
 
           %th.last="&nbsp;"
+        
         -@assigments.each do |assigment|
+          
           %tr
             %td.first=assigment.task
-            %td=assigment.account.name
-            %td=assigment.callsheet.event.title
+            -if current_account.role == 'admin'
+              %td= assigment.account.name
+            %td= link_to assigment.callsheet.event.title, url(:callsheets, :show, :id => assigment.callsheet_id)
             %td=assigment.callsheet.event.showdate.localtime.strftime('%a %d %b %Y')
-            %td=assigment.updated_at
 
-            %td.last
-              =button_to pat(:edit), url(:assigments, :edit, :id => assigment.id), :method => :get, :class => :button_to
-              ="|"
-              =button_to pat(:delete), url(:assigments, :destroy, :id => assigment.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
-      .actions-bar.wat-cf
-        .actions="&nbsp;"
+            %td $#{assigment.dayrate}
+            %td
+              -if assigment.settled == true 
+                %i.icon-ok
+              -else
+                %i.icon-flag
+            -if current_account.role == 'admin'
 
+              %td.last 
+                =button_to pat(:edit), url(:assigments, :edit, :id => assigment.id), :method => :get, :class => :button_to
+                ="|"
+                =button_to pat(:delete), url(:assigments, :destroy, :id => assigment.id), :method => :delete, :class => "form-horizontal", :onsubmit => "return confirm('#{pat(:confirm)}')"
+        .actions-bar.wat-cf
+          .actions="&nbsp;"
+    .page-header
+      %h1
+        $#{@dwolladollaz}
+        -if current_account.role == 'admin'
+          %small owed to crew members
+        -elsif current_account.role == 'crew'
+          %small in your pockets
 -content_for :sidebar, partial("base/sidebar")

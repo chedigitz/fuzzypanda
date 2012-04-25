@@ -1,6 +1,8 @@
 .row
   .span2
     %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li=link_to pat(:list), url(:assigments, :index)
       %li.nav-header= "#{current_account.role} account"
       -if current_account.role == "admin"
         %li=link_to pat(:new), url(:accounts, :new)
@@ -24,7 +26,7 @@
                 =f.image_submit "bin.png"
                 
                   
-      %strong Add another Awesome service to GFL 
+      %strong link another service with pandafeed
     .row
       .span1
         

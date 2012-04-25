@@ -24,7 +24,11 @@ Admin.helpers do
     #accepts location points array
      
     client = Foursquare2::Client.new(:client_id => '1Z3UES45B312ZRK5342HUWQYIMC4MFRA0JXZITCAGV4VZWUE', :client_secret => 'PB443NMF1SIISHU0ZUSDO2DMPVVPN0EQPFCNI5IJZ4XLQQ4O')
-    venue = client.explore_venues(:ll => latlongo, :query => term, :limit => 10)
+    venue = client.search_venues(:ll => latlongo, :query => term, :limit => 10)
+    groups = venue
+    items = groups.groups
+    venue_id = items[0]["items"][0]["id"]
+    logger.info "this is venue items #{venue_id.inspect}"
   	venue 
   end
 
@@ -50,6 +54,19 @@ Admin.helpers do
       end
       url
   end
+  
+  def sumup(assigments)
+    #accepts an array of  assigment objects retuns a float of whats owed
+    sum = 0
+    unless assigments.blank?
+
+      assigments.each do |a|
+        sum += a.dayrate
+      end 
+    end
+     sum
+  end
+
 
   def account_image(account)
   	image= Account.image

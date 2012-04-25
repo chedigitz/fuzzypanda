@@ -1,31 +1,41 @@
-.span8
+.span12
   .page-header
     %h1 
       Gigs
       %small upcomming gigs, payments and goodness you care about
   .row
-    .span4
-      %h3 Future  
+    .span8.well
+        
       -if @callsheets.empty?
         %h5 no gigs, sorry, I'll send you an email when something pops up. 
       -else
         %ul
           -@callsheets.each_with_index do |a, index|
-            %p
-              %h4= link_to a.event.showdate.localtime.strftime('%a %d %b %Y'), url(:callsheets, :show, :id => a.id)
-              %h5= a.call_time.localtime.strftime("%I:%M%p")
-              %h6= a.event.title
-    .span4
-      %h3 Unsettled
+            .row
+              .span2
+                %p
+                  %h4= link_to a.call_time.localtime.strftime('%a %d %b %Y'), url(:callsheets, :show, :id => a.id)
+                  %h5= a.call_time.localtime.strftime("%I:%M%p")
+                  %h6= a.event.title
+              .span2
+                %p
+                  - mapimg= 'http://maps.googleapis.com/maps/api/staticmap?center='+a.event.location[0].to_s+a.event.location[1].to_s+'&zoom=15&size=125x125&scale=2&maptype=roadmap&sensor=false'
+                  = link_to (image_tag  mapimg, :class => "thumbnail"), url(:callsheets, :show, :id => a.id)
+              -a.assigments.each do |assigment|
+                .span1
+                  = image_tag assigment.account.avatar, :class => "thumbnail"
+                  %h6= assigment.account.name
+                  
+
+    .span3
+      %h3 Pending Comp
       -if @un_assigments.empty?
         %h5 Everything is payed up, mo money mo problems
       -else
-        %ul
+        %ol
           -@un_assigments.each_with_index do |a, index|
-            %p
-
-              %h5= a.event.title
-              %h5= a.event.date
-              %h4= "$#{a.balance}"
+            %li
+              %h5= a.callsheet.event.title
+              %h4= "$#{a.dayrate}"
 
     

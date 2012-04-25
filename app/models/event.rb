@@ -32,6 +32,23 @@ class Event
   end
   gfl_url
  end
+ 
+ ###
+ #returns the available budget minus any crew assignments
+ def budget_avail 
+ avail = budget 
+
+ call = Callsheet.where(:event_id => self.id)
+  logger.info "avail = #{avail}, callsheets = #{call}"
+ if avail > 0 then 
+   call.each do |call|
+     call.assigments.each do |a|
+       avail -= a.dayrate
+     end
+    end
+  end
+  avail   
+  end 
 
  def fb_pay_request
    #returns a json object to generate the facebook pay dialog
@@ -39,7 +56,7 @@ class Event
    response['method'] = 'pay'
    response['action'] = 'buy_item'
    order = Hash.new
-   order['event_id'] = id 
+   order['event_id'] = id
    
    response['oder_info'] = order
    

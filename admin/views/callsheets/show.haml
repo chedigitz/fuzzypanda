@@ -1,9 +1,30 @@
 .row
   .span2
     %ul.nav.nav-list.well
-      %li.first=link_to pat(:list), url(:callsheets, :index)
-      %li=link_to pat(:new), url(:callsheets, :new)
-      %li=link_to pat(:edit), url(:callsheets, :edit, :id => @callsheet.id)
+      %li.nav-header Gigs
+      %li.first.active
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+
+      %li.nav-header= "#{current_account.role} account"
+      -if current_account.role == "admin"
+        %li=link_to pat(:new), url(:accounts, :new)
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+
+      
+      -if current_account.role == 'admin'
+        %li.first=link_to pat(:list), url(:callsheets, :index)
+        %li=link_to pat(:new), url(:callsheets, :new)
+        %li=link_to pat(:edit), url(:callsheets, :edit, :id => @callsheet.id)
   .span6
     .content
       %h3.title
@@ -36,6 +57,7 @@
             .row
               .span2
                 %p
+                  %h5= @callsheet.call_time.localtime.strftime('%a %b  %d')
                   %h2= @callsheet.call_time.localtime.strftime("%I:%M%p")
                   %address
                     %strong= to_address(@callsheet.event.location)

@@ -50,12 +50,37 @@ Jp2.controllers :orders do
   end
 
   post :fb do
-    logger.info params['method']
+    logger.info params[" method"]
+    method = params[" method"]
 
+    if method == "payments_get_items" 
+      order_info = params["order_info"]
+      item_id = order_info["item_id"]
+      order_id = params["order_id"]
+
+      #retrieve order 
+      buyer_id = params["buyer"]
+      account = Authentication.where(:uid => buyer_id)     
+      localitem = Event.find(item_id)
+      neworder = Order.new(:event_id => localitem.id, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id)
+      if localitem
+        #returns a facebook json item description 
+        item = neworder.fb_pay
+        
+      response = item
+      end 
+    elsif  method == "payment_status_update"
+
+
+    elsif method == "" 
+
+    end
+      
+   response
   end  
   
 
-    post :create do
+post :create do
     logger.debug params["order"].to_json
     
     @order = Order.new(params["order"])
