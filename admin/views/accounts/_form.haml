@@ -2,25 +2,25 @@
   =f.label :name
   =f.error_message_on :name
   =f.text_field :name, :class => :text_field
-  %span.description Ex: a simple text
+  %span.description Ex: Ramon Paaaaablo 
 
 .group
   =f.label :surname
   =f.error_message_on :surname
   =f.text_field :surname, :class => :text_field
-  %span.description Ex: a simple text
+  %span.description Ex: Ortiz
 
 .group
   =f.label :email
   =f.error_message_on :email
   =f.text_field :email, :class => :text_field
-  %span.description Ex: a simple text
+  %span.description Ex: ramonObaby@geocities.com
 .group
-  =f.label :location
+  =f.label "approximate location"
   =f.error_message_on :location
-  =f.text_field :location, :class => :text_field
+  =f.text_field :location, :class => :text_field, :value => to_address(@account.location)
   -if @account.location.empty?
-    %span.description= "123 awesometown 19123"
+    %span.description= "EX: 123 awesometown 19123"
   -else
     %span.description= to_address(@account.location)
 
@@ -28,20 +28,20 @@
   =f.label :password
   =f.error_message_on :password
   =f.password_field :password, :class => :password_field
-  %span.description Ex: a simple text
+  %span.description Ex: Try to make it tough, but dont get crazy 
 
 .group
   =f.label :password_confirmation
   =f.error_message_on :password_confirmation
   =f.password_field :password_confirmation, :class => :password_field
   %span.description Ex: a simple text
+-if current_account.role == 'admin'
+  .group
+    =f.label :role
+    =f.error_message_on :role
+    =f.select :role, :options => access_control.roles
+    %span.description Ex: a simple text
 
-.group
-  =f.label :role
-  =f.error_message_on :role
-  =f.select :role, :options => access_control.roles
-  %span.description Ex: a simple text
-
-  .group.navform.wat-cf
-  =f.submit pat(:save), :class => :button
-  =f.submit pat(:cancel), :onclick => "window.location='#{url(:accounts, :index)}';return false", :class => :button
+.group.navform.wat-cf
+=f.submit pat(:save), :class => :button
+=f.submit pat(:cancel), :onclick => "window.location='#{url(:accounts, :index)}';return false", :class => :button

@@ -1,20 +1,28 @@
-.span12
-  %table.table-bordered.table-striped.table-condesed
-    %thead
-      %tr
-        %th #
-        %th=mat(:event, :title)
-        %th=mat(:event, :price)
-        %th=mat(:event, :location)
-        %th.last="&nbsp;"
-    -@events.each_with_index do |event, index|
-      %tbody
-        %tr
-          %td= index+= 1
-          %td=event.title
-          %td=event.price
-          %td=to_address(event.location)
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Events
+      %li.active= link_to pat(:list), url(:events, :index)
+      %li= link_to pat(:new), url(:events, :new)
 
-          %td{ :style => "display:inline;"}
-            =button_to pat(:edit), url(:events, :edit, :id => event.id), :method => :get, :class => "btn btn-small" 
-            =button_to pat(:delete), url(:events, :destroy, :id => event.id), :method => :delete, :class => "btn btn-small", :onsubmit => "return confirm('#{pat(:confirm)}')"
+  
+  .span10
+    %table.table-bordered.table-striped.table-condesed
+      %thead
+        %tr
+          %th #
+          %th=mat(:event, :title)
+          %th=mat(:event, :price)
+          %th=mat(:event, :location)
+          %th.last="&nbsp;"
+      -@events.each_with_index do |event, index|
+        %tbody
+          %tr
+            %td= index+= 1
+            %td=event.title
+            %td=event.price
+            %td=to_address(event.location)
+
+            %td{ :style => "display:inline;"}
+              =button_to pat(:edit), url(:events, :edit, :id => event.id), :method => :get, :class => "btn btn-small" 
+              =button_to pat(:delete), url(:events, :destroy, :id => event.id), :method => :delete, :class => "btn btn-small", :onsubmit => "return confirm('#{pat(:confirm)}')"

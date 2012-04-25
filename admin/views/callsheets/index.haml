@@ -1,31 +1,73 @@
-.block
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first.active=link_to pat(:list), url(:callsheets, :index)
-      %li=link_to pat(:new), url(:callsheets, :new)
-  .content
-    %h2.title
-      =pat(:all)
-      =mt(:callsheets)
-    .inner
-      %table.table
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+      -if current_account.role == "admin"
+        %li.nav-header Callsheets
+        %li.active
+          %a{ :href => "#{url(:callsheets, :index)}"}
+            %i.icon-time
+            All
+        %li.nav-header= "#{current_account.role} account"
+
+        %li
+          %a{ :href => "#{url(:accounts, :new)}"}
+            %i.icon-plus
+            Add User
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+
+      
+      -if current_account.role == 'admin'
+        %li.first=link_to pat(:list), url(:callsheets, :index)
+        %li=link_to pat(:new), url(:callsheets, :new)
+
+  .span10
+    
+    .pager-header
+      %h2 
+        Call Sheets
+        %small all upcomming bookings and crew info 
+      %table.table.table-striped
         %tr
           %th.first=mat(:callsheet, :call_time)
           %th=mat(:callsheet, :notes)
-          %th=mat(:callsheet, :created_at)
           %th=mat(:callsheet, :updated_at)
           %th.last="&nbsp;"
         -@callsheets.each do |callsheet|
           %tr
             %td.first=callsheet.call_time.to_date
             %td=callsheet.notes
-            %td=callsheet.created_at
-            %td=callsheet.updated_at
-            %td.last
-              =button_to pat(:edit), url(:callsheets, :edit, :id => callsheet.id), :method => :get, :class => :button_to
-              ="|"
-              =button_to pat(:delete), url(:callsheets, :destroy, :id => callsheet.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
-      .actions-bar.wat-cf
-        .actions="&nbsp;"
+            %td= distance_of_time_in_words(callsheet.updated_at, Time.now)
+            %td
+              .btn-group
+                %a.btn.btn-info.btn-small
+                  %i.icon-cog.icon-white
+                  Settings
+                %a.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.caret.icon-white
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "#{url(:callsheets, :edit, :id => callsheet.id)}"}
+                      %i.icon-pencil
+                      Edit
+                  %li
+                    %a{:href => "#{url(:callsheets, :destroy, :id => callsheet.id)}"}
+                      %i.icon-trash
+                      Delete
+                  
+
+
 
 -content_for :sidebar, partial("base/sidebar")
