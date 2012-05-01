@@ -43,12 +43,14 @@
         %tr
           %th.first=mat(:callsheet, :call_time)
           %th=mat(:callsheet, :notes)
+          %th Budget
           %th=mat(:callsheet, :updated_at)
           %th.last="&nbsp;"
         -@callsheets.each do |callsheet|
           %tr
             %td.first=callsheet.call_time.to_date
             %td=callsheet.notes
+            %td $#{callsheet.event.budget.to_i}
             %td= distance_of_time_in_words(callsheet.updated_at, Time.now)
             %td
               .btn-group

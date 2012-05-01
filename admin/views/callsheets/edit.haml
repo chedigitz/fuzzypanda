@@ -56,19 +56,19 @@
 #crewpicker.modal.hide.fade
   .modal-header
     %a.close{"data-dismiss" => "modal"} x
-    %h3 Available Budget is #{@callsheet.event.budget_avail} select Crew Members
+    %h3 Select Crew Members
+    %h Available Budget: $#{@callsheet.event.budget_avail.to_i} 
     .modal-body
       -@crew.each do |c|
-        -form_for :assigment, url(:assigments, :create), :class => :form do |f|
+        -form_for :assigment, url(:assigments, :create), :class => "form-inline" do |f|
          
           =f.hidden_field :callsheet_id, :value => @callsheet.id
           =f.hidden_field :account_id, :value => c.id
           =f.hidden_field :settled, :value => false
-          %li
-            =c.name + " " + c.surname
-            =f.select(:task, :options => ['Camera OP','Audio', 'PA', 'Switcher', 'Replay Tech', 'Stream Tech', 'Director', 'Eye In the Sky'])
-            =f.number_field :dayrate, :size => 5
-            =submit_tag pat(:save), :class => :button
+          =c.name 
+          =f.select(:task, :options => ['Camera OP','Audio', 'PA', 'Switcher', 'Replay Tech', 'Stream Tech', 'Director', 'Eye In the Sky'], :class => "input-small")
+          =f.number_field :dayrate, :size => 2,  :class => "input-small", :placeholder => "dayrate"
+          =submit_tag pat(:save), :class => "btn btn-large"
 
             
     .modal-footer

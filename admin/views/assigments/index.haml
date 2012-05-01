@@ -6,10 +6,7 @@
         %a{ :href => "/admin/assigments/"}
           %i.icon-th-list
           List
-      %li
-        %a{ :href => "#{url(:assigments, :booked)}"}
-          %i.icon-road
-          Future
+
 
       %li.nav-header= "#{current_account.role} account"
       -if current_account.role == "admin"
@@ -64,15 +61,28 @@
                 %i.icon-flag
             -if current_account.role == 'admin'
 
-              %td.last 
-                =button_to pat(:edit), url(:assigments, :edit, :id => assigment.id), :method => :get, :class => :button_to
-                ="|"
-                =button_to pat(:delete), url(:assigments, :destroy, :id => assigment.id), :method => :delete, :class => "form-horizontal", :onsubmit => "return confirm('#{pat(:confirm)}')"
+              %td
+                .btn-group
+                  %a.btn.btn-info.btn-small
+                    %i.icon-cog.icon-white
+                    Settings
+                  %a.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %span.caret.icon-white
+                  %ul.dropdown-menu
+                    %li
+                      %a{:href => "#{url(:assigments, :edit, :id => assigment.id)}"}
+                        %i.icon-pencil
+                        Edit
+                    %li
+                      %a{:href => "#{url(:assigments, :destroy, :id => assigment.id)}"}
+                        %i.icon-trash
+                        Delete
+
         .actions-bar.wat-cf
           .actions="&nbsp;"
     .page-header
       %h1
-        $#{@dwolladollaz}
+        $#{@dwolladollaz.to_i}
         -if current_account.role == 'admin'
           %small owed to crew members
         -elsif current_account.role == 'crew'
