@@ -3,12 +3,13 @@ Admin.controllers :assigments do
   get :index do
     if current_account.role == 'admin'
       @assigments = Assigment.where(:conditions => {:settled => false}).sort(:update_at.desc)
-
+    elsif current_account.role == 'partner'
+      @assigments = Assigment.all
+          
     else 
       #for crew 
-      @assigments = Assigment.where(:conditions => {:account_id => current_account.id }).sort(:updated_at.desc)
-
- 
+      @assigments = current_account.assigments
+      logger.info "this is @ASSIGMENTS #{@assigments.to_json}"
     end
     #calculate total payments    
 
@@ -31,7 +32,7 @@ Admin.controllers :assigments do
   get :booked do
     @callsheets = Callsheet.where(:conditions => {:call_time.gte =>Time.now, :account_ids => current_account.id })
     @assigments = []
-              logger.info "this is ASSIGMENTS IN @CALLSHEET = #{@callsheets.to_json}"
+    logger.info "this is ASSIGMENTS IN @CALLSHEET = #{@callsheets.to_json}"
 
     @callsheets.each do |c|
           logger.info "this is ASSIGMENTS IN @CALLSHEET = #{c.to_json}"

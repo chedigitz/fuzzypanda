@@ -21,8 +21,8 @@ Admin.controllers :accounts do
   end
 
   get :edit, :with => :id do
+    logger.info "account id = #{params[:id]}"
     @account = Account.find(params[:id])
-
     render 'accounts/edit'
   end
 

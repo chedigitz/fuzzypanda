@@ -61,9 +61,14 @@ class Admin < Padrino::Application
   end
   
   
-  access_control.roles_for :users do |role|
-    role.allow "/profile"
+  access_control.roles_for :partner do |role|
+    role.allow "/accounts/edit"
+    role.allow "/accounts/update"
+    role.allow "/callsheets/show"
+    role.project_module :assigments, "/assigments"
+    role.project_module :authentications, "/authentications"
   end
+
   
   access_control.roles_for :crew do |role|
     role.allow "/accounts/edit"

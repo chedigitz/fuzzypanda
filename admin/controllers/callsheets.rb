@@ -34,8 +34,9 @@ Admin.controllers :callsheets do
   get :edit, :with => :id do
     @callsheet = Callsheet.find(params[:id])
     logger.debug @callsheet.to_json
-    @crew = Account.all("role" => "crew")
+    @crew = @callsheet.available_crew
     logger.info "CALL = #{@callsheet.to_json}"
+    logger.info "@crew = #{@crew.to_json}"
     @squad = "THIS IS CALL SHEET assigments #{@callsheet.assigments.to_json}"
     logger.debug @squad.to_json
     render 'callsheets/edit'

@@ -30,7 +30,7 @@
       %h3.title
         =@callsheet.event.title
         %p
-    .span6
+    .span8
       .tabbable
         %ul.nav.nav-tabs
           %li.active
@@ -51,7 +51,7 @@
                 .span1
                   .row
                     = image_tag a.account.avatar, :class => "thumbnail"
-                    %h3= link_to a.account.name, url_for(:accounts, :edit, :id => a.id)
+                    %h3= link_to a.account.name, "#"
                     %h5= a.task 
                     %h6 #{distance_between(a.account.location, a.callsheet.event.location).to_i} miles 
             .row

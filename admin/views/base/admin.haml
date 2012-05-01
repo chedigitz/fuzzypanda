@@ -18,6 +18,8 @@
                   %h5= a.call_time.localtime.strftime("%I:%M%p")
                 %p
                   %h6= a.event.title
+                  %h4{:style => "text-color: red;"} $#{a.event.budget.to_i}
+
               .span2
                 %p
                   - mapimg= 'http://maps.googleapis.com/maps/api/staticmap?center='+a.event.location[0].to_s+a.event.location[1].to_s+'&zoom=15&size=125x125&scale=2&maptype=roadmap&sensor=false'
@@ -34,15 +36,6 @@
         %h3
           $#{sumup(@un_assigments).to_i} 
           %small Booked
-        -if @un_assigments.empty?
-          %h5 Everything is payed up, mo money mo problems
-        -else
-          %ol
-            -@un_assigments.each_with_index do |a, index|
-              %li
-                %h5= a.callsheet.event.title
-                %h6= a.task
-                %h4= "$#{a.dayrate.to_i}"
 
 
     

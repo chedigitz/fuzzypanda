@@ -1,6 +1,6 @@
 case Padrino.env
   when :development then MongoMapper.connection = Mongo::Connection.new('localhost', nil, :logger => logger)
-  when :production then MongoMapper.connection = Mongo::Connection.new('mongodb://purplepanda:welcome11@ds033047.mongolab.com:33047/pf_test',  :logger => logger)
+  when :production then MongoMapper.connection = Mongo::Connection.new('mongodb://chedigitz:welcome11@flame.mongohq.com:27103/pf_test',  :logger => logger)
 
 end
 case Padrino.env
