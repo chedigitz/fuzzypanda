@@ -14,17 +14,17 @@ defaults: &defaults
 development:
   <<: *defaults
   <<: *options
-  database: tweetup_dev
+  database: jp2
 
 test:
   <<: *defaults
   <<: *options
-  database: tweetup_test
+  database: pf2_test
 
 production:
   <<: *options
   uri: mongodb://flame.mongohq.com
   database: pf_test
   username: chedigitz
-  password: youknow11
+  password: welcome11
   port: 27103
