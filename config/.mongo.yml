@@ -4,7 +4,6 @@ options: &options
   parameterize_keys: false
 
 defaults: &defaults
-  host: localhost
   adapter: mongodb
   # slaves:
   #   - host: slave1.local
@@ -14,13 +13,19 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  <<: *options
+  host: localhost
   database: jp2_development
 
 test:
   <<: *defaults
-  <<: *options
+  host: localhost
   database: pf_testing
 
 production:
-  uri: mongodb://chedigitz:welcome11@flame.mongohq.com:27103/pf_test
+  <<: *options
+  <<: *defaults
+  host: flame.mongohq.com
+  database: pf_test
+  port: 27103
+  username: chedigitz
+  password: welcome11
