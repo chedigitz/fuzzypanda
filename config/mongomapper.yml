@@ -14,16 +14,16 @@ defaults: &defaults
 development:
   <<: *defaults
   <<: *options
-  database: jp2
+  database: jp2_development
 
 test:
   <<: *defaults
   <<: *options
-  database: pf2_test
+  database: pf_testing
 
 production:
   <<: *options
-  uri: flame.mongohq.com
+  uri: mongodb://flame.mongohq.com
   database: pf_test
   username: chedigitz
   password: welcome11
