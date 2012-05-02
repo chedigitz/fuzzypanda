@@ -2,7 +2,7 @@ namespace :spermas do
 
   desc "GENERATE The main account"
 
-  task :gen => :enviorment do 
+  task :gen => :environment do 
    
 
   email     = "jvasquez11@gmail.com"
