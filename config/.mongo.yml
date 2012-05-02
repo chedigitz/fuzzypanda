@@ -24,7 +24,7 @@ test:
 production:
   adapter: mongodb
   host: flame.mongohq.com
-  database: pf_test
+  database: pf_dev
   port: 27103
   username: chedigitz
   password: welcome11
