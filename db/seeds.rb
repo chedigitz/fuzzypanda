@@ -5,14 +5,14 @@
 #   name = shell.ask("What's your name?")
 #   shell.say name
 #
-email     = "juan@pandafeed.tv"
-password  = "youknowyouknow11"
+email     = "jvasquez11@gmail.com"
+password  = "youknow11"
 
-
+shell.say ""
 
 account = Account.create(:email => email, 
-                         :name => "Panda", 
-                         :surname => "King", 
+                         :name => "Foo", 
+                         :surname => "Bar", 
                          :password => password, 
                          :password_confirmation => password, 
                          :role => "admin")
