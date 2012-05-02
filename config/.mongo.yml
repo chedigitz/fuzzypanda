@@ -24,7 +24,7 @@ test:
 production:
   adapter: mongodb
   host: ds033047.mongolab.com
-  database: pf_test
+  database: pf_dev
   port: 33047
   username: pandaking
   password: welcome11
