@@ -4,7 +4,7 @@ class Admin < Padrino::Application
   register Padrino::Helpers
   register Padrino::Admin::AccessControl
 
-  set :protection, :except => [:frame_options, :remote_token]
+  set :protection, :except => [:frame_options, :remote_token, :session_hijacking ]
   ##
   # Application configuration options
   #

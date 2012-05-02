@@ -9,7 +9,7 @@ class Jp2 < Padrino::Application
   Time.zone =  "America/New_York"
 
 
-  set :protection, :except => [:frame_options, :remote_token]
+  set :protection, :except => [:frame_options, :remote_token, :session_hijacking]
 
 
   Panda.configure do
