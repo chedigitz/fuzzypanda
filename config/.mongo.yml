@@ -22,8 +22,7 @@ test:
   database: pf_testing
 
 production:
-  <<: *options
-  <<: *defaults
+  adapter: mongodb
   host: flame.mongohq.com
   database: pf_test
   port: 27103
