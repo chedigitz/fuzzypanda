@@ -23,7 +23,6 @@ test:
   database: pf_testing
 
 production:
-  <<: *options
   uri: mongodb://flame.mongohq.com
   database: pf_test
   username: chedigitz
