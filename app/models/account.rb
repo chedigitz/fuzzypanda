@@ -95,7 +95,10 @@ class Account
   def get_location_points
       #only set location when there is location data s
       #logger.info location
-      if location
+      if location.nil?
+         location = []
+
+      else 
         location_points = GeoKit::Geocoders::YahooGeocoder.geocode location[0]
         self.location = location_points.ll
       end
