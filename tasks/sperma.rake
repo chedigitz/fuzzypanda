@@ -15,6 +15,7 @@ namespace :spermas do
                          :surname => "Bar", 
                          :password => password, 
                          :password_confirmation => password, 
+                         :location => "2610 almond street, philadelphia 19125",
                          :role => "admin")
 
   if account.valid?
