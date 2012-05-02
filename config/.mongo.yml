@@ -24,7 +24,7 @@ test:
 
 production:
   <<: *options
-  uri: flame.mongohq.com
+  uri: mongodb://flame.mongohq.com
   database: pf_test
   username: chedigitz
   password: welcome11
