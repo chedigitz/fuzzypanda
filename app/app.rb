@@ -59,8 +59,7 @@ end
   #   end
   #
   get "/" do
-    stream = Stream.all
-    stream
+      "welcome to awesomeness"
   end
   ##
   # You can manage errors like:

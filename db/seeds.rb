@@ -8,7 +8,7 @@
 email     = "juan@pandafeed.tv"
 password  = "youknowyouknow11"
 
-shell.say ""
+
 
 account = Account.create(:email => email, 
                          :name => "Panda", 
