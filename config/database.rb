@@ -8,4 +8,5 @@ configuration = YAML::load(File.open(File.join(PADRINO_ROOT,"config", '.mongo.ym
   #PADRINO_ENV = "heroku"
 #end
 
-MongoMapper.setup(configuration, PADRINO_ENV, :logger => logger, :slave_ok => true)
+MongoMapper.setup(configuration, Padrino.env, :logger => logger, :slave_ok => true)
+MongoMapper.connect(Padrino.env)
