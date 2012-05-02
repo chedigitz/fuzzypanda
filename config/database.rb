@@ -5,8 +5,8 @@ case Padrino.env
   when :development then
    MongoMapper.connection = Mongo::Connection.new('localhost', nil, :logger => logger)
   when :production then
-   MongoMapper.connection = Mongo::Connection.from_uri('mongodb://chedigitz@welcome11:<flame.mongohq.com:27103>',  :logger => logger).db('pf_test')
-   MongoMapper.db.authenticate 
+   MongoMapper.connection = Mongo::Connection.from_uri('mongodb://flame.mongohq.com:27103',  :logger => logger).db('pf_test').authenticate('chedigitz','welcome11')
+  
 end
 case Padrino.env
   when :development then MongoMapper.database = 'jp2_development'
