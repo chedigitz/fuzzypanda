@@ -23,8 +23,4 @@ test:
   database: pf_testing
 
 production:
-  uri: mongodb://flame.mongohq.com
-  database: pf_test
-  username: chedigitz
-  password: welcome11
-  port: 27103
+  uri: mongodb://chedigitz:welcome11@flame.mongohq.com:27103/pf_test
