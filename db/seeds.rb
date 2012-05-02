@@ -5,7 +5,7 @@
 #   name = shell.ask("What's your name?")
 #   shell.say name
 #
-require 'rake'
+
 
 email     = "jvasquez11@gmail.com"
 password  = "youknow11"
