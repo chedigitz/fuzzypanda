@@ -50,14 +50,16 @@ class Account
   def avatar
    
     last_auth = Authentication.last( :account_id => self.id)
-    logger.debug last_auth.to_json
+    
     if last_auth 
       
       url = last_auth.info["image"]
+      logger.info url
     elsif last_auth.nil?
        url = "placeholder.png"
-    end 
        logger.info url
+    end 
+    
     url
   end
   
