@@ -24,6 +24,7 @@ gem 'foursquare2', :require => "foursquare2"
 gem 'panda'
 gem 'addressable', :require => "addressable/uri"
 gem 'queryparams', :require => 'queryparams'
+
 # Test requirements
 gem 'shoulda', :group => "test"
 gem 'rack-test', :require => "rack/test", :group => "test"
