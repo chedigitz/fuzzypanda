@@ -1,0 +1,49 @@
+.group
+  =f.label :location
+  =f.error_message_on :location
+  =f.text_field :location, :class => :text_field, :value => to_address(@venue.location)
+  -if @venue.location.empty?
+    %span.description= "EX: Bally's Casino Atlantic City, NJ"
+  -else
+    %span.description= to_address(@venue.location)
+.group
+  =f.label :foursquare_id
+  =f.error_message_on :foursquare_id
+  =f.text_field :foursquare_id, :class => :text_field
+  %span.description Ex: Four Square ID Number
+
+.group
+  =f.label :twitter_place_id
+  =f.error_message_on :twitter_place_id
+  =f.text_field :twitter_place_id, :class => :text_field
+  %span.description Ex: Twitter Place ID
+
+
+
+.group
+  =f.label :phone
+  =f.error_message_on :phone
+  =f.text_field :phone, :class => :text_field
+  %span.description Ex: 215-659-8978, in case things get sour
+
+
+
+.group
+  =f.label :speed_score
+  =f.error_message_on :speed_score
+  =f.text_field :speed_score, :class => :text_field
+  %span.description Ex: 0-5 quantitve score
+
+.group
+
+
+  =f.hidden_field :event_id, :class => :hidden, :value => @event.id
+  =f.hidden_field :foursquare_id, :class => :hidden
+
+
+
+
+
+.group.navform.wat-cf
+  =f.submit pat(:save), :class => :button
+  =f.submit pat(:cancel), :onclick => "window.location='#{url(:venues, :index)}';return false", :class => :button

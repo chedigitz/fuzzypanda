@@ -25,6 +25,12 @@
     %span.description= to_address(@account.location)
 
 .group
+  =f.label :phone
+  =f.error_message_on :phone
+  =f.text_field :phone, :class => :phone_field
+  %span.description Ex: 267-222-1111
+
+.group
   =f.label :password
   =f.error_message_on :password
   =f.password_field :password, :class => :password_field

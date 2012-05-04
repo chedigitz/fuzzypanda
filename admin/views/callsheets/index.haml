@@ -65,6 +65,10 @@
                       %i.icon-pencil
                       Edit
                   %li
+                    %a{:href => "#{url(:callsheets, :mailnow, :id => callsheet.id)}"}
+                      %i.icon-envelope
+                      mail
+                  %li
                     %a{:href => "#{url(:callsheets, :destroy, :id => callsheet.id)}"}
                       %i.icon-trash
                       Delete

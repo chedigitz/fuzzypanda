@@ -44,6 +44,12 @@
   %span.description= "Ex: Bally's"
 
 .group
+  =f.label :venue_id
+  =f.error_message_on :venue_id
+  =f.text_field :venue_id, :class => :text_field
+  %span.description= "DONT PLAY"
+
+.group
   =f.label :description
   =f.error_message_on :description
   =f.text_field :description, :class => :text_field

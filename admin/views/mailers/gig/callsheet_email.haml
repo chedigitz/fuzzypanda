@@ -1,0 +1,19 @@
+
+.title
+  =callsheet.event.title
+  %h5= callsheet.call_time.localtime.strftime('%a %b  %d')
+  %h2= callsheet.call_time.localtime.strftime("%I:%M%p")
+  .span3
+  %p
+  %address
+  -unless venue.nil?
+    %h6=  venue.name
+    %strong= location
+  %h6 CREW
+  - callsheet.assigments.each do |a|
+    .span1
+      .row
+        %h3=  a.account.name
+        %h5= a.task
+        %h5= a.account.phone
+      
