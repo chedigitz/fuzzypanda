@@ -1,0 +1,25 @@
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li=link_to pat(:list), url(:assigments, :index)
+      %li.nav-header= "#{current_account.role} account"
+      -if current_account.role == "admin"
+        %li=link_to pat(:new), url(:accounts, :new)
+      %li=link_to pat(:edit), url(:accounts, :edit, :id => current_account.id)
+      %li.active=link_to pat(:services), url(:authentications, :index) 
+  .span8
+    .page-header
+      %h2
+        Venue Info
+        %small add all the relevant metadata to the event
+      .span2
+        %h6= @event.title
+        %p
+          %h5= @venue.name 
+      .row
+        .span7
+          -form_for :venue, url(:venues, :create), :class => :form do |f|
+            =partial "venues/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

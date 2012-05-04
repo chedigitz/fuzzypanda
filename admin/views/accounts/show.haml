@@ -1,0 +1,53 @@
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li.first.active
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+
+      %li.nav-header= "#{current_account.role} account"
+      -if current_account.role == "admin"
+        %li=link_to pat(:new), url(:accounts, :new)
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+
+  .span8
+    .content
+      %h3.title
+        #{@account.name} #{@account.surname}
+        %small= @account.role
+      %p
+    .span8
+      .tabbable
+        %ul.nav.nav-tabs
+          %li.active
+            %a{:href => "#gigs", "data-toggle" => "tab"} Info
+          %li
+            %a{:href => "#info", "data-toggle" => "tab"} Gigs
+
+
+        .tab-content
+          .tab-pane.active#info
+            .row
+              .span2
+                = image_tag @account.avatar, :class => "thumbnail"
+              .span4
+                %p
+                  %h6 Connect
+                %p.pull-right
+                  -if @account.authentications.empty?
+                    %h5 #{@account.name} is not sharing contact info
+                  -else 
+                    .row
+                      - @account.authentications.each do |authentication|
+                        = image_tag "#{authentication.provider}_32.png", :size => "64x64"
+

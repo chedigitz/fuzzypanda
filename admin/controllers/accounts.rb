@@ -10,6 +10,11 @@ Admin.controllers :accounts do
     render 'accounts/new'
   end
 
+  get :show, :with => :id do
+    @account = Account.find(params[:id])
+    render 'accounts/show'
+  end
+
   post :create do
     @account = Account.new(params[:account])
     if @account.save

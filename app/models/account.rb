@@ -10,6 +10,7 @@ class Account
   key :role,             String
   key :time_zone,        String
   key :location,          Array
+  key :phone,            String
  
   # Validations
   validates_presence_of     :email, :role

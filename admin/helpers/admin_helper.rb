@@ -22,14 +22,15 @@ Admin.helpers do
 
   def venue_search(latlongo, term)
     #accepts location points array
+    #returns and ID as of right now
      
     client = Foursquare2::Client.new(:client_id => '1Z3UES45B312ZRK5342HUWQYIMC4MFRA0JXZITCAGV4VZWUE', :client_secret => 'PB443NMF1SIISHU0ZUSDO2DMPVVPN0EQPFCNI5IJZ4XLQQ4O')
     venue = client.search_venues(:ll => latlongo, :query => term, :limit => 10)
     groups = venue
     items = groups.groups
     venue_id = items[0]["items"][0]["id"]
-    logger.info "this is venue items #{venue_id.inspect}"
-  	venue 
+    logger.info "this is venue items #{items.inspect}"
+  	venue_id
   end
 
   def distance_between(arrayfrm, arrayto)
@@ -66,6 +67,8 @@ Admin.helpers do
     end
      sum
   end
+
+  
 
 
   def account_image(account)

@@ -41,6 +41,7 @@ class Admin < Padrino::Application
   end
 
   access_control.roles_for :admin do |role|
+    role.project_module :venues, '/venues'
     role.project_module :assigments, '/assigments'
     role.project_module :authentications, "/authentications"
      role.project_module :callsheets, "/callsheets"
@@ -78,6 +79,18 @@ class Admin < Padrino::Application
     role.project_module :authentications, "/authentications"
   end
   
+  ###settiung up mailer 
+  set :delivery_method, :smtp => { 
+  :address              => "smtp.gmail.com",
+  :port                 => 587,
+  :user_name            => 'gigs@pandafeed.tv',
+  :password             => 'youknow11',
+  :authentication       => :plain,
+  :enable_starttls_auto => true  
+}
+    ##
+    ##
+    ##authentication logic  
 
     get :auth, :map => '/auth/:provider/callback' do
      omniauth = request.env["omniauth.auth"]

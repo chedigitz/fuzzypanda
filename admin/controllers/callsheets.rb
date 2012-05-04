@@ -44,12 +44,10 @@ Admin.controllers :callsheets do
 
   get :show, :with => :id do 
      @callsheet = Callsheet.find(params[:id])
-     
-     if @callsheet.event.venue_tag
-       @venue = venue_search(@callsheet.event.location[0], @callsheet.event.venue_tag)
-       logger.info "VENUE SEARCH = #{@venue.to_json}"
-    end
+     logger.info "CALLSHEET.EVENT = #{@callsheet.event.to_json}"
+     @venue = Venue.find(@callsheet.event.venue_id)
 
+    logger.info "tips == #{@venue.to_json}"
     render 'callsheets/show'
   end
 
@@ -72,4 +70,19 @@ Admin.controllers :callsheets do
     end
     redirect url(:callsheets, :index)
   end
+
+###get mailer action
+get :mailnow, :with => :id do 
+  @callsheet = Callsheet.find(params[:id])
+  @venue = Venue.find(@callsheet.event.venue_id)
+  #send mail to all 
+  #@callsheet.assigments.each do |a|
+  subject_line = "Callsheet for #{@callsheet.event.title}"
+  @account = current_account
+  location = to_address(@callsheet.event.location)
+  deliver(:gig, :callsheet_email, @account, @callsheet, @venue, subject_line, location)  
+  flash[:notice] = 'Mail Sent!!!'
+  redirect url(:callsheets, :index)
+end
+
 end

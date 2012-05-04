@@ -25,7 +25,7 @@
         %li.first=link_to pat(:list), url(:callsheets, :index)
         %li=link_to pat(:new), url(:callsheets, :new)
         %li=link_to pat(:edit), url(:callsheets, :edit, :id => @callsheet.id)
-  .span6
+  .span8
     .content
       %h3.title
         =@callsheet.event.title
@@ -38,9 +38,7 @@
           %li
             %a{:href => "#event", "data-toggle" => "tab"} Event Info
           %li
-            %a{:href => "#map", "data-toggle" => "tab"} Venue
-          %li
-            %a{:href => "#city", "data-toggle" => "tab"} Food
+            %a{:href => "#venue", "data-toggle" => "tab"} Venue Tips
 
         .tab-content
           .tab-pane.active#crew
@@ -50,16 +48,18 @@
               - @callsheet.assigments.each do |a|
                 .span1
                   .row
-                    = image_tag a.account.avatar, :class => "thumbnail"
-                    %h3= link_to a.account.name, "#"
+                    = link_to (image_tag a.account.avatar, :class => "thumbnail"), url(:accounts, :show, :id => a.account.id)
+                    %h3= link_to a.account.name, url(:accounts, :show, :id => a.account.id)
                     %h5= a.task 
                     %h6 #{distance_between(a.account.location, a.callsheet.event.location).to_i} miles 
             .row
-              .span2
+              .span3
                 %p
                   %h5= @callsheet.call_time.localtime.strftime('%a %b  %d')
                   %h2= @callsheet.call_time.localtime.strftime("%I:%M%p")
                   %address
+                    -unless @venue.nil?
+                      %h6= link_to @venue.name, @venue.url, :target => "_blank"
                     %strong= to_address(@callsheet.event.location)
                   %h5= link_to "directions", g_maps_directions_url(current_account.location, @callsheet.event.location), :target => "_blank"
             .row
@@ -80,7 +80,31 @@
                   $('.tabs').tabs();
                   $('#crewpicker').modal(options);
                 })
-          .tab-pane#info
+          -unless @venue.nil? || @venue == 0
+            .tab-pane#venue
+              .span5
+                %h5
+                  = @venue.name
+                  %small 
+                %p
+
+                -@venue.tips_limit(14).each do |tip|
+                  .row
+                    .span1
+                      = image_tag tip["user"]["photo"], :class => "thumbnail"
+                      
+                      
+                    .span4
+                      %h6= link_to "#{tip["user"]["firstName"]} #{tip["user"]["lastName"]}" , tip["user"]["canonicalUrl"], :target => "_blank"
+                      %p
+                        = tip["text"]
+                      %p.pull-right
+                        %small #{distance_of_time_in_words(tip["createdAt"], Time.now)} ago
+
+
+
+
+
 
 
         

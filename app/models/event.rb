@@ -16,6 +16,7 @@ class Event
   key :streamhub_ids, Array, :typecast => "ObjectId"
   key :video_ids, Array, :typecast => "ObjectId"
   key :description, String, :default =>" "
+  key :venue_id, ObjectId
   timestamps!
 
   many :callsheets, :in => :callsheet_id
@@ -23,6 +24,8 @@ class Event
   many :videos, :in => :video_ids
   many :images
   many :orders 
+
+  belongs_to :venue 
 
   before_save :get_location_points, :if => :location_points_set 
  #method returns latest poter url
@@ -49,6 +52,16 @@ class Event
   end
   avail   
   end 
+
+ def add_to_venue(venue)
+  ##adds event id to venues 
+  ## returns true or false 
+  logger.info "this is venue id passed to add to venue #{venue.id}"
+  self.venue_id = venue.id
+  venue.events << self 
+  venue.save!  
+  self.save!
+ end
 
  def fb_pay_request
    #returns a json object to generate the facebook pay dialog

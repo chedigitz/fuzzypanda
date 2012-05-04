@@ -1,0 +1,47 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:venues, :index)
+      %li=link_to pat(:new), url(:venues, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:venues)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:venue, :location)
+          %th=mat(:venue, :foursquare_id)
+          %th=mat(:venue, :twitter_place_id)
+          %th=mat(:venue, :twitter_uid)
+          %th=mat(:venue, :url)
+          %th=mat(:venue, :phone)
+          %th=mat(:venue, :contact)
+          %th=mat(:venue, :speed_score)
+          %th=mat(:venue, :event_ids)
+          %th=mat(:venue, :info)
+          %th=mat(:venue, :created_at)
+          %th=mat(:venue, :updated_at)
+          %th.last="&nbsp;"
+        -@venues.each do |venue|
+          %tr
+            %td.first=venue.location
+            %td=venue.foursquare_id
+            %td=venue.twitter_place_id
+            %td=venue.twitter_uid
+            %td=venue.url
+            %td=venue.phone
+            %td=venue.contact
+            %td=venue.speed_score
+            %td=venue.event_ids
+            %td=venue.info
+            %td=venue.created_at
+            %td=venue.updated_at
+            %td.last
+              =button_to pat(:edit), url(:venues, :edit, :id => venue.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:venues, :destroy, :id => venue.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")
