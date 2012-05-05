@@ -33,6 +33,10 @@
             -@event.videos.each do |video|
               %li=link_to video.title, (url_for(:videos, :edit, :id =>video.id))
           =link_to 'Add Videos', url_for(:videos, :new, :id => @event.id), :class => 'btn btn-small'
+          %p 
+          -if @event.images.empty?
+            %h6 no images attached
+          =link_to 'Add Images', url_for(:images, :new, :id=> @event.id), :class => 'btn brn-primary btn-small'
         .tab-pane.well#production
           %h6 Production Call Sheets
           -if @callsheets.empty?

@@ -1,0 +1,13 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+
+  .content
+    %h2.title
+      =pat(:new)
+      =mt(:image)
+    .inner
+      -form_for :image, url(:images, :create), :class => :form do |f|
+        =partial "images/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")
