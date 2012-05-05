@@ -59,7 +59,8 @@ end
   #   end
   #
   get "/" do
-      "welcome to awesomeness"
+     image_tag 'feedthepanda.jpg', :width =>"400", :style => "display: block;margin-left: auto; margin-right: auto;"
+
   end
   ##
   # You can manage errors like:
