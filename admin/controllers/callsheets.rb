@@ -76,13 +76,15 @@ get :mailnow, :with => :id do
   @callsheet = Callsheet.find(params[:id])
   @venue = Venue.find(@callsheet.event.venue_id)
   #send mail to all 
-  #@callsheet.assigments.each do |a|
-  subject_line = "Callsheet for #{@callsheet.event.title}"
-  @account = current_account
-  location = to_address(@callsheet.event.location)
-  deliver(:gig, :callsheet_email, @account, @callsheet, @venue, subject_line, location)  
-  flash[:notice] = 'Mail Sent!!!'
-  redirect url(:callsheets, :index)
+  @callsheet.assigments.each do |a|
+    subject_line = "Callsheet for #{@callsheet.event.title}"
+    @account = a.account
+    location = to_address(@callsheet.event.location)
+    deliver(:gig, :callsheet_email, @account, @callsheet, @venue, subject_line, location)  
+    flash[:notice] = 'Mail Sent!!!'
+    redirect url(:callsheets, :index)
+  
+  end
 end
 
 end

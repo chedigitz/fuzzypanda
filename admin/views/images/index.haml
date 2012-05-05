@@ -1,0 +1,31 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:images, :index)
+      %li=link_to pat(:new), url(:images, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:images)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:image, :type)
+          %th=mat(:image, :url)
+          %th=mat(:image, :created_at)
+          %th=mat(:image, :updated_at)
+          %th.last="&nbsp;"
+        -@images.each do |image|
+          %tr
+            %td.first=image.type
+            %td=image.url
+            %td=image.created_at
+            %td=image.updated_at
+            %td.last
+              =button_to pat(:edit), url(:images, :edit, :id => image.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:images, :destroy, :id => image.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")
