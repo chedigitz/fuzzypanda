@@ -87,7 +87,7 @@ class Admin < Padrino::Application
   :user_name            => 'gigs@pandafeed.tv',
   :password             => 'youknow11',
   :authentication       => :plain,
-  :domain               => "pandafeed.tv"
+  :domain               => "pandafeed.tv",
   :enable_starttls_auto => true  
 }
     ##
