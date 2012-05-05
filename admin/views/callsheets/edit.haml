@@ -6,7 +6,7 @@
       -if current_account.role == 'admin'
         %li.active=link_to pat(:edit), url(:callsheets, :edit, :id => @callsheet.id)
       %li=link_to pat(:show), url(:callsheets, :show, :id => @callsheet.id)
-  .span6
+  .span5
     .content
       %h2.title
         =@callsheet.event.title
@@ -14,7 +14,7 @@
         =partial "callsheets/form", :locals => { :f => f }
 
 
-  .span4
+  .span5
     .tabbable
       %ul.nav.nav-tabs
         %li.active
@@ -30,8 +30,11 @@
             no crew members are on call 
           -else
             - @callsheet.assigments.each do |a|
-              %h3=link_to a.account.name, url_for(:accounts, :edit, :id => a.id)
-              %h6= a.task
+              .span2
+                %h3=link_to a.account.name, url_for(:accounts, :edit, :id => a.id)
+                %h6= a.task
+                -form_for a, url(:assigments, :destroy, :id => a.id), :method => :delete, :class => "form-horizontal" do |f|
+                  =f.image_submit "bin.png"
           %h2= @callsheet.call_time.localtime.strftime("at %I:%M%p")
           %a.btn.btn-small.btn-primary{ "data-toggle" => "modal", :href => "#crewpicker"} Add
           %p

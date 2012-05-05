@@ -1,6 +1,6 @@
 
 .title
-  %a{ :href => 'http://pandafeed.tv/admin/callsheets/show/#{callsheet.id}'} callsheet.event.title
+  %a{ :href => 'http://pandafeed.tv/admin/'}= callsheet.event.title
   %h5= callsheet.call_time.localtime.strftime('%a %b  %d')
   %h2= callsheet.call_time.localtime.strftime("%I:%M%p")
   .span3
@@ -10,7 +10,7 @@
     %h6=  venue.name
     %strong= location
   %h4
-    %a{ :href => 'http://pandafeed.tv/admin/callsheets/show/#{callsheet.id}'} View Gig on Panda
+    %a{ :href => 'http://pandafeed.tv/admin/'} View Gig on Panda
   %h6 CREW
   - callsheet.assigments.each do |a|
     .span1
