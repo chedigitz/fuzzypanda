@@ -70,10 +70,24 @@ Jp2.controllers :fb do
      omniauth = request.env["omniauth.auth"]
      logger.info  omniauth
      logger.info "user not logged nor is auth valid"
-     @account = Account.new(:name => omniauth["info"]["name"], :email => omniauth["info"]["email"], :role => "users", :provider => omniauth["provider"], :uid => omniauth["uid"])
-     @account.authentications.build(:provider => omniauth["provider"], :uid => omniauth["uid"])
-     @account.save!
-     set_current_account(@account)
+     auth = Account.where("authentications.provider" => omniauth['provider'], "authentications.uid" => omniauth['uid']).first
+     if auth 
+        #existing account update permisions
+        credentials = Hash.new
+        credentials['provider'] = omniauth['provider']
+        credentials['uid'] = omniauth['uid']
+        credentials['info'] = omniauth['info']
+        credentials['credentials'] = omniauth['credentials']
+        logger.info "saved credentials #{credentials.to_json}"
+        logger.info omniauth.to_json
+        current_account.authentications.create(credentials)
+     else
+      #new account create account and build authencations 
+       @account = Account.new(:name => omniauth["info"]["name"], :email => omniauth["info"]["email"], :role => "users", :provider => omniauth["provider"], :uid => omniauth["uid"])
+       @account.authentications.build(:provider => omniauth["provider"], :uid => omniauth["uid"])
+       @account.save!
+       set_current_account(@account)
+     end 
      redirect url(:fb, :index)
   end 
   
