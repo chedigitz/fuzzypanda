@@ -18,20 +18,11 @@ Jp2.controllers :fb do
   #   "Hello world!"
   # end
 
-before :index do 
- #retrieve FB signed request ot verify user is logged in to FB
- # if not have them auth
-
-  @signed_request_string = request.env[:signed_request]
-  #fb_request=  @oauth.parse_signed_request(signed_request_string)
-  #fb_request.to_json
-
-end 
 
 
   post :index do
 
-
+    @signed_request_string = request.env[:signed_request]
      @events = Event.all(:order => 'created_at asc', :limit => 5)
      @videos = gfl_url_for("promo", @events)
      # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
