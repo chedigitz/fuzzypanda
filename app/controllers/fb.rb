@@ -37,7 +37,7 @@ Jp2.controllers :fb do
         #new user that is not logged in and has no authentications on file 
         
         logger.info "user not logged nor is auth valid"
-        redirect @oauth.url_for_auth_code(:permissions => "publish_stream")
+        redirect @oauth.url_for_oauth_code(:permissions => "publish_stream")
 
       end
       @events = Event.all(:order => 'created_at asc', :limit => 5)
