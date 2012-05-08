@@ -22,7 +22,7 @@ before :index do
  #retrieve FB signed request ot verify user is logged in to FB
  # if not have them auth
 
- @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, url(:fb, :authenticate)) 
+ @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/') 
 
 end 
 
