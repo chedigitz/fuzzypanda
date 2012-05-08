@@ -18,11 +18,17 @@ Jp2.controllers :fb do
   #   "Hello world!"
   # end
 
+before :index do 
+ #retrieve FB signed request ot verify user is logged in to FB
+ # if not have them auth
+
+ @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, url(:fb, :authenticate)) 
+
+end 
+
 
   post :index do
-     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, url(:fb, :authenticate)) 
-     @signed_request_string = request.env['signed_request']
-     @oauth.parse_signed_request(signed_request_string)
+
 
      @events = Event.all(:order => 'created_at asc', :limit => 5)
      @videos = gfl_url_for("promo", @events)
@@ -48,7 +54,13 @@ Jp2.controllers :fb do
     render 'fb/show', :layout => false   
   end
 
-
-
+  post :authenticate do 
+  
+  signed_request_string = request.env[:signed_request]
+  fb_request=  @oauth.parse_signed_request(signed_request_string)
+  fb_request.to_json
+  
+  end 
+  
 
 end
