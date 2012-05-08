@@ -28,7 +28,7 @@ Jp2.controllers :fb do
      # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
      
      render 'fb/index' , :layout => false
-    @signed_request_string
+
   end
 
   get :index do
