@@ -59,7 +59,7 @@ end
   signed_request_string = request.env[:signed_request]
   fb_request=  @oauth.parse_signed_request(signed_request_string)
   fb_request.to_json
-  
+  redirect url(:fb, :index)
   end 
   
 
