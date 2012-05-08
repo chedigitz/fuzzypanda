@@ -1,6 +1,8 @@
 # Defines our constants
 PADRINO_ENV  = ENV['PADRINO_ENV'] ||= ENV['RACK_ENV'] ||= 'development'  unless defined?(PADRINO_ENV)
 PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
+FB_APP_ID = '78dWjnUfFYEq2Ucdvd6Q'
+FB_SECRET_KEY = 'kKq99vTtStdhTMSSeUbG1mFdKMsUY6gtAwAy6h80'
 
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)

@@ -19,11 +19,9 @@ Jp2.controllers :fb do
   # end
   before :index do 
     if current_account.nil? 
-      @oauth = Koala::Facebook::Oauth.new(FB_APP_ID, FB_APP_SECRET)
-      signed_request_string = request.env.to_json
-
+      @oauth = Koala::Facebook::Oauth.new(FB_APP_ID, FB_SECRET_KEY)
     end
-    @signed_request_string
+
    end 
 
 
