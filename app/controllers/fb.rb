@@ -21,30 +21,33 @@ Jp2.controllers :fb do
 
 
   post :index do
-     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate')
-     @signed_request = @oauth.parse_signed_request(params['signed_request'])
-     auth = Account.where("authentications.provider" => 'Facebook', "authentications.uid" => @signed_request['user_id']).first
+     unless logged_in?
+       @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
+       @signed_request = @oauth.parse_signed_request(params['signed_request'])
+       auth = Account.where("authentications.provider" => 'Facebook', "authentications.uid" => @signed_request['user_id']).first
 
-     if auth
+       if auth
        
        
        # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
-       set_current_account(auth)
+         set_current_account(auth)
        
 
-      else
+        else
       
         #new user that is not logged in and has no authentications on file 
         
-        logger.info "user not logged nor is auth valid"
-        redirect @oauth.url_for_oauth_code(:permissions => "publish_stream, publish_checkins, rsvp_event, create_event, user_events, user_location, email, publish_actions, user_actions.video")
+          logger.info "user not logged nor is auth valid"
+          redirect @oauth.url_for_oauth_code(:permissions => "publish_stream, publish_checkins, rsvp_event, create_event, user_events, user_location, email, publish_actions, user_actions.video")
 
-      end
-      @events = Event.all(:order => 'created_at asc', :limit => 5)
-      @videos = gfl_url_for("promo", @events)
-      render 'fb/index' , :layout => false 
+        end
+     end
+        @events = Event.all(:order => 'created_at asc', :limit => 5)
+        @videos = gfl_url_for("promo", @events)
+        render 'fb/index' , :layout => false 
 
 
+     
   end
 
   get :index do
@@ -64,8 +67,14 @@ Jp2.controllers :fb do
   end
 
   post :authenticate do 
-  
-
+     omniauth = request.env["omniauth.auth"]
+     logger.info  omniauth
+     logger.info "user not logged nor is auth valid"
+     @account = Account.new(:name => omniauth["info"]["name"], :email => omniauth["info"]["email"], :role => "users", :provider => omniauth["provider"], :uid => omniauth["uid"])
+     @account.authentications.build(:provider => omniauth["provider"], :uid => omniauth["uid"])
+     @account.save!
+     set_current_account(@account)
+     redirect url(:fb, :index)
   end 
   
 
