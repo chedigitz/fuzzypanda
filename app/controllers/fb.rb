@@ -20,7 +20,7 @@ Jp2.controllers :fb do
 
 
   post :index do
-     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, APP_SECRET_KEY, url(:fb, :authenticate)) 
+     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, url(:fb, :authenticate)) 
      @signed_request_string = request.env['signed_request']
      @oauth.parse_signed_request(signed_request_string)
 
