@@ -21,8 +21,8 @@ Jp2.controllers :fb do
 
 
   post :index do
-
-    @signed_request_string = params['signed_request']
+     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_APP_SECRET)
+     @signed_request_string = params['signed_request']
      @events = Event.all(:order => 'created_at asc', :limit => 5)
      @videos = gfl_url_for("promo", @events)
      # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
