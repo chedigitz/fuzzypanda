@@ -17,12 +17,23 @@ Jp2.controllers :fb do
   # get "/example" do
   #   "Hello world!"
   # end
+  before :index do 
+    if current_account.nil? 
+      @oauth = Koala::Facebook::Oauth.new(FB_APP_ID, FB_APP_SECRET)
+      signed_request_string = request.env.to_json
+
+    end
+    @signed_request_string
+   end 
+
 
   post :index do
      @events = Event.all(:order => 'created_at asc', :limit => 5)
      @videos = gfl_url_for("promo", @events)
      # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
-     render 'fb/index' , :layout => false
+     
+     #render 'fb/index' , :layout => false
+    @signed_request_string
   end
 
   get :index do
@@ -34,7 +45,7 @@ Jp2.controllers :fb do
 
   get :show, :with => :id do
       @event = Event.find_by_id(params[:id])
-       current_user.fb_friends
+     
     if @event.videos 
       @promovid= @event.videos.first
     end
