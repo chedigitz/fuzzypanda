@@ -22,8 +22,10 @@ before :index do
  #retrieve FB signed request ot verify user is logged in to FB
  # if not have them auth
 
- @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/') 
-
+  @signed_request_string = request.env[:signed_request]
+  #fb_request=  @oauth.parse_signed_request(signed_request_string)
+  #fb_request.to_json
+  redirect url(:fb, :index)
 end 
 
 
@@ -56,10 +58,7 @@ end
 
   post :authenticate do 
   
-  signed_request_string = request.env[:signed_request]
-  fb_request=  @oauth.parse_signed_request(signed_request_string)
-  fb_request.to_json
-  redirect url(:fb, :index)
+
   end 
   
 
