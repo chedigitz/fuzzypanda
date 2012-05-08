@@ -17,15 +17,13 @@ Jp2.controllers :fb do
   # get "/example" do
   #   "Hello world!"
   # end
-  before :index do 
-    if current_account.nil? 
-      @oauth = Koala::Facebook::Oauth.new(FB_APP_ID, FB_SECRET_KEY)
-    end
-
-   end 
 
 
   post :index do
+     @oauth = Koala::Facebook::Oauth.new(FB_APP_ID, APP_SECRET_KEY, url(:fb, :authenticate)) 
+     @signed_request_string = params[:signed_request_string]
+     @oauth.parse_signed_request(signed_request_string)
+
      @events = Event.all(:order => 'created_at asc', :limit => 5)
      @videos = gfl_url_for("promo", @events)
      # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
