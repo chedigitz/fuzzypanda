@@ -23,7 +23,7 @@ Jp2.controllers :fb do
   post :index do
      @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate')
      @signed_request = @oauth.parse_signed_request(params['signed_request'])
-     auth = Account.where("authentications.provider" => 'Facebook', "authentications.uid" => signed_request['user_id']).first
+     auth = Account.where("authentications.provider" => 'Facebook', "authentications.uid" => @signed_request['user_id']).first
 
      if auth
        
