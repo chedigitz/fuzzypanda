@@ -63,7 +63,7 @@ Jp2.controllers :fb do
     render 'fb/show', :layout => false   
   end
 
-  post :authenticate do 
+  get :authenticate do 
      @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
      code = params['code']
      oauth_token = @oauth.fetch_token_string(code)
