@@ -80,9 +80,9 @@ Jp2.controllers :orders do
   end  
   
 
-post :create do
+  post :create do
+   
     logger.debug params["order"].to_json
-    
     @order = Order.new(params["order"])
     logger.debug "this is the facebook order response #{@order.fb_pay}"
     logger.debug "this is the facebook buy button request #{@order.event.fb_pay_request}"
@@ -91,17 +91,15 @@ post :create do
     url = 'https://www.facebook.com/dialog/pay?' + uri.query
 
     logger.info url
-    #if @order.save
-        #@callsheet = Callsheet.find(@order.callsheet_id)
-        #@order.add_to_callsheet(@callsheet)
-        #@account = Account.find(@order.account_id)
-        #@account.add_to_callsheet(@callsheet)
+    if @order.save
+
 
       flash[:notice] = "order was successfully created. URL = #{url} ORDER = #{@order.to_json}"
-      #redirect url(:callsheets, :edit, :id => @order.callsheet_id)
-    #else
-      #render 'orders/new'
-    
-    #ends
+
+     redirect url 
+   else 
+     'ohh snap something went terribly wrong. RUN.'
+   end 
+
   end
 end
