@@ -96,7 +96,8 @@ post :create do
         #@order.add_to_callsheet(@callsheet)
         #@account = Account.find(@order.account_id)
         #@account.add_to_callsheet(@callsheet)
-      flash[:notice] = 'order was successfully created. URL = #{url} ORDER = #{@order.to_json}'
+
+      flash[:notice] = "order was successfully created. URL = #{url} ORDER = #{@order.to_json}"
       #redirect url(:callsheets, :edit, :id => @order.callsheet_id)
     #else
       #render 'orders/new'
