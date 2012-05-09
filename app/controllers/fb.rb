@@ -66,7 +66,7 @@ Jp2.controllers :fb do
   get :authenticate do 
      @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
      code = params['code']
-     oauth_token = @oauth.fetch_token_string(code)
+     oauth_token = @oauth.get_access_token(code)
      graph = Koala::Facebook::API.new(oauth_token)
      user_data = graph.get_object('me')
      user_picture = graph.get_picture('me')
