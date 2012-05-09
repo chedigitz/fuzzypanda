@@ -141,7 +141,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  addressable (= 2.2.8)
+  addressable
   bcrypt-ruby
   bson_ext
   foursquare2
