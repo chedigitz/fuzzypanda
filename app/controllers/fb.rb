@@ -71,7 +71,8 @@ Jp2.controllers :fb do
      user_data = graph.get_object('me')
      user_picture = graph.get_picture('me')
      
-     auth = Account.where("authentications.provider" => 'facebook', "authentications.uid" => user_data['id']).first
+     auth = Account.where(:email => user_data['email']).first
+     #auth = Account.where("authentications.provider" => 'facebook', "authentications.uid" => user_data['id']).first
      if auth 
         #existing account update permisions
         credentials = Hash.new
