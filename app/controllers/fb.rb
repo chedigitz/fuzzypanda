@@ -17,28 +17,30 @@ Jp2.controllers :fb do
   # get "/example" do
   #   "Hello world!"
   # end
-
-
-
-
-  post :index do
-     unless logged_in?
-       @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
-       @signed_request = @oauth.parse_signed_request(params['signed_request'])
-       auth = Account.where("authentications.provider" => 'facebook', "authentications.uid" => @signed_request['user_id']).first
-
-       if auth
-        #if authentication exist log user set the current account to the fb uid
+  before :index do 
+       unless logged_in
+         @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
+         @signed_request = @oauth.parse_signed_request(params['signed_request'])
+         auth = Account.where("authentications.provider" => 'facebook', "authentications.uid" => @signed_request['user_id']).first
+  
+         if auth
+           #if authentication exist log user set the current account to the fb uid
        
-       # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
+          # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
          set_current_account(auth)
-       else
+        else
         #new user that is not logged in and has no authentications on file 
         logger.info "user not logged nor is auth valid"
         redirect @oauth.url_for_oauth_code(:permissions => "publish_stream, publish_checkins, rsvp_event, create_event, user_events, user_location, email, publish_actions, user_actions.video")
 
-       end
-     end
+        end
+      end
+  end
+
+
+
+  post :index do
+ 
         @events = Event.all(:order => 'created_at asc', :limit => 5)
         @videos = gfl_url_for("promo", @events)
         render 'fb/index' , :layout => false 
