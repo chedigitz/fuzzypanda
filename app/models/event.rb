@@ -66,16 +66,16 @@ class Event
  def fb_pay_request
    #returns a json object to generate the facebook pay dialog
    response = {}
-   response['method'] = 'pay'
-   response['action'] = 'buy_item'
+   response[:method] = 'pay'
+   response[:action] = 'buy_item'
    order = {}
    order['event_id'] = id
    
-   response['oder_info'] = order
+   response[:order_info] = order
    
    dev = {}
    dev['oscif']= true
-   response['dev_purchase_params'] = dev
+   response[:dev_purchase_params] = dev
    response
  end
 
