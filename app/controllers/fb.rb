@@ -79,8 +79,6 @@ Jp2.controllers :fb do
         credentials['provider'] = 'facebook'
         credentials['uid'] = user_data['id']
         credentials['info'] = user_data
-        logger.info "saved credentials #{credentials.to_json}"
-        logger.info omniauth.to_json
         current_account.authentications.create(credentials)
      else
       #new account create account and build authencations 
