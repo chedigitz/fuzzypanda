@@ -1,0 +1,39 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:orders, :index)
+      %li=link_to pat(:new), url(:orders, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:orders)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:order, :account_id)
+          %th=mat(:order, :event_id)
+          %th=mat(:order, :pay_provider)
+          %th=mat(:order, :token)
+          %th=mat(:order, :status)
+          %th=mat(:order, :fb_order_id)
+          %th=mat(:order, :created_at)
+          %th=mat(:order, :updated_at)
+          %th.last="&nbsp;"
+        -@orders.each do |order|
+          %tr
+            %td.first=order.account_id
+            %td=order.event_id
+            %td=order.pay_provider
+            %td=order.token
+            %td=order.status
+            %td=order.fb_order_id
+            %td=order.created_at
+            %td=order.updated_at
+            %td.last
+              =button_to pat(:edit), url(:orders, :edit, :id => order.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:orders, :destroy, :id => order.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

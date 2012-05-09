@@ -1,0 +1,40 @@
+.group
+  =f.label :account_id
+  =f.error_message_on :account_id
+  =f.text_field :account_id, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :event_id
+  =f.error_message_on :event_id
+  =f.text_field :event_id, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :pay_provider
+  =f.error_message_on :pay_provider
+  =f.text_field :pay_provider, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :token
+  =f.error_message_on :token
+  =f.text_field :token, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :status
+  =f.error_message_on :status
+  =f.text_field :status, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :fb_order_id
+  =f.error_message_on :fb_order_id
+  =f.text_field :fb_order_id, :class => :text_field
+  %span.description Ex: a simple text
+
+
+.group.navform.wat-cf
+  =f.submit pat(:save), :class => :button
+  =f.submit pat(:cancel), :onclick => "window.location='#{url(:orders, :index)}';return false", :class => :button
