@@ -79,6 +79,7 @@ Jp2.controllers :fb do
         credentials['provider'] = 'facebook'
         credentials['uid'] = user_data['id']
         credentials['info'] = user_data
+        credentials['info']['image'] = user_picture
         set_current_account(account)
         account.authentications.create(credentials)
      else
