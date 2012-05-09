@@ -50,6 +50,8 @@ Jp2.controllers :orders do
   end
 
   post :fb do
+    
+
     logger.info params[" method"]
     method = params[" method"]
 

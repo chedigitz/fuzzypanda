@@ -29,21 +29,14 @@
         $pop.play();
         $("#nowplaying1").show("slow");  
       }, false);
-    .topbar
-      .topbar-inner
-        .container-fluid
-          %a.brand{:href => "#"} Panda Feed
-          %ul.nav
-            %li.active  
-              %a{:href => "fb/all"} Events
-            %li.active
-              %a{:href => "#about"} about
-          %p.pull-right Logged in as #{current_account.name}
+
     .container-fluid
       .hero-unit
         .row
           .span.8
-            %h6 GFL on Facebook
+            %h6 GFL Events on Facebook
+            %p.pull-right Logged in as #{current_account.name}
+
             %video#video{"controls" => ""}
               %source{:src => @videos.first}
           .span.1
