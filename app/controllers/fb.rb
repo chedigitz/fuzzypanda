@@ -70,7 +70,7 @@ Jp2.controllers :fb do
      graph = Koala::Facebook::API.new(oauth_token)
      user_data = graph.get_object('me')
      user_picture = graph.get_picture('me')
-     account = Account.find_by_email(user_data[:email])
+     account = Account.first(:email => user_data['email'])
      #auth = Account.where("authentications.provider" => 'facebook', "authentications.uid" => user_data['id']).first
     if account
 
