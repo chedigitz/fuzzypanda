@@ -22,7 +22,7 @@ gem 'omniauth-twitter', :require => "omniauth-twitter"
 gem 'omniauth-facebook', :require => "omniauth-facebook"
 gem 'foursquare2', :require => "foursquare2"
 gem 'panda'
-gem 'addressable', :require => "addressable/uri"
+gem 'addressable', '2.2.8', :require => "addressable/uri"
 gem 'queryparams', :require => 'queryparams'
 
 # Test requirements
