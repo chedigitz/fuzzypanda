@@ -79,7 +79,8 @@ Jp2.controllers :fb do
         credentials['provider'] = 'facebook'
         credentials['uid'] = user_data['id']
         credentials['info'] = user_data
-        current_account.authentications.create(credentials)
+        set_current_account(account)
+        account.authentications.create(credentials)
      else
       #new account create account and build authencations 
        @account = Account.new(:name => user_data['first_name'], :surname => user_data['last_name'], :email => user_data["email"], :role => "users", :provider => 'facebook', :uid => user_data['id'])
