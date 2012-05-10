@@ -21,7 +21,7 @@ class Order
       "title" => self.event.title, 
       "description" => "PPV Event", 
       "price" => self.event.price,
-      "image_url" => "http:\/\/www.facebook.com\/images\/gifts\/21.png"   }
+      "image_url" => self.event.poster_url   }
     response['method'] = 'payments_get_items'
     response
   end

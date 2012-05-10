@@ -17,37 +17,58 @@ Jp2.controllers :orders do
   # get "/example" do
   #   "Hello world!"
   # end
-  get :new, :with => :id do
+  get :fb do
     
-
-  end
-  
-  get :fb do 
-    logger.info params[" method"]
-    method = params[" method"]
-
-    if method == "payments_get_items" 
-      order_info = params["order_info"]
-      item_id = order_info["item_id"]
-
-      #retrieve order 
+    @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
+    @signed_request = @oauth.parse_signed_request(params['signed_request'])
+    logger.info "@signed_request = #{@signed_request.to_json}"
+    logger.info "params passed in = #{params.to_json}"
+    token = @signed_request['credits']['oauth_token'] 
+    logger.info params["method"]
+    method =  params["method"]
+     buyer_id = params["buyer"]
+    response = {}
+    logger.info "method = #{method}"
+    logger.info "buyer id = #{buyer_id}"
+    if method == 'payments_get_items'
       
-      localitem = Order.find(item_id)
-      if localitem
+      #parse the oder info JSON fro FB
+      order_info = JSON.parse(@signed_request['credits']['order_info'])
+      event_id = order_info['_id']
+      order_id = params["order_id"]
+      logger.info "order_info =#{order_info}"
+      logger.info "order id = #{order_id.to_json}"
+      logger.info "event_id = #{event_id}" 
+      logger.info order_info
+      #retrieve order 
+     
+      auth = Authentication.find_by_uid(buyer_id)
+      event = Event.find(event_id)
+      logger.info "Account = #{auth.account.to_json}"
+      logger.info "event = #{event.to_json}"
+      neworder = Order.new(:event_id => event.id, :account_id => auth.account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
+      
+      if event
         #returns a facebook json item description 
-        item = localitem.fb_pay
         
-      response = item
+
+        if neworder.save
+          item = neworder.fb_item_info          
+          response= item
+          
+        end
       end 
     elsif  method == "payment_status_update"
-
-
+      
+      
     elsif method == "" 
 
     end
-      
-   response
-  end
+   
+   logger.info "response to facebook is #{response.to_json}"
+   response_for_fb = response.to_json
+   response_for_fb
+  end  
 
   post :fb do
     
@@ -98,7 +119,8 @@ Jp2.controllers :orders do
     end
    
    logger.info "response to facebook is #{response.to_json}"
-   response.to_json
+   response_for_fb = response.to_json
+   response_for_fb
   end  
   
 
