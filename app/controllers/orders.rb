@@ -70,7 +70,7 @@ Jp2.controllers :orders do
       logger.info "order id = #{order_id.to_json}" 
       #retrieve order 
      
-      account = Account.first(:email => user_data['email'])
+      account = Account.first(:email => buyer_id)
       event = Event.find(order_info)
       logger.info "Account = #{account.to_json}"
       logger.info "event = #{event.to_json}"
