@@ -70,7 +70,7 @@ Jp2.controllers :orders do
       logger.info "order id = #{order_id.to_json}" 
       #retrieve order 
      
-      auth = Authencation.first("uid" => buyer_id)
+      auth = Authentication.find_by_uid(buyer_id)
       event = Event.find(order_info)
       logger.info "Account = #{auth.to_json}"
       logger.info "event = #{event.to_json}"
