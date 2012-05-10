@@ -56,8 +56,8 @@ Jp2.controllers :orders do
     logger.info "@signed_request = #{@signed_request.to_json}"
     logger.info "params passed in = #{params.to_json}"
 
-    logger.info params['signed_request']["method"]
-    method =  params['signed_request']["method"]
+    logger.info params["method"]
+    method =  params["method"]
     response = {}
     logger.info "method = #{method.to_json}"
     if method == 'payments_get_items'
