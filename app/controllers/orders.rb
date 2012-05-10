@@ -98,20 +98,14 @@ Jp2.controllers :orders do
    
     logger.debug params["order"].to_json
     @order = Order.new(params["order"])
-    logger.debug "this is the facebook order response #{@order.fb_pay}"
-    logger.debug "this is the facebook buy button request #{@order.event.fb_pay_request}"
     uri = Addressable::URI.new 
     uri.query_values= @order.event.fb_pay_request 
     url = 'https://www.facebook.com/dialog/pay?' + uri.query
 
     logger.info url
     if @order.save
-
-
-      flash[:notice] = "order was successfully created. URL = #{url} ORDER = #{@order.to_json}"
-
-     redirect url 
-   else 
+     flash[:notice] = "order was successfully created. URL = #{url} ORDER = #{@order.to_json}"
+  else 
      'ohh snap something went terribly wrong. RUN.'
    end 
 
