@@ -76,7 +76,7 @@ class Event
    dev = {}
    dev['oscif']= true
    response[:dev_purchase_params] = dev
-   response.to_json
+   response
  end
 
   private 
