@@ -53,9 +53,13 @@ Jp2.controllers :orders do
     
     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
     @signed_request = @oauth.parse_signed_request(params['signed_request'])
+    logger.info "@signed_request = #{@signed_request.to_json}"
+    logger.info "params passed in = #{params.to_json}"
+
     logger.info @signed_request[" method"]
     method = @signed_request[" method"]
     response = {}
+    logger.info "method = #{method.to_json}"
     if method == 'payments_get_items'
       
       order_info = @signed_request['credits']["order_info"]
