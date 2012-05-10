@@ -97,7 +97,7 @@ Jp2.controllers :orders do
 
     end
    
-
+   logger.info "response to facebook is #{response.to_json}"
    response.to_json
   end  
   
