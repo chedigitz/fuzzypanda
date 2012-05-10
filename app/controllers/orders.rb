@@ -17,7 +17,7 @@ Jp2.controllers :orders do
   # get "/example" do
   #   "Hello world!"
   # end
-  get :fb do
+  get :fb, :provides => :json do
     
     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
     @signed_request = @oauth.parse_signed_request(params['signed_request'])
@@ -70,7 +70,7 @@ Jp2.controllers :orders do
    response_for_fb
   end  
 
-  post :fb do
+  post :fb, :provides => :json do
     
     @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
     @signed_request = @oauth.parse_signed_request(params['signed_request'])
