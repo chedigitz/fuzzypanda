@@ -13,7 +13,7 @@ class Order
   belongs_to :account
   belongs_to :event
 
-  def fb_pay
+  def fb_item_info
     #creates a dialog 
     response = Hash.new
     response['content']= { 
@@ -21,7 +21,6 @@ class Order
       "description" => "PPV Event", 
       "price" => self.event.price,
       "image_url" => self.event.poster_url   }
-    response['method'] = 'payments_get_items'
     response.to_json
   end
 

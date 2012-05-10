@@ -79,6 +79,8 @@ class Event
    response
  end
 
+
+
   private 
   def get_location_points
       unless location.empty?

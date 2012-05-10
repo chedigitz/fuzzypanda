@@ -51,34 +51,41 @@ Jp2.controllers :orders do
 
   post :fb do
     
-
-    logger.info params[" method"]
-    method = params[" method"]
-
-    if method == "payments_get_items" 
-      order_info = params["order_info"]
+    @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
+    @signed_request = @oauth.parse_signed_request(params['signed_request'])
+    logger.info @signed_request[" method"]
+    method = @signed_request[" method"]
+    response = {}
+    if method == 'payments_get_items'
+      
+      order_info = @signed_request['credits']["order_info"]
       item_id = order_info["item_id"]
-      order_id = params["order_id"]
-
+      order_id = item_id["order_id"]
+      
       #retrieve order 
-      buyer_id = params["buyer"]
-      account = Authentication.where(:uid => buyer_id)     
+      buyer_id = @signed_request["buyer"]
+      account = Account.where("authentications.uid" => buyer_id).first     
       localitem = Event.find(item_id)
-      neworder = Order.new(:event_id => localitem.id, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id)
+      neworder = Order.new(:event_id => localitem.id, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated')
       if localitem
         #returns a facebook json item description 
-        item = neworder.fb_pay
-        
-      response = item
+        item = neworder.fb_item_info
+
+        if @neworder.save
+                  
+          response['content'] = item
+          response['method'] = method  
+        end
       end 
     elsif  method == "payment_status_update"
-
-
+      
+      
     elsif method == "" 
 
     end
-      
-   response
+   
+
+   response.to_json
   end  
   
 
