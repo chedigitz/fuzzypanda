@@ -76,15 +76,15 @@ Jp2.controllers :orders do
       auth = Authentication.find_by_uid(buyer_id)
       event = Event.find(event_id)
       logger.info "Account = #{auth.account.to_json}"
-      logger.info "event = #{event}"
-      neworder = Order.new(:event_id => order_info, :account_id => auth.account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
+      logger.info "event = #{event.to_json}"
+      neworder = Order.new(:event_id => event.id, :account_id => auth.account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
       
       if event
         #returns a facebook json item description 
-        item = neworder.fb_item_info
+        
 
         if @neworder.save
-                  
+          item = neworder.fb_item_info          
           response['content'] = item
           response['method'] = method  
         end
