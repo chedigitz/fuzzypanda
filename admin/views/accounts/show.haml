@@ -67,9 +67,10 @@
                 .span3
                   .row
                     -g.callsheet.assigments.each do |a|
-                      .span1
-                        = image_tag a.account.avatar, :class => "thumbnail"
-                        %h6= link_to a.account.name, url(:accounts, :show, :id => a.account.id)
+                      -unless a.account==@account
+                        .span1
+                          = image_tag a.account.avatar, :class => "thumbnail"
+                          %h6= link_to a.account.name, url(:accounts, :show, :id => a.account.id)
 
             
 
