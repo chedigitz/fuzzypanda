@@ -68,6 +68,7 @@ class Admin < Padrino::Application
     role.allow "/accounts/edit"
     role.allow "/accounts/update"
     role.allow "/callsheets/show"
+    role.allow "/accounts/show/"
     role.project_module :assigments, "/assigments"
     role.project_module :authentications, "/authentications"
   end
@@ -76,6 +77,7 @@ class Admin < Padrino::Application
   access_control.roles_for :crew do |role|
     role.allow "/accounts/edit"
     role.allow "/accounts/update"
+    role.allow "/accounts/show/"
     role.allow "/callsheets/show"
     role.project_module :assigments, "/assigments"
     role.project_module :authentications, "/authentications"
