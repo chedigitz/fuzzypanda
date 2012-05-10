@@ -65,8 +65,8 @@ Jp2.controllers :orders do
       order_info = @signed_request['credits']["order_info"]
       item_id = order_info["event_id"]
       order_id = params["order_id"]
-      logger.info "item_id = #{item_id}"
-      logger.info "order id = #{order_id}" 
+      logger.info "item_id = #{item_id.to_json}"
+      logger.info "order id = #{order_id.to_json}" 
       #retrieve order 
       buyer_id = params["buyer"]
       account = Account.where("authentications.uid" => buyer_id).first     
