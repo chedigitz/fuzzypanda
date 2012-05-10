@@ -32,9 +32,9 @@
       %table.table
         %tr
           %th.first=mat(:assigment, :task)
-          %th=mat(:assigment, :callsheet_id)
-          -if current_account.role == 'admin'
-            %th Name
+          %th Name
+          -if current_account.role == 'admin' or current_account.role == 'partner'
+            %th Event
           
           %th=mat(:event, :show_date)
 
@@ -48,7 +48,7 @@
           
           %tr
             %td.first=assigment.task
-            -if current_account.role == 'admin'
+            -if current_account.role == 'admin' or current_account.role =='partner'
               %td= assigment.account.name
             %td= link_to assigment.callsheet.event.title, url(:callsheets, :show, :id => assigment.callsheet_id)
             %td=assigment.callsheet.event.showdate.localtime.strftime('%a %d %b %Y')
