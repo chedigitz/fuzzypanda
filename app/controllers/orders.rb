@@ -68,7 +68,7 @@ Jp2.controllers :orders do
       order_id = params["order_id"]
       logger.info "order_info =#{order_info}"
       logger.info "order id = #{order_id.to_json}" 
-      logger.ingo order_info
+      logger.info order_info
       #retrieve order 
      
       auth = Authentication.find_by_uid(buyer_id)
