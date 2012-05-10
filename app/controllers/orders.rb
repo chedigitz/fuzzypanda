@@ -69,7 +69,7 @@ Jp2.controllers :orders do
       #retrieve order 
       buyer_id = params["buyer"]
       account = Account.where("authentications.uid" => buyer_id).first     
-      localitem = Event.find(order_info)
+      localitem = Event.find_by_id(order_info)
       neworder = Order.new(:event_id => localitem.id, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
       if localitem
         #returns a facebook json item description 
