@@ -30,9 +30,9 @@
       .tabbable
         %ul.nav.nav-tabs
           %li.active
-            %a{:href => "#gigs", "data-toggle" => "tab"} Info
+            %a{:href => "#info", "data-toggle" => "tab"} Info
           %li
-            %a{:href => "#info", "data-toggle" => "tab"} Gigs
+            %a{:href => "#gigs", "data-toggle" => "tab"} Gigs
 
 
         .tab-content
@@ -49,5 +49,28 @@
                   -else 
                     .row
                       - @account.authentications.each do |authentication|
-                        = image_tag "#{authentication.provider}_32.png", :size => "64x64"
+                        = link_to image_tag("#{authentication.provider}_32.png", :size => "64x64"), "#{authentication.profile_url}", :target => '_blank'
+          .tab-pane#gigs
+            - @gigs.each do |g|
+              .row
+                %h4= g.callsheet.event.title
+              .row              
+                .span2
+                  %h6= g.task
+                  %h5= g.callsheet.call_time.localtime.strftime('%b %d')
+                  -unless @venue.nil?
+                    %h6= link_to @venue.name, @venue.url, :target => "_blank"
+                .span2
+                  %p
+                    - mapimg= 'http://maps.googleapis.com/maps/api/staticmap?center='+g.callsheet.event.location[0].to_s+g.callsheet.event.location[1].to_s+'&zoom=15&size=100x100&scale=2&maptype=roadmap&sensor=false'
+                    = link_to (image_tag  mapimg, :class => "thumbnail"), url(:callsheets, :show, :id => g.callsheet.id)              
+                .span3
+                  .row
+                    -g.callsheet.assigments.each do |a|
+                      .span1
+                        = image_tag a.account.avatar, :class => "thumbnail"
+                        %h6= link_to a.account.name, url(:accounts, :show, :id => a.account.id)
+
+            
+
 

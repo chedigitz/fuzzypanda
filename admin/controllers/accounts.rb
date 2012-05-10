@@ -12,6 +12,7 @@ Admin.controllers :accounts do
 
   get :show, :with => :id do
     @account = Account.find(params[:id])
+    @gigs = Assigment.all(:account_id => params[:id])
     render 'accounts/show'
   end
 

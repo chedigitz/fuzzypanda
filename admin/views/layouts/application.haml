@@ -31,6 +31,7 @@
           %ul.nav
             -project_modules.each do |project_module|
               %li{:class => ("active" if request.path_info =~ /^#{project_module.path}/)}
+                
                 =link_to project_module.human_name, project_module.path("/admin")
           %ul.nav.pull-right
             %i.topbar-divider

@@ -13,7 +13,17 @@ class Authentication
   
   timestamps!
 
-
+  def profile_url
+    url = '' 
+     if provider == 'twitter'
+     	url = info['urls']['Twitter']
+     elsif provider== 'facebook'
+     	url = info['urls']['Facebook']
+     end
+     logger.info "this is info hash #{info.to_json}"
+     logger.info "PROFILE URL = #{url}"
+     url 
+  end 
   
 
 

@@ -25,7 +25,7 @@
               -a.assigments.each do |assigment|
                 .span1
                   = image_tag assigment.account.avatar, :class => "thumbnail"
-                  %h6= assigment.account.name
+                  %h6= link_to assigment.account.name, url(:accounts, :show, :id => assigment.account.id)
             
                   
 
