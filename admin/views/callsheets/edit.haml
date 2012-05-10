@@ -69,7 +69,7 @@
           =f.hidden_field :account_id, :value => c.id
           =f.hidden_field :settled, :value => false
           =c.name 
-          =f.select(:task, :options => ['Camera OP','Audio', 'PA', 'Switcher', 'Replay Tech', 'Stream Tech', 'Director', 'Eye In the Sky'], :class => "input-small")
+          =f.select(:task, :options => ['Camera OP','Audio', 'PA', 'Switcher', 'Replay Tech', 'Stream Tech', 'Director', 'Eye In the Sky', 'Sales'], :class => "input-small")
           =f.number_field :dayrate, :size => 2,  :class => "input-small", :placeholder => "dayrate"
           =submit_tag pat(:save), :class => "btn btn-large"
 

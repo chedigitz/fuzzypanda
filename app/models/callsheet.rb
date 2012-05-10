@@ -19,7 +19,7 @@ class Callsheet
   
   def available_crew
     #retrieves all crew 
-    crew =  Account.all(:role => "crew")
+    crew =  Account.all(:role => "crew", :role => "partner")
     booked = self.assigments
     #if there is crew assigments already only returned the ones not assigned
  
