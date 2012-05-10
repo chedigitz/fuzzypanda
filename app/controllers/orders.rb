@@ -64,7 +64,7 @@ Jp2.controllers :orders do
     logger.info "buyer id = #{buyer_id}"
     if method == 'payments_get_items'
       
-      order_info = JSON.parse(@signed_request['credits']['order_info'])
+      order_info = JSON.parse(@signed_request['credits']['order_info']['_id'])
       order_id = params["order_id"]
       logger.info "order_info =#{order_info}"
       logger.info "order id = #{order_id.to_json}" 
