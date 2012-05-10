@@ -16,7 +16,8 @@ class Order
   def fb_item_info
     #creates a dialog 
     response = Hash.new
-    response['content']= { 
+    response['content'] = []
+    response['content'][0]= { 
       "title" => self.event.title, 
       "description" => "PPV Event", 
       "price" => self.event.price,
