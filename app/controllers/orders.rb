@@ -64,7 +64,7 @@ Jp2.controllers :orders do
       
       order_info = @signed_request['credits']['order_info'].to_s
       order_id = params["order_id"]
-      logger.info "order_info = #{item_id.to_json}"
+      logger.info "order_info = #{order_info}"
       logger.info "order id = #{order_id.to_json}" 
       #retrieve order 
       buyer_id = params["buyer"]
