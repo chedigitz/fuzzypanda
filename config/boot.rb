@@ -38,4 +38,5 @@ Padrino.use Rack::Session::Cookie, :session_secret => '23f112b248acd1bb8d0ffe475
 
 
 Padrino::Logger::Config[:development][:stream] = :stdout
+Padrino::Logger::Config[:production] = { :log_level => :info, :stream => :stdout}
 Padrino.load! 
