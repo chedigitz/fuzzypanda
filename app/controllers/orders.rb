@@ -87,7 +87,7 @@ Jp2.controllers :orders do
         if neworder.save
           item = neworder.fb_item_info          
           response= item
-          response['method'] = method  
+          
         end
       end 
     elsif  method == "payment_status_update"

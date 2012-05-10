@@ -21,7 +21,8 @@ class Order
       "description" => "PPV Event", 
       "price" => self.event.price,
       "image_url" => self.event.poster_url   }
-    response.to_json
+    response['method'] = 'payments_get_items'
+    response
   end
 
 
