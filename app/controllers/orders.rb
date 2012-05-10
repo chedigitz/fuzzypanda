@@ -64,17 +64,17 @@ Jp2.controllers :orders do
     logger.info "buyer id = #{buyer_id}"
     if method == 'payments_get_items'
       
-      order_info = @signed_request['credits']['order_info'].to_s
+      order_info = @signed_request['credits']['order_info']
       order_id = params["order_id"]
       logger.info "order_info = #{order_info}"
       logger.info "order id = #{order_id.to_json}" 
       #retrieve order 
      
-      account = Account.first("authentications.uid" => buyer_id)
-      event = Event.first(:id => order_info)
-      logger.info "Account = #{account.to_json}"
+      auth = Authencation.first("uid" => buyer_id)
+      event = Event.find(order_info)
+      logger.info "Account = #{auth.to_json}"
       logger.info "event = #{event.to_json}"
-      neworder = Order.new(:event_id => order_info, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
+      neworder = Order.new(:event_id => order_info, :account_id => auth.account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
       
       if event
         #returns a facebook json item description 
