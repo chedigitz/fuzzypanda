@@ -64,7 +64,7 @@
                   method: 'pay',
                   action: 'buy_item',
                   //pass order info string
-                  order_info: '#{@event.id.to_s}',
+                  order_info: #{@event.id},
                   dev_purchase_params: {'oscif': true}
                 };
 
