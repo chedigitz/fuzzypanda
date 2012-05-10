@@ -55,22 +55,23 @@ Jp2.controllers :orders do
     @signed_request = @oauth.parse_signed_request(params['signed_request'])
     logger.info "@signed_request = #{@signed_request.to_json}"
     logger.info "params passed in = #{params.to_json}"
-
+    token = @signed_request['credits']['oauth_token'] 
     logger.info params["method"]
     method =  params["method"]
     response = {}
-    logger.info "method = #{method.to_json}"
+    logger.info "method = #{method}"
     if method == 'payments_get_items'
       
       order_info = @signed_request['credits']["order_info"]
-      item_id = order_info["item_id"]
-      order_id = item_id["order_id"]
-      
+      item_id = order_info["event_id"]
+      order_id = params["order_id"]
+      logger.info "item_id = #{item_id}"
+      logger.info "order id = #{order_id}" 
       #retrieve order 
-      buyer_id = @signed_request["buyer"]
+      buyer_id = params["buyer"]
       account = Account.where("authentications.uid" => buyer_id).first     
       localitem = Event.find(item_id)
-      neworder = Order.new(:event_id => localitem.id, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated')
+      neworder = Order.new(:event_id => localitem.id, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
       if localitem
         #returns a facebook json item description 
         item = neworder.fb_item_info
