@@ -70,8 +70,8 @@ Jp2.controllers :orders do
       logger.info "order id = #{order_id.to_json}" 
       #retrieve order 
      
-      account = Account.first(:email => buyer_id)
-      event = Event.find(order_info)
+      account = Account.first("authentications.uid" => buyer_id)
+      event = Event.first(:id => order_info)
       logger.info "Account = #{account.to_json}"
       logger.info "event = #{event.to_json}"
       neworder = Order.new(:event_id => order_info, :account_id => account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
