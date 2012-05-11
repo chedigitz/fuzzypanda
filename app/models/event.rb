@@ -30,10 +30,12 @@ class Event
   before_save :get_location_points, :if => :location_points_set 
  #method returns latest poter url
  def poster_url
-  if gfl_id
-    gfl_url = "http://smedia.gfl.tv/images/events/#{gfl_id}.JPG"
+  if gfl_id.nil?
+    url = 'placeholder.png'
+  else
+    url = "http://smedia.gfl.tv/images/events/#{gfl_id}.JPG"
   end
-  gfl_url
+  url
  end
  
  ###
