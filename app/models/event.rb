@@ -31,11 +31,11 @@ class Event
  #method returns latest poter url
  def poster_url
   if gfl_id.nil?
-    url = 'placeholder.png'
+    img_url = 'placeholder.png'
   else
-    url = "http://smedia.gfl.tv/images/events/#{gfl_id}.JPG"
+    img_url = "http://smedia.gfl.tv/images/events/#{gfl_id}.JPG"
   end
-  url
+  img_url
  end
  
  ###
