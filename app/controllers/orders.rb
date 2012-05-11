@@ -117,7 +117,7 @@ Jp2.controllers :orders do
       order_details = JSON.parse(@signed_request['credits']['order_details'])
       order_id = order_details['order_id']
       buyer = order_details['buyer']
-      status = Json.parse(@signed_request['credits']['status'])
+      status = JSON.parse(@signed_request['credits']['status'])
       logger.info "order details = #{order_details.to_json}"
       logger.info "order_id = #{order.to_json}"
       logger.info "payment status update #{status}"
