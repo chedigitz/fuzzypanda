@@ -124,7 +124,7 @@ Jp2.controllers :orders do
       logger.info "buyer = #{buyer}"
       if status == 'placed'
         #user has purchased the item prepare response for facebook
-        order = Order.first(:fb_order_id => order_id)
+        order = Order.first(:fb_order_id => order_id.to_s)
         order.status = 'settled'
         if order.save   
           #if order update work construct facebook response
