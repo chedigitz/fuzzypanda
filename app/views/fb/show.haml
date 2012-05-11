@@ -34,7 +34,6 @@
       .hero-unit
         .row
           .span.8
-            %h4= @event.title 
             -if @promovid
               %video#video{"controls" => ""}
                 %source{:src => @videos.first}
@@ -44,18 +43,21 @@
                   = image_tag @event.poster_url, :class => 'thumbnail', :width => 400
                
         .row
-          .span8
-            - form_for :order, url(:orders, :create), :class => :form do |f|
-              = f.hidden_field :event_id, :value => @event.id
-              = f.hidden_field :account_id, :value => current_account.id
-              = f.hidden_field :pay_provider, :value => "facebook"
-              = f.hidden_field :status, :value => "initiated"
-              = f.submit "$#{@event.price}", :class => "btn primary large"
+          .span10
+            %a.btn.primary.large{:onclick => "buy()"} $#{@event.price}
             %a.btn.large Share
-            %a.btn.large{ :onclick => "buy()"} Info
+            %a.btn.large{ :onclick => "remind()"} Remind me
+            %a.btn.large{ :onclick => "attending()"} Attending
+            %div{:id => "nowplaying" + @event.id.to_s, :style => "display:none;"}
+              %a.btn.primary.large $#{@event.price}
+              %a.btn.large Share
+              %a.btn.large Info
+              %h6= @event.title  
+
             #fb-ui-return-data  
             #fb-root
             %script{:src => "https://connect.facebook.net/en_US/all.js"}
+        
             :javascript
               FB.init({appId: "309232419150548", status: true, cookie: true});
 
@@ -102,23 +104,18 @@
                 document.getElementById('fb-ui-return-data').innerHTML=str;
               }
              
-          %div{:id => "nowplaying" + @event.id.to_s, :style => "display:none;"}
-            %a.btn.primary.large $#{@event.price}
-            %a.btn.large Share
-            %a.btn.large Info
-            %h6= @event.title  
 
-
-
+      
             
-                  
-      .row
-        .span.6
-          .page-header
-            %h6= @event.showdate.localtime.strftime('%a %b %d %Y')
-            .span10
-              %p
-                = truncate_words(@event.description, :length => 100)                
+                   
+        .row
+          .span.8
+            .page-header
+              %h5= @event.title
+              %h6= @event.showdate.localtime.strftime('%a %b %d %Y')
+              .span10
+                %p
+                  = truncate_words(@event.description, :length => 100)                
 
 
       .row
