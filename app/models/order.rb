@@ -15,7 +15,7 @@ class Order
 
   def fb_item_info
     #creates a dialog
-    fb_credits = .1 
+    fb_credits = 0.1 
     event_price = self.event.price.to_i / fb_credits 
     response = Hash.new
     response['content'] = []
