@@ -119,7 +119,7 @@ Jp2.controllers :orders do
       buyer = order_details['buyer']
       status = order_details['status']
       logger.info "order details = #{order_details.to_json}"
-      logger.info "order_id = #{order.to_json}"
+      logger.info "order_id = #{order_id.to_json}"
       logger.info "payment status update #{status}"
       logger.info "buyer = #{buyer}"
       if status == 'placed'
