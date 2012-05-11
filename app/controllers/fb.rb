@@ -58,7 +58,7 @@ Jp2.controllers :fb do
 
   post :index do
  
-        @events = Event.all(:order => 'created_at asc', :limit => 7)
+     @events = Event.all(:gfl_id.gte => 0, :order => 'created_at asc', :limit => 8)
         @videos = gfl_url_for("promo", @events)
         render 'fb/index' , :layout => false 
      
