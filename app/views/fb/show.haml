@@ -82,11 +82,12 @@
 
                   // Notify the user that the purchased item has been delivered
                   // without a complete reload of the game.
-                  write_callback_data(
-                    "<br><b>Transaction Completed!</b> </br></br>"
-                    + "Data returned from Facebook: </br>"
-                    + "Order ID: " + data['order_id'] + "</br>"
-                    + "Status: " + data['status']);
+                  window.location = "https://purplepanda.heroku.com/fb/live/?#{@event.id}"
+                  //write_callback_data(
+                    //"<br><b>Transaction Completed!</b> </br></br>"
+                    //+ "Data returned from Facebook: </br>"
+                    //+ "Order ID: " + data['order_id'] + "</br>"
+                    //+ "Status: " + data['status']);
                 } else if (data['error_code']) {
                   // Appropriately alert the user.
                   write_callback_data(
