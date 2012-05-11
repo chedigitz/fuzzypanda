@@ -104,7 +104,8 @@ Jp2.controllers :orders do
         #en
       if event
         #returns a facebook json item description 
-         order = Order.first(:account_id => auth.account.id, :event_id => event.id)
+         order = Order.first(:fb_order_id => order_id.to_s)
+        logger.info "order === #{order.to_json}"
         if order.nil? 
           neworder = Order.new(:event_id => event.id, :account_id => auth.account.id, :pay_provider => "facebook", :fb_order_id => order_id, :status => 'initiated', :token => token)
         else
