@@ -43,6 +43,14 @@ Jp2.controllers :fb do
       end
   end
 
+  before :live do 
+    @event = Event.find(params[:id])
+    order = Order.first(:account_id => current_account.id, :event_id => @event.id)
+    if order.nil?
+      redirect url(:fb, :show, :id => @event.id)
+    end 
+  end 
+
 
 
   post :index do
