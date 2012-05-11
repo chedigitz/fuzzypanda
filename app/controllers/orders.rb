@@ -114,7 +114,7 @@ Jp2.controllers :orders do
       end 
     elsif method == 'payments_status_update'
       #check the status of the payment by getting order details
-      order_details = JSon.parse(@signed_request['credits']['order_details'])
+      order_details = JSON.parse(@signed_request['credits']['order_details'])
       order_id = order_details['order_id']
       buyer = order_details['buyer']
       status = Json.parse(@signed_request['credits']['status'])
