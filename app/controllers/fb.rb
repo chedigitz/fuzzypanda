@@ -44,10 +44,12 @@ Jp2.controllers :fb do
   end
 
   before :live do 
+    #check to ensure user has settled before routing to live page
     @event = Event.find(params[:id])
     order = Order.first(:account_id => current_account.id, :event_id => @event.id, :status => 'settled')
     logger.info "order = #{order}"
     if order.nil?
+      #redirect to the boot boot feed
       redirect url(:fb, :show, :id => @event.id)
     end 
   end 
