@@ -33,7 +33,7 @@ class Event
   if gfl_id.nil?
     img_url = 'placeholder.png'
   else
-    img_url = "https://smedia.gfl.tv/images/events/#{gfl_id}.JPG"
+    img_url = "http://smedia.gfl.tv/images/events/#{gfl_id}.JPG"
   end
   img_url
  end
