@@ -1,0 +1,106 @@
+!!! Strict
+%html
+  %head
+    = stylesheet_link_tag 'fbbootstrap'
+    = javascript_include_tag 'jquery','bootstrap','bootstrap-carousel','popcorn-complete','popcorn.sequence'
+
+  %body
+    :javascript
+      document.addEventListener("DOMContentLoaded", function () {
+        var count=0;
+        var $pop =Popcorn("#video"); 
+        var videos = #{@videos.to_json};             
+        $pop.listen('ended', function() {
+            var nextindex= "#nowplaying" + count;
+            $(nextindex).hide("slow");
+            count++;
+            if (count >= (videos.length))
+              {
+              count=0;
+              }
+            var nextVideo= videos[count];
+            nextindex= "#nowplaying" + count;
+            video.src = nextVideo;
+            
+            $(nextindex).show("slow");
+            $pop.play();
+                   
+          });
+        
+        $pop.play();
+        $("#nowplaying1").show("slow");  
+      }, false);
+    .container-fluid
+      .hero-unit
+        .row
+          .span.8        
+            #fb-ui-return-data  
+            #fb-root
+            %script{:src => "https://connect.facebook.net/en_US/all.js"}
+        
+            :javascript
+              FB.init({appId: "309232419150548", status: true, cookie: true});
+
+              function buy(){
+                var obj = {
+                  method: 'pay',
+                  action: 'buy_item',
+                  //pass order info string
+                  order_info: {'_id': '#{@event.id}'},
+                  dev_purchase_params: {'oscif': true}
+                };
+
+                FB.ui(obj, js_callback);   
+              };
+              // This JavaScript callback handles FB.ui's return data and differs
+              // from the Credits Callbacks.
+              var js_callback = function(data) {
+                if (data['order_id']) {
+                  // Facebook only returns an order_id if you've implemented
+                  // the Credits Callback payments_status_update and settled
+                  // the user's placed order.
+
+                  // Notify the user that the purchased item has been delivered
+                  // without a complete reload of the game.
+                  window.location = "https://purplepanda.heroku.com/fb/live/?#{@event.id}"
+                  //write_callback_data(
+                    //"<br><b>Transaction Completed!</b> </br></br>"
+                    //+ "Data returned from Facebook: </br>"
+                    //+ "Order ID: " + data['order_id'] + "</br>"
+                    //+ "Status: " + data['status']);
+                } else if (data['error_code']) {
+                  // Appropriately alert the user.
+                  write_callback_data(
+                    "<br><b>Transaction Failed!</b> </br></br>"
+                    + "Error message returned from Facebook:</br>"
+                    + data['error_code'] + " - "
+                    + data['error_message']);
+                } else {
+                  // Appropriately alert the user.
+                  write_callback_data("<br><b>Transaction failed!</b>");
+                }
+              };
+
+              function write_callback_data(str) {
+                document.getElementById('fb-ui-return-data').innerHTML=str;
+              }
+             
+
+      
+            
+                   
+        .row
+          .span.8
+            .page-header
+              %h5= @event.title
+              %h6= @event.showdate.localtime.strftime('%a %b %d %Y')
+              .span10
+                %p
+                  = truncate_words(@event.description, :length => 100)                
+
+
+      .row
+        .span.12
+          .page-header
+            %h6 Past Events
+          %ul.media-grid 
