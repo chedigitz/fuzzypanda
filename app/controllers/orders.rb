@@ -128,6 +128,7 @@ Jp2.controllers :orders do
         order.status = 'settled'
         if order.save   
           #if order update work construct facebook response
+          response['content'] = []
           response['content'][0] = {
             'status' => order.status,
             'order_id' => order_id,
