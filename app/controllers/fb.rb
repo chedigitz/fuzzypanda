@@ -97,7 +97,7 @@ Jp2.controllers :fb do
      end 
      redirect url(:fb, :index)
   end 
-post :live, :with => :id do 
+get :live, :with => :id do 
     @event = Event.find(params[:id])
     order = Order.first(:account_id => current_account.id, :order_id => @event.order.id)
     render 'fb/live', layout => false 
