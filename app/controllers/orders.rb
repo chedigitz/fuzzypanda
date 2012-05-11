@@ -118,6 +118,8 @@ Jp2.controllers :orders do
       order_id = order_details['order_id']
       buyer = order_details['buyer']
       status = Json.parse(@signed_request['credits']['status'])
+      logger.info "payment status update #{status}"
+      logger.info "buyer = #{buyer}"
       if status == 'placed'
         #user has purchased the item prepare response for facebook
         order = Order.first(:fb_order_id => order_id)
