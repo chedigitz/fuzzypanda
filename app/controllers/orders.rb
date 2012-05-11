@@ -91,6 +91,7 @@ Jp2.controllers :orders do
       order_id = params["order_id"]
       logger.info "order_info =#{order_info}"
       logger.info "order id = #{order_id.to_json}"
+
       logger.info "event_id = #{event_id}" 
       logger.info order_info
       #retrieve order 
@@ -112,11 +113,41 @@ Jp2.controllers :orders do
         end
       end 
     elsif  method == "payment_status_update"
+      #check the status of the payment by getting order details
+      order_details = JSon.parse(@signed_request['credits']['order_details'])
+      order_id = order_details['order_id']
+      buyer = order_details['buyer']
+      status = Json.parse(@signed_request['credits']['status'])
+      if status == 'placed'
+        #user has purchased the item prepare response for facebook
+        order = Order.first(:fb_order_id => order_id)
+        order.status = 'settled'
+        if order.save   
+          #if order update work construct facebook response
+          response['content'][0] = {
+            'status' => order.status,
+            'order_id' => order_id,
+          }
+          response['method'] = method
+        end 
       
-      
-    elsif method == "" 
+      elsif status == 'disputed'
+        #user is disputing the order track it in the system
+        order =  Order.first(:fb_order_id => order_id)
+        order.status = status
+        if order.save 
+        #if succesfully update status 
+        end 
 
-    end
+      elsif status == 'refunded'
+         order = Order.first(:fb_order_id => order_id)
+         order.status = status
+         if order.save 
+          #if sucessfully update some shit
+         end
+      end 
+
+   end
    
    logger.info "response to facebook is #{response.to_json}"
    response_for_fb = JSON.pretty_generate(response)
