@@ -65,7 +65,7 @@ Jp2.controllers :fb do
   end
 
   get :index do
-     @events = Event.all(:gfl_id.gte => 0 :order => 'created_at asc', :limit => 8)
+     @events = Event.all(:gfl_id.gte => 0, :order => 'created_at asc', :limit => 8)
      @videos = gfl_url_for("promo", @events)
      # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
      render 'fb/index' , :layout => false
