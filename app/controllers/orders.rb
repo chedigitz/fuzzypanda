@@ -118,7 +118,6 @@ Jp2.controllers :orders do
       order_id = order_details['order_id']
       buyer = order_details['buyer']
       status = order_details['status']
-      logger.info "credits = #{credits.to_json}"
       logger.info "order details = #{order_details.to_json}"
       logger.info "order_id = #{order.to_json}"
       logger.info "payment status update #{status}"
