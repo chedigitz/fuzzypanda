@@ -14,13 +14,15 @@ class Order
   belongs_to :event
 
   def fb_item_info
-    #creates a dialog 
+    #creates a dialog
+    fb_credits = .1 
+    event_price = self.event.price.to_i / fb_credits 
     response = Hash.new
     response['content'] = []
     response['content'][0]= { 
       "title" => self.event.title, 
-      "description" => "PPV Event", 
-      "price" => self.event.price.to_i,
+      "description" => "an iPPV Event", 
+      "price" => event_price,
       "image_url" => self.event.poster_url   }
     response['method'] = 'payments_get_items'
     response
