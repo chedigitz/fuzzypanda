@@ -100,7 +100,7 @@ Jp2.controllers :fb do
 get :live, :with => :id do 
     @event = Event.find(params[:id])
     order = Order.first(:account_id => current_account.id, :event_id => @event.id)
-    render 'fb/live', layout => false 
+    render 'fb/live', :layout => false 
 end 
 
 end
