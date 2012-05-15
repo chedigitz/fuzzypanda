@@ -12,7 +12,7 @@ class Streamhub
   key :facebook, Boolean
   key :thumbnails, Array
   key :fms_url, String
-  key :mobile_rul, String
+  key :mobile_url, String
   key :fm_resource, String
   key :server_dns, String
   timestamps!

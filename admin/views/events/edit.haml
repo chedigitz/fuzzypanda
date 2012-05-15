@@ -21,7 +21,7 @@
         %li
           %a{:href => "#venue", "data-toggle" => "tab"} Venue
         %li
-          %a{:href => "#Streams", "data-toggle" => "tab"} Streams
+          %a{:href => "#streams", "data-toggle" => "tab"} Streams
         %li
           %a{:href => "#production", "data-toggle" => "tab"} Production
       .tab-content
@@ -53,5 +53,11 @@
             =link_to 'Add Venue Info', url_for(:venues, :new, :id => @event.id), :class => 'btn btn-small btn-primary'
           -else
             =@event.venue_id
-        .tab-pane#streams 
+        .tab-pane#streams
+          %h6 Streams
+          -if @event.streamhubs.empty?
+            = link_to 'Add Sream', url_for(:streamhubs, :new, :event_id => @event.id), :class => 'btn btn-small btn-primary'
+          -else
+            =@event.streamhubs.to_json
+
 -content_for :sidebar, partial("base/sidebar")

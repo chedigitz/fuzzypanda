@@ -111,6 +111,7 @@ Jp2.controllers :fb do
 get :live, :with => :id do 
     @event = Event.find(params[:id])
     order = Order.first(:account_id => current_account.id, :event_id => @event.id)
+    @streamhub = Streamhub.first(:event_id => @event.id)
     render 'fb/live', :layout => false 
 end 
 

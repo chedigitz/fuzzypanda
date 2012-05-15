@@ -17,6 +17,7 @@ class Event
   key :video_ids, Array, :typecast => "ObjectId"
   key :description, String, :default =>" "
   key :venue_id, ObjectId
+  key :partner_id, ObjectId
   timestamps!
 
   many :callsheets, :in => :callsheet_id
@@ -26,6 +27,7 @@ class Event
   many :orders 
 
   belongs_to :venue 
+  belongs_to :partner
 
   before_save :get_location_points, :if => :location_points_set 
  #method returns latest poter url

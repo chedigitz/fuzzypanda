@@ -29,10 +29,11 @@
   %span.description Ex: a simple text
 
 .group
-  =f.label :callsheet_id_id
-  =f.error_message_on :callsheet_id_id
-  =f.text_field :callsheet_id_id, :class => :text_field
-  %span.description Ex: a simple text
+  =f.error_message_on :settled
+  =f.check_box :settled, :checked => false
+  %span.description Payed
+
+
 
 
 .group.navform.wat-cf

@@ -7,6 +7,10 @@ Admin.controllers :streamhubs do
 
   get :new do
     @streamhub = Streamhub.new
+    if params[:event_id]
+      event_id = params[:event_id]
+      @event = Event.find(event_id)
+    end
     render 'streamhubs/new'
   end
 
