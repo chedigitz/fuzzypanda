@@ -94,6 +94,12 @@
             .page-header
               %h5= @event.title
               %h6= @event.showdate.localtime.strftime('%a %b %d %Y')
+              %object{ :width => '600', :height => '409'}
+                %param{ :name => "movie", :value => "http://fpdownload.adobe.com/strobe/FlashMediaPlayback_101.swf"}
+                %param{ :name => 'flashvars', :value => "#{@streamhub.fms_url}"}
+                %param{ :name => "allowFullScreen", :value => "true"}
+                %param{ :name => "allowscriptaccess", :value => "true"}
+                %embed{ :src => "http://fpdownload.adobe.come/strobe/FlashMediaPlayback_101.swf", :type => "application/x-shockwave-flash" :allowscriptaccess => "always", :allowfullscreen => "true", :width => "600", :height => "409", "flashvars" => "src=#{@streamhub.fms_url}"}
               .span10
                 %p
                   = truncate_words(@event.description, :length => 100)                

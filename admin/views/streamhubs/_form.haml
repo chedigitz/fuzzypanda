@@ -5,6 +5,30 @@
   %span.description Ex: a simple text
 
 .group
+  =f.label :fms_url
+  =f.error_message_on :fms_url
+  =f.text_field :fms_url, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :mobile_url
+  =f.error_message_on :mobile_url
+  =f.text_field :mobile_url, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :fm_resource
+  =f.error_message_on :fm_resource
+  =f.text_field :fm_resource, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
+  =f.label :server_dns
+  =f.error_message_on :server_dns
+  =f.text_field :server_dns, :class => :text_field
+  %span.description Ex: a simple text
+
+.group
   =f.label :type
   =f.error_message_on :type
   =f.text_field :type, :class => :text_field
@@ -29,16 +53,14 @@
   %span.description Ex: a simple text
 
 .group
-  =f.label :mobile
   =f.error_message_on :mobile
   =f.check_box :mobile, :class => :check_box
-  %span.description Ex: a simple text
+  %span.description Mobile
 
 .group
-  =f.label :facebook
   =f.error_message_on :facebook
   =f.check_box :facebook, :class => :check_box
-  %span.description Ex: a simple text
+  %span.description facebook
 
 .group
   =f.label :thumbnails
@@ -46,7 +68,7 @@
   =f.text_field :thumbnails, :class => :text_field
   %span.description Ex: a simple text
 
-
+= f.hidden_field :event_id, :value => @event_id
 .group.navform.wat-cf
   =f.submit pat(:save), :class => :button
   =f.submit pat(:cancel), :onclick => "window.location='#{url(:streamhubs, :index)}';return false", :class => :button
