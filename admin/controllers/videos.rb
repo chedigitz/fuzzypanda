@@ -6,11 +6,11 @@ Admin.controllers :videos do
   end
 
   get :new do
-    if params[:id]
-      @event = Event.find_by_id(params[:id])
+    if params[:event_id]
+      @event = Event.find_by_id(params[:event_id])
       '@video = Video.new(params[:video])'
       logger.debug @event.to_json
-      @video= @event.videos
+      @video = Video.new
       render 'videos/new'
     else
       @video = Video.new
@@ -19,7 +19,10 @@ Admin.controllers :videos do
   end
 
   post :create do
+    logger.info "this is params #{params.to_json}"
+    @event = Event.find(params[:event_id])
     @video = Video.new(params[:video])
+    logger.info @video.to_json
     if @video.save
       flash[:notice] = 'Video was successfully created.'
       redirect url(:videos, :edit, :id => @video.id)
@@ -30,6 +33,7 @@ Admin.controllers :videos do
 
   get :edit, :with => :id do
     @video = Video.find(params[:id])
+    @event = @video.event
     render 'videos/edit'
   end
 

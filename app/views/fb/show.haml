@@ -28,15 +28,15 @@
           });
         
         $pop.play();
-        $("#nowplaying1").show("slow");  
+        $("#nowplaying0").show("slow");  
       }, false);
     .container-fluid
       .hero-unit
         .row
-          .span.8
+          .span.12
             -if @promovid
               %video#video{"controls" => ""}
-                %source{:src => @videos.first}
+                %source{:src => @promovid.source_url}
             -else
               .row
                 .span6
@@ -45,8 +45,8 @@
         .row
           .span10
             %a.btn.primary.large{:onclick => "buy()"} $#{@event.price}
-            %a.btn.large Share
-            %a.btn.large{ :onclick => "remind()"} Remind me
+            %a.btn.large{ :onclick => "postToFeed()"} Share
+            %a.btn.large{ :onclick => "inviteToWatch()"} Invite
             %a.btn.large{ :onclick => "attending()"} Attending
             %div{:id => "nowplaying" + @event.id.to_s, :style => "display:none;"}
               %a.btn.primary.large $#{@event.price}
@@ -100,7 +100,33 @@
                   write_callback_data("<br><b>Transaction failed!</b>");
                 }
               };
+              function postToFeed() {
+                //calling the API
+                var obj = {
+                  method: 'feed',
+                  link: 'https://developers.facebook.com/docs/reference/dialogs/',
+                  picture: '#{@event.poster_url}',
+                  name: "#{@event.title.to_s}",
+                  caption: 'come join me watching this awesome event',
+                  description: ''
+                };
 
+                function callback(response){
+                  document.getElementById('msg').innerHTML = "POST ID:" + response['post_id'];
+                };
+
+                FB.ui(obj, callback);
+
+              }
+
+              function inviteToWatch() {
+                //calling the api 
+                var obj = {
+                  method: 'apprequests',
+                  message: "come Watch #{@event.title} on Facebook"
+                };
+                FB.ui(obj);
+              }
               function write_callback_data(str) {
                 document.getElementById('fb-ui-return-data').innerHTML=str;
               }

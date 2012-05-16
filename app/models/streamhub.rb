@@ -23,7 +23,7 @@ class Streamhub
   private
   def add_to_event
     event = Event.find(event_id)
-    event.streamhubs << id
+    event.streamhubs << self
     event.save!
 
   end

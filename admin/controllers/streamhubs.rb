@@ -25,7 +25,9 @@ Admin.controllers :streamhubs do
   end
 
   get :edit, :with => :id do
+
     @streamhub = Streamhub.find(params[:id])
+    @event = Event.find(@streamhub.event_id)
     render 'streamhubs/edit'
   end
 

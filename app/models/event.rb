@@ -18,6 +18,7 @@ class Event
   key :description, String, :default =>" "
   key :venue_id, ObjectId
   key :partner_id, ObjectId
+  key :fb_event_id, String
   timestamps!
 
   many :callsheets, :in => :callsheet_id
@@ -83,6 +84,47 @@ class Event
    response
  end
 
+ def featured_videos
+  #returns featured videos objects for the event
+  #or an empty array if none 
+  feat_vids = Video.all(:event_id => id, :featured => true)
+  logger.info "this is feature videos #{feat_vids.to_json}"
+  feat_vids
+ end
+def get_fb_id
+  auth = Authentication.first(:account_id => event.partner.account.id, :provider => 'facebook')
+  if fb_event_id.empty?
+     graph = Koala::Facebook::GraphAPI.new(auth.credentials['token'])
+     params  = {
+      :picture => self.poster_url,
+      :name => "#{title}",
+      :description => "#{description}",
+      :start_time => showdate,
+      :end_time => showdate+4.hours
+     }
+
+    fb_event_id =  graph.put_object('#auth.uid', 'events', params)
+    save!
+    
+  end 
+  fb_event = fb_event_id
+  fb_event
+end 
+  
+def get_fb_rsvps(status)
+  auth = Authentication.first(:account_id => event.partner.account.id, :provider => 'facebook')
+  rsvp = {}
+  if auth
+    graph = Koala::Facebook::GraphAPI.new(auth.credentials['token'])
+    if status == 'attending' or status == 'maybe'
+      rsvp = grapha.get_connections(fb_event_id, status)
+    end
+  end
+  logger.info "rsvp = #{rsvp.to_json}"
+  rsvp  
+  
+end
+
 
 
   private 
@@ -96,5 +138,16 @@ class Event
   def location_points_set
       self.location_changed? || location.present?
   end    
-
+  
+  def update_fb_event
+    auth = Authentication.first(:account_id => event.partner.account.id, :provider => 'facebook')
+    graph = Koala::Facebook::GraphAPI.new(auth.credentials['token'])
+    params = {
+      :name => title.to_s,
+      :description => "#{description}",
+      :start_time => showdate,
+      :end_time => showdate+4.hours
+    }
+    graph.put_object("#{fb_event_id}", params)
+  end
 end

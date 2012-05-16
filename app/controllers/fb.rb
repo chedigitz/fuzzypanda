@@ -45,37 +45,71 @@ Jp2.controllers :fb do
 
   before :live do 
     #check to ensure user has settled before routing to live page
-    @event = Event.find(params[:id])
-    order = Order.first(:account_id => current_account.id, :event_id => @event.id, :status => 'settled')
-    logger.info "order = #{order}"
-    if order.nil?
-      #redirect to the boot boot feed
-      redirect url(:fb, :show, :id => @event.id)
-    end 
+    unless current_account.role == 'admin'
+      @event = Event.find(params[:id])
+      order = Order.first(:account_id => current_account.id, :event_id => @event.id, :status => 'settled')
+      logger.info "order = #{order}"
+      if order.nil?
+        #redirect to the boot boot feed
+        redirect url(:fb, :show, :id => @event.id)
+      end 
+    end
   end 
 
 
 
   post :index do
  
-     @events = Event.all(:gfl_id.gte => 0, :order => 'created_at asc', :limit => 8)
-        @videos = gfl_url_for("promo", @events)
-        render 'fb/index' , :layout => false 
+     @events = Event.all(:showdate.gte => Time.now, :order => 'showdate asc', :limit => 8)
+     @videos = []
+     @videos_meta = []
+     #parse the featured videos and create an array of featured videos
+     @events.each do |e|
+        unless e.featured_videos.empty?
+          e.featured_videos.each do |v|
+           @videos << v.source_url   
+           @videos_meta << v
+          end
+        end
+      end
+     logger.info @videos.size
+     logger.info @videos.to_json
+     # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
+     render 'fb/index' , :layout => false
      
   end
 
   get :index do
-     @events = Event.all(:gfl_id.gte => 0, :order => 'created_at asc', :limit => 8)
-     @videos = gfl_url_for("promo", @events)
+     @events = Event.all(:showdate.gte => Time.now, :order => 'showdate asc', :limit => 8)
+     @videos = []
+     @videos_meta = []
+     #parse the featured videos and create an array of featured videos
+     @events.each do |e|
+        unless e.featured_videos.empty?
+          e.featured_videos.each do |v|
+           @videos << v.source_url   
+           @videos_meta << v
+          end
+        end
+     end
+     
+     logger.info @videos.size
+     logger.info @videos.to_json
      # @videos = @events.map { |event| 'http://gdl.gfl.tv/video/eventpromo/' + event.gfl_id.to_s + '.mp4' }
      render 'fb/index' , :layout => false
   end
 
   get :show, :with => :id do
       @event = Event.find_by_id(params[:id])
-     
-    if @event.videos 
-      @promovid= @event.videos.first
+     @videos = []
+    if @event.featured_videos
+      @event.featured_videos.each do |v|
+        @videos << v.source_url
+      end
+      @promovid = @event.featured_videos.first
+   
+      logger.info "this is videos #{@videos.to_json}"
+      logger.info "this is promovid #{@promovid.to_json}"
     end
     render 'fb/show', :layout => false   
   end
