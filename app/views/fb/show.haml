@@ -104,7 +104,7 @@
                 //calling the API
                 var obj = {
                   method: 'feed',
-                  link: "https://purplepanda.heroku.com#{url_for(:fb, :show, :id => @event.id)}",
+                  link: "https://apps.facebook.com/pandafeed#{url_for(:fb, :show, :id => @event.id)}",
                   picture: '#{@event.poster_url}',
                   name: "#{@event.title.to_s}",
                   caption: 'come join me watching this awesome event',
