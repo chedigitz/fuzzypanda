@@ -104,11 +104,11 @@
                 //calling the API
                 var obj = {
                   method: 'feed',
-                  link: 'https://developers.facebook.com/docs/reference/dialogs/',
+                  link: "https://apps.facebook.com/pandafeed#{url_for(:fb, :show, :id => @event.id)}",
                   picture: '#{@event.poster_url}',
                   name: "#{@event.title.to_s}",
                   caption: 'come join me watching this awesome event',
-                  description: ''
+                  description: 'a live ppv extravaganza'
                 };
 
                 function callback(response){
