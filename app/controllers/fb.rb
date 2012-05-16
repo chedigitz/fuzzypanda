@@ -113,6 +113,22 @@ Jp2.controllers :fb do
     end
     render 'fb/show', :layout => false   
   end
+###for facebook added post will remove get once in production
+  post :show, :with => :id do
+      @event = Event.find_by_id(params[:id])
+     @videos = []
+    if @event.featured_videos
+      @event.featured_videos.each do |v|
+        @videos << v.source_url
+      end
+      @promovid = @event.featured_videos.first
+   
+      logger.info "this is videos #{@videos.to_json}"
+      logger.info "this is promovid #{@promovid.to_json}"
+    end
+    render 'fb/show', :layout => false   
+  end
+
 
   get :authenticate do 
      @oauth = Koala::Facebook::OAuth.new(FB_APP_ID, FB_SECRET_KEY, 'https://purplepanda.heroku.com/fb/authenticate/')
