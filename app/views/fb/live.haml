@@ -51,8 +51,7 @@
                 fjs.parentNode.insertBefore(js, fjs);
               }(document, 'script', 'facebook-jssdk'));
             :javascript
-              FB.init({appId: "309232419150548", status: true, cookie: true});
-
+              FB.init({appId: "309232419150548", status: true, cookie: true, frictionlessRequests: true});
               function buy(){
                 var obj = {
                   method: 'pay',
