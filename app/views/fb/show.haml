@@ -82,7 +82,7 @@
 
                   // Notify the user that the purchased item has been delivered
                   // without a complete reload of the game.
-                  window.location = "https://purplepanda.heroku.com/fb/live/#{@event.id}"
+                  window.location = "https://apps.facebook.com/pandafeed/live/#{@event.id}"
                   //write_callback_data(
                     //"<br><b>Transaction Completed!</b> </br></br>"
                     //+ "Data returned from Facebook: </br>"
@@ -104,7 +104,7 @@
                 //calling the API
                 var obj = {
                   method: 'feed',
-                  link: "https://purplepanda.heroku.com/fb/live/#{@event.id}",
+                  link: "https://apps.facebook.com/pandafeed/show/#{@event.id}",
                   picture: '#{@event.poster_url}',
                   name: "#{@event.title.to_s}",
                   caption: 'come join me watching this awesome event',
