@@ -32,7 +32,7 @@
           -else
             -@event.videos.each do |video|
               %li=link_to video.title, (url_for(:videos, :edit, :id =>video.id))
-          =link_to 'Add Videos', url_for(:videos, :new, :id => @event.id), :class => 'btn btn-small'
+          =link_to 'Add Videos', url_for(:videos, :new, :event_id => @event.id), :class => 'btn btn-small'
           %p 
           -if @event.images.empty?
             %h6 no images attached

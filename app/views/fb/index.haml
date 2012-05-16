@@ -27,7 +27,7 @@
           });
         
         $pop.play();
-        $("#nowplaying1").show("slow");  
+        $("#nowplaying0").show("slow");  
       }, false);
 
     .container-fluid
@@ -35,18 +35,19 @@
         .row
           .span.6
             %p.pull-right Logged in as #{current_account.name}
-            %video#video{"controls" => ""}
-              %source{:src => @videos.first}
+            -if @videos.size > 0
+              %video#video{"controls" => ""}
+                %source{:src => @videos.first}
 
         .row
           .span10
-            -@events.each_with_index do |event, i|
+            -@videos_meta.each_with_index do |v, i|
               %div{:id => "nowplaying" + i.to_s, :style => "display:none;"}
-                %a.btn.primary.large $#{event.price}
+                %a.btn.primary.large $#{v.event.price}
                 %a.btn.large Share
                 %a.btn.large Info
                 %a.btn.large RSVP
-                %h6= event.title  
+                %h6= v.event.title  
         .row  
           .span.6
             .page-header
