@@ -103,19 +103,25 @@
         .row
           .span.10
             .page-header
-              %h2= @event.title
-              %h6= @event.showdate.localtime.strftime('%a %b %d %Y')
+              %h2
+                = @event.title
+                %small= @event.showdate.localtime.strftime('%a %b %d %Y')
+            .row
+              %object{ :width => '600', :height => '409'}
+                %param{ :name => "movie", :value => "http://fpdownload.adobe.com/strobe/FlashMediaPlayback_101.swf"}
+                %param{ :name => 'flashvars', :value => "#{@streamhub.fms_url}"}
+                %param{ :name => "allowFullScreen", :value => "true"}
+                %param{ :name => "allowscriptaccess", :value => "true"}
+                %embed{ :src => "http://fpdownload.adobe.come/strobe/FlashMediaPlayback_101.swf", :type => "application/x-shockwave-flash", "allowscriptaccess" => "always", "allowfullscreen" => "true", :width => "600", :height => "409", "flashvars" => "src=#{@streamhub.fms_url}"}
+              .fb-live-stream{ "data-event-app-id" => "#{FB_APP_ID}", "data-width" => "300", "data-height" => "409", "data-always-post-to-friends" => "false"}
+            .span10
               .row
-                %object{ :width => '600', :height => '409'}
-                  %param{ :name => "movie", :value => "http://fpdownload.adobe.com/strobe/FlashMediaPlayback_101.swf"}
-                  %param{ :name => 'flashvars', :value => "#{@streamhub.fms_url}"}
-                  %param{ :name => "allowFullScreen", :value => "true"}
-                  %param{ :name => "allowscriptaccess", :value => "true"}
-                  %embed{ :src => "http://fpdownload.adobe.come/strobe/FlashMediaPlayback_101.swf", :type => "application/x-shockwave-flash", "allowscriptaccess" => "always", "allowfullscreen" => "true", :width => "600", :height => "409", "flashvars" => "src=#{@streamhub.fms_url}"}
-                .fb-live-stream{ "data-event-app-id" => "#{FB_APP_ID}", "data-width" => "300", "data-height" => "409", "data-always-post-to-friends" => "false"}
-              .span10
-                %p
-                  = truncate_words(@event.description, :length => 100)                
+                %a.btn.large{ :onclick => "postToFeed()"} Share
+                %a.btn.primary.large{ :onclick => "inviteToWatch()"} Invite Friends
+                %a.btn.large{ :onclick => "attending()"} Info
+            .span5
+              .row
+                = truncate_words(@event.description, :length => 100)                
 
 
       .row

@@ -32,6 +32,10 @@
       }, false);
     .container-fluid
       .hero-unit
+        .page-header
+          %h2
+            = @event.title
+            %small= @event.showdate.localtime.strftime('%a - %b %d, %Y')
         .row
           .span.12
             -if @promovid
@@ -137,12 +141,8 @@
                    
         .row
           .span.8
-            .page-header
-              %h5= @event.title
-              %h6= @event.showdate.localtime.strftime('%a %b %d %Y')
-              .span10
-                %p
-                  = truncate_words(@event.description, :length => 100)                
+            %p
+              = truncate_words(@event.description, :length => 100)                
 
 
       .row

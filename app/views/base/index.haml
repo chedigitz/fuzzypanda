@@ -1,0 +1,18 @@
+!!! Strict
+%html{:lang => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %title Panda Feed
+    =stylesheet_link_tag 'bootstrap'
+  %body
+    #container
+      .span8
+        .offset2
+          =image_tag 'feedthepanda.jpg', :width =>"400", :style => "display: block;margin-left: auto; margin-right: auto;"
+        .flash=[:error, :warning, :notice].map { |type| flash_tag(type, :class => "message #{type}") }.join
+        .span6.offset2
+          -form_tag('/admin/sessions/create', :class => 'well form-inline') do
+            =text_field_tag :email, :value => params[:email], :class => "input-small", "placeholder" => "Email"
+            =password_field_tag :password, :value => params[:password], :class => :text_field, "placeholder" => 'Password'
+            =submit_tag('Sign In', :class => "btn")
+

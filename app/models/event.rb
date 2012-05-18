@@ -19,6 +19,7 @@ class Event
   key :venue_id, ObjectId
   key :partner_id, ObjectId
   key :fb_event_id, String
+  key :scene_ids, Array, :typecast => "ObjectId"
   timestamps!
 
   many :callsheets, :in => :callsheet_id
@@ -26,6 +27,7 @@ class Event
   many :videos, :in => :video_ids
   many :images
   many :orders 
+  many :scenes, :in => :scene_ids
 
   belongs_to :venue 
   belongs_to :partner

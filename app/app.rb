@@ -10,7 +10,7 @@ class Jp2 < Padrino::Application
 
 
   set :protection, :except => [:frame_options, :remote_token, :session_hijacking]
-
+ set :admin_model, 'Account'
 
   Panda.configure do
   access_key "panda_access_key"
@@ -59,8 +59,7 @@ end
   #   end
   #
   get "/" do
-     image_tag 'feedthepanda.jpg', :width =>"400", :style => "display: block;margin-left: auto; margin-right: auto;"
-
+     render 'base/index', :layout => false
   end
   ##
   # You can manage errors like:
