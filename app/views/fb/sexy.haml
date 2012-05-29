@@ -1,0 +1,12 @@
+%h1 OHHH SHIT ITS SEXY
+%script{:type=>'text/x-handlebars'}
+  {{#view Ember.Button target="Panda.booksController" action="loadEvents"}}
+  Load Events
+  {{/view}}
+  {{#collection contentBinding="Panda.booksController" tagName="ul"}}
+  %b
+    {{content.title}} 
+    {{content.author}}
+  %i
+  {{content.genre}}
+  {{/collection}}

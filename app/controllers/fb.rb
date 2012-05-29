@@ -56,6 +56,10 @@ Jp2.controllers :fb do
     end
   end 
 
+  get :sexy do 
+   render 'fb/sexy'
+  end 
+
 
 
   post :index do
@@ -164,5 +168,11 @@ get :live, :with => :id do
     @streamhub = Streamhub.first(:event_id => @event.id)
     render 'fb/live', :layout => false 
 end 
+
+get :events, :provides => :json do
+    @events = Event.all(:showdate.gte => Time.now, :order => 'showdate asc', :limit => 8)
+    #response = JSON.pretty_generate(@events)
+    @events.to_json
+end
 
 end
