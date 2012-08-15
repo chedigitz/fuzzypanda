@@ -7,7 +7,7 @@ source :rubygems
 # Project requirements
 gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
-
+gem 'padrino-sprockets', :require => 'padrino/sprockets'
 # Component requirements
 gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sass'
@@ -21,9 +21,10 @@ gem 'omniauth', :require => "omniauth"
 gem 'omniauth-twitter', :require => "omniauth-twitter"
 gem 'omniauth-facebook', :require => "omniauth-facebook"
 gem 'foursquare2', :require => "foursquare2"
-gem 'panda'
+gem 'panda', :require => 'panda'
 gem 'addressable',  :require => "addressable/uri"
 gem 'queryparams', :require => 'queryparams'
+gem 'youtube_it', :require => 'youtube_it'
 
 # Test requirements
 gem 'shoulda', :group => "test"

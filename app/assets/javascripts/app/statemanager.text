@@ -1,0 +1,28 @@
+//statemanager code
+Panda.stateManager = Ember.StateManager.create({
+    rootElement: 'mainArea',
+    initialState: 'showEventView',
+
+    showEventView: Ember.ViewState.create({
+        enter: function(stateManager){
+            this._super(stateManager);
+            Panda.eventListController.findAll();
+        },
+        view: Ember.ContainerView.create({
+           childViews: ['eventListView', 'selectedEventView'],
+
+           eventListView: Ember.View.extend({
+                template: Ember.Handlebars.compile('{{#each content}}{{#view Panda.ThumbnailPhotoView contentBinding="this" classNames="thumbnailItem"}}<img {{bindAttr src="content.poster_url"}} style="width: 100%; height: 100%;"/>{{/view}}{{/each}}'),
+                contentBinding: 'Panda.EventListController.content',
+                classNames: ['thumbnailViewList']
+           }),
+
+           selectedEventView: Ember.View.extend({
+             template: Ember.Handlebars.compile('{{#with content}}<h1>{{title}}</h1>{{#view Panda.SelectedPhotoView contentBinding="this" classNames="selectedEventItem"}}<img {{bindAttr src="content.poster_url"}}/>{{/view}}{{/with}}'),
+             contentBinding: 'Panda.SelectedEventController.content',
+             classNames: ['selectedEvent']
+           })
+        })
+            
+    })
+});

@@ -1,0 +1,25 @@
+!!! Strict
+%html
+  %head
+    %title= [@title, "PandaFeed"].compact.join(" | ")
+    %link{ :href => '/assets/application.css', :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}
+    %script{ :src => '/assets/application.js', :type => 'text/javascript'}
+
+    = yield_content :include
+
+
+  %body
+    %div.navbar
+      %div.navbar-inner
+        %div.container
+          %a.brand PandaFeed
+    .container
+      .row
+        .span2
+          =partial 'fb/sidebar'
+        .span5
+          =partial 'fb/imgscroll'  
+        .span5
+          =yield
+    #sidebar
+    #footer

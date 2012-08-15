@@ -1,35 +1,67 @@
-.group
-  =f.label :title
-  =f.error_message_on :title
-  =f.text_field :title, :class => :text_field
-  %span.description Ex: a simple text
-
-.group
+.row
+  .span3#uploader
+    =f.hidden_field :panda_id, :id => "returned_video_id"
+  .span1#or_copy
+    %h1 or
+  .span1#gap{:style => "display: none;"}
+    %p
+  .span4
+  = link_to (image_tag '200x65_ytsuperstar_red.png'), '#' ,:onclick => "showYTForm()" 
+ 
+#upload_progress.panda_upload_progress
+#yt-info{:style => "display: none;"}
   =f.label :url
   =f.error_message_on :url
   =f.text_field :url, :class => :text_field
   %span.description Ex: a simple text
 
-.group
-  =f.label :provider
-  =f.error_message_on :provider
-  =f.text_field :provider, :class => :text_field
-  %span.description Ex: a simple text
-
-.group
-
-  =f.hidden_field :event_id, :value => @event.id
-  %span.description Ex: a simple text
+#panda-info{:style => "display: none;"}
+  .group
+    =f.label :title
+    =f.error_message_on :title
+    =f.text_field :title, :class => :text_field
+    %span.description Ex: a simple text
 
 
+  .group
+    =f.label :provider
+    =f.error_message_on :provider
+    =f.text_field :provider, :class => :text_field
+    %span.description Ex: a simple text
 
-.group
-  =f.label :featured
-  =f.error_message_on :featured
-  =f.check_box :featured, :class => :check_box
-  %span.description Featured
+  .group
+
+    =f.hidden_field :event_id, :value => @event.id
+    %span.description Ex: a simple text
 
 
-.group.navform.wat-cf
-  =f.submit pat(:save), :class => :button
-  =f.submit pat(:cancel), :onclick => "window.location='#{url(:videos, :index)}';return false", :class => :button
+
+  .group
+    =f.label :featured
+    =f.error_message_on :featured
+    =f.check_box :featured, :class => :check_box
+    %span.description Featured
+#submit-row{:style => "display: none;"}
+  .group.navform.wat-cf
+    =f.submit pat(:save), :class => :button
+    =f.submit pat(:cancel), :onclick => "window.location='#{url(:videos, :index)}';return false", :class => :button
+  
+  :javascript
+    function showYTForm() {
+      $("#gap, #yt-info, #submit-row").show("slow");
+      $("#uploader, #or_copy").hide("slow");
+      $("#video_provider").val("youtube");
+    }
+
+  :javascript
+    var panda_access_details = #{@panda_acess_details.to_json};
+    jQuery("#returned_video_id").pandaUploader(panda_access_details, {
+      upload_strategy: new PandaUploader.UploadOnSubmit({
+        disable_submit_button: false,
+      }),
+      upload_progress_id: 'upload_progress',
+      onchange: function(){
+        $("#panda-info, #submit-row").show("slow");
+        $("#video_provider").val("panda");
+      }
+    });

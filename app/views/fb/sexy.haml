@@ -1,12 +1,6 @@
-%h1 OHHH SHIT ITS SEXY
-%script{:type=>'text/x-handlebars'}
-  {{#view Ember.Button target="Panda.booksController" action="loadEvents"}}
-  Load Events
+%script{:type => 'text/x-handlebars'}
+
+  {{#view contentBinding="Panda.SelectedPhotoController.content"}}
+  {{ content.description}}
   {{/view}}
-  {{#collection contentBinding="Panda.booksController" tagName="ul"}}
-  %b
-    {{content.title}} 
-    {{content.author}}
-  %i
-  {{content.genre}}
-  {{/collection}}
+

@@ -1,37 +1,76 @@
-.block
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first.active=link_to pat(:list), url(:videos, :index)
-      %li=link_to pat(:new), url(:videos, :new)
-  .content
-    %h2.title
-      =pat(:all)
-      =mt(:videos)
-    .inner
-      %table.table
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+      -if current_account.role == "admin"
+        %li.nav-header videos
+        %li
+          %a{:href => "#{url(:events,:new)}"}
+            %i.icon-pencil
+            New
+        %li.active
+          %a{ :href => "#{url(:events, :index)}"}
+            %i.icon-time
+            All
+        %li
+          %a{ :href => "#{url(:events, :index)}"}
+            %i.icon-time
+            Upcomming
+        %li.nav-header= "#{current_account.role} account"
+
+        %li
+          %a{ :href => "#{url(:accounts, :new)}"}
+            %i.icon-plus
+            Add User
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+
+      
+
+
+  .span10
+    
+    .pager-header
+      %h2 
+        Videos
+        %small all videos  
+      %table.table.table-striped
         %tr
-          %th.first=mat(:video, :title)
-          %th=mat(:video, :url)
-          %th=mat(:video, :provider)
-          %th=mat(:video, :date)
-          %th=mat(:video, :featured)
-          %th=mat(:video, :created_at)
-          %th=mat(:video, :updated_at)
+          %th.first Thumbnail
+          %th title
+          %th event
           %th.last="&nbsp;"
         -@videos.each do |video|
           %tr
-            %td.first=video.title
-            %td=video.url
-            %td=video.provider
-            %td=video.date
-            %td=video.featured
-            %td=video.created_at
-            %td=video.updated_at
-            %td.last
-              =button_to pat(:edit), url(:videos, :edit, :id => video.id), :method => :get, :class => :button_to
-              ="|"
-              =button_to pat(:delete), url(:videos, :destroy, :id => video.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
-      .actions-bar.wat-cf
-        .actions="&nbsp;"
+            %td.first= link_to (image_tag video.thumbnail, :class => "thumbnail span2"), url(:videos, :show, :id => video.id)
+            %td= link_to video.title, url(:videos, :show, :id => video.id )
+            %td= link_to video.event.title, url(:events, :edit, :id => video.event.id)
+            %td
+              .btn-group
+                %a.btn.btn-info.btn-small
+                  %i.icon-cog.icon-white
+                  Settings
+                %a.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.caret.icon-white
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "#{url(:videos, :edit, :id => video.id)}"}
+                      %i.icon-pencil
+                      Edit
+                  %li
+                    %a{:href => "#{url(:videos, :destroy, :id => video.id)}"}
+                      %i.icon-trash
+                      Delete
+                  
 
--content_for :sidebar, partial("base/sidebar")

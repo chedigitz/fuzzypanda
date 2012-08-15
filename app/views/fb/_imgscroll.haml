@@ -1,0 +1,13 @@
+:javascript
+  $(function() {
+    Panda.eventsController.loadAll(#{@events.to_json});
+  });
+
+
+%script{:type => "text/x-handlebars"}
+  {{#collection contentBinding="Panda.eventsController" itemViewClass="Panda.ThumbnailPhotoView"}} 
+    
+  <img {{bindAttr src="content.poster_url"}}  />
+
+  {{/collection}}
+

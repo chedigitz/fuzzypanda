@@ -33,6 +33,10 @@
   =f.check_box :settled, :checked => false
   %span.description Payed
 
+.group
+  =f.error_message_on :confirmed
+  =f.check_box :confirmed
+  %span.description Confirmed
 
 
 

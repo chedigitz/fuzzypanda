@@ -1,0 +1,8 @@
+Panda = Ember.Application.create();
+
+
+
+
+
+
+

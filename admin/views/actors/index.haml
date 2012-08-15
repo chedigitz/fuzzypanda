@@ -1,0 +1,39 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:actors, :index)
+      %li=link_to pat(:new), url(:actors, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:actors)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:actor, :account_id)
+          %th=mat(:actor, :video_ids)
+          %th=mat(:actor, :event_ids)
+          %th=mat(:actor, :fbuid)
+          %th=mat(:actor, :scene_ids)
+          %th=mat(:actor, :fburl)
+          %th=mat(:actor, :created_at)
+          %th=mat(:actor, :updated_at)
+          %th.last="&nbsp;"
+        -@actors.each do |actor|
+          %tr
+            %td.first=actor.account_id
+            %td=actor.video_ids
+            %td=actor.event_ids
+            %td=actor.fbuid
+            %td=actor.scene_ids
+            %td=actor.fburl
+            %td=actor.created_at
+            %td=actor.updated_at
+            %td.last
+              =button_to pat(:edit), url(:actors, :edit, :id => actor.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:actors, :destroy, :id => actor.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")

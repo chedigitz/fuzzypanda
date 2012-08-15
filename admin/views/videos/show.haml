@@ -1,0 +1,59 @@
+.row
+  .span2
+    %ul.nav.nav-list.well
+      %li.nav-header Gigs
+      %li
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+      -if current_account.role == "admin"
+        %li.nav-header Callsheets
+        %li.active
+          %a{ :href => "#{url(:videos, :show, :id => @video.id)}"}
+            %i.icon-time
+            All
+        %li.nav-header= "#{current_account.role} account"
+
+        %li
+          %a{ :href => "#{url(:accounts, :new)}"}
+            %i.icon-plus
+            Add User
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+
+      
+      -if current_account.role == 'admin'
+        %li.first=link_to pat(:list), url(:callsheets, :index)
+        %li=link_to pat(:new), url(:callsheets, :new)
+
+  .span10
+    
+    .pager-header
+      %h2 
+        = @video.title
+        %small= @video.event.title 
+    :javascript
+      document.addEventListener("DOMContentLoaded", function () {
+        var count=0;
+        var provider = "#{@video.provider}"; 
+        var $pop = Popcorn.smart("#video", "#{@video.source_url}");
+        
+        var videos = #{@videos.to_json};             
+       
+        $pop.play();
+      }, false);
+    .row
+      .span6
+        -if @video.status == 'success'
+          #video{"controls" => ""}
+            
+
+        -else
+          %h6 Hold on. Panda is currently #{@video.status} the video 

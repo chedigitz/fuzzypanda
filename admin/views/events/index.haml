@@ -1,28 +1,77 @@
 .row
   .span2
     %ul.nav.nav-list.well
-      %li.nav-header Events
-      %li.active= link_to pat(:list), url(:events, :index)
-      %li= link_to pat(:new), url(:events, :new)
+      %li.nav-header Gigs
+      %li
+        %a{ :href => "/admin/assigments/"}
+          %i.icon-th-list
+          List
+      -if current_account.role == "admin"
+        %li.nav-header events
+        %li
+          %a{:href => "#{url(:events,:new)}"}
+            %i.icon-pencil
+            New
+        %li.active
+          %a{ :href => "#{url(:events, :index)}"}
+            %i.icon-time
+            All
+        %li
+          %a{ :href => "#{url(:events, :index)}"}
+            %i.icon-time
+            Upcomming
+        %li.nav-header= "#{current_account.role} account"
 
-  
+        %li
+          %a{ :href => "#{url(:accounts, :new)}"}
+            %i.icon-plus
+            Add User
+      %li
+        %a{ :href => "#{url(:accounts, :edit, :id => current_account.id)}"}
+          %i.icon-user
+          Edit
+
+      %li
+        %a{:href => "#{url(:authentications, :index)}"}
+          %i.icon-cog
+          Services
+
+      
+
+
   .span10
-    %table.table-bordered.table-striped.table-condesed
-      %thead
+    
+    .pager-header
+      %h2 
+        Events
+        %small all events on the books 
+      %table.table.table-striped
         %tr
-          %th #
-          %th=mat(:event, :title)
-          %th=mat(:event, :price)
-          %th=mat(:event, :location)
+          %th.first Date
+          %th Title
+          %th Budget
+          %th Location
           %th.last="&nbsp;"
-      -@events.each_with_index do |event, index|
-        %tbody
+        -@events.each do |event|
           %tr
-            %td= index+= 1
-            %td=event.title
-            %td=event.price
-            %td=to_address(event.location)
-
-            %td{ :style => "display:inline;"}
-              =button_to pat(:edit), url(:events, :edit, :id => event.id), :method => :get, :class => "btn btn-small" 
-              =button_to pat(:delete), url(:events, :destroy, :id => event.id), :method => :delete, :class => "btn btn-small", :onsubmit => "return confirm('#{pat(:confirm)}')"
+            %td.first=event.showdate.to_date
+            %td= link_to event.title, url(:events, :edit, :id => event.id )
+            %td $#{event.budget.to_i}
+            %td= distance_of_time_in_words(event.updated_at, Time.now)
+            %td
+              .btn-group
+                %a.btn.btn-info.btn-small
+                  %i.icon-cog.icon-white
+                  Settings
+                %a.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %span.caret.icon-white
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "#{url(:events, :edit, :id => event.id)}"}
+                      %i.icon-pencil
+                      Edit
+                  %li
+                    %a{:href => "#{url(:events, :destroy, :id => event.id)}"}
+                      %i.icon-trash
+                      Delete
+                  
