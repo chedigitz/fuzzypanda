@@ -1,0 +1,30 @@
+# config/mongomapper.yml
+
+options: &options
+  parameterize_keys: false
+
+defaults: &defaults
+  adapter: mongodb
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
+
+development:
+  <<: *defaults
+  host: localhost
+  database: jp2_development
+
+test:
+  <<: *defaults
+  host: localhost
+  database: pf_testing
+
+production:
+  adapter: mongodb
+  host: ds033047.mongolab.com
+  database: pf_dev
+  port: 33047
+  username: pandaking
+  password: welcome11

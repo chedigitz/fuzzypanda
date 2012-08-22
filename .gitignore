@@ -1,10 +1,14 @@
 .DS_Store
+<<<<<<< HEAD
 config/*
+=======
+>>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5
 log/**/*
 tmp/**/*
 bin/*
 vendor/gems/*
 !vendor/gems/cache/
+<<<<<<< HEAD
 .sass-cache/*
 *.gem
 *.rbc
@@ -35,3 +39,6 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+=======
+.sass-cache/*
+>>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5

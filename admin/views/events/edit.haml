@@ -31,9 +31,14 @@
             Event has no videos
           -else
             -@event.videos.each do |video|
+<<<<<<< HEAD
               %li=link_to video.title, (url_for(:videos, :show, :id =>video.id))
           =link_to 'Add Videos', url_for(:videos, :new, :event_id => @event.id), :class => 'btn btn-small'
 
+=======
+              %li=link_to video.title, (url_for(:videos, :edit, :id =>video.id))
+          =link_to 'Add Videos', url_for(:videos, :new, :event_id => @event.id), :class => 'btn btn-small'
+>>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5
           %p 
           -if @event.images.empty?
             %h6 no images attached
