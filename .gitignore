@@ -1,5 +1,4 @@
 .DS_Store
-config/*
 log/**/*
 tmp/**/*
 bin/*
