@@ -3,6 +3,7 @@
 config/*
 =======
 >>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5
+config/*
 log/**/*
 tmp/**/*
 bin/*
@@ -29,6 +30,7 @@ tmp
 capybara-*.html
 .rspec
 /.bundle
+/config/*
 /vendor/bundle
 /log/*
 /tmp/*

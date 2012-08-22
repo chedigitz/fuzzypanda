@@ -90,7 +90,7 @@ class Admin < Padrino::Application
   :address              => "smtp.gmail.com",
   :port                 => 587,
   :user_name            => 'gigs@pandafeed.tv',
-  :password             => EMAIL_PASSWORD,
+  :password             => EMAIL_KEY,
   :authentication       => :plain,
   :domain               => "pandafeed.tv",
   :enable_starttls_auto => true  
