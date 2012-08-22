@@ -1,4 +1,6 @@
 .DS_Store
+config/*
+config/*
 log/**/*
 tmp/**/*
 bin/*
@@ -25,6 +27,7 @@ tmp
 capybara-*.html
 .rspec
 /.bundle
+/config/*
 /vendor/bundle
 /log/*
 /tmp/*
@@ -35,3 +38,4 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+.sass-cache/*

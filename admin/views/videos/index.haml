@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .row
   .span2
     %ul.nav.nav-list.well
@@ -74,3 +75,42 @@
                       Delete
                   
 
+=======
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:videos, :index)
+      %li=link_to pat(:new), url(:videos, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:videos)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:video, :title)
+          %th=mat(:video, :url)
+          %th=mat(:video, :provider)
+          %th=mat(:video, :date)
+          %th=mat(:video, :featured)
+          %th=mat(:video, :created_at)
+          %th=mat(:video, :updated_at)
+          %th.last="&nbsp;"
+        -@videos.each do |video|
+          %tr
+            %td.first=video.title
+            %td=video.url
+            %td=video.provider
+            %td=video.date
+            %td=video.featured
+            %td=video.created_at
+            %td=video.updated_at
+            %td.last
+              =button_to pat(:edit), url(:videos, :edit, :id => video.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:videos, :destroy, :id => video.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")
+>>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5

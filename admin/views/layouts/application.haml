@@ -4,9 +4,14 @@
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
     %title PandaFeed.TV Admin
     =stylesheet_link_tag 'bootstrap', 'jquery-ui-timepicker-addon'
+<<<<<<< HEAD
     =javascript_include_tag 'jquery', 'bootstrap','bootstrap-tab','bootstrap-dropdown', 'bootstrap-modal', 'jquery-ui-timepicker-addon', 'jquery-ui-1.8.18.custom.min', 'popcorn-complete'
     %script{:type => "application/javascript", :src => "http://maps.googleapis.com/maps/api/js?key=AIzaSyCarC9Mc24ezPR2Q-joO6fiZNRTxHqKq9Q&sensor=false"}
     %script{:src => "http://d21qbsp9m249bi.cloudfront.net/u/1.4/jquery.panda-uploader.min.js", :type => "text/javascript"}
+=======
+    =javascript_include_tag 'jquery', 'bootstrap','bootstrap-tab','bootstrap-dropdown', 'bootstrap-modal', 'jquery-ui-timepicker-addon', 'jquery-ui-1.8.18.custom.min'
+    %script{:type => "application/javascript", :src => "http://maps.googleapis.com/maps/api/js?key=AIzaSyCarC9Mc24ezPR2Q-joO6fiZNRTxHqKq9Q&sensor=false"}
+>>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5
     -if @callsheet
       :javascript
         function initialize() {
@@ -24,7 +29,11 @@
             title: "#{to_address(@callsheet.event.location)}"
           });
         }
+<<<<<<< HEAD
   %body{}
+=======
+  %body{ :onload => "initialize()"}
+>>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5
     %div.navbar
       %div.navbar-inner
         %div.container-fluid

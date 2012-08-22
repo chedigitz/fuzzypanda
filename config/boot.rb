@@ -9,7 +9,9 @@ PANDA_SECRET = "59ff631ca353b271adf6"
 PANDA_CLOUD_ID = "ee33c4e1fe44d3479a7d5e1cc75c09fd"
 TWITTER_APP_ID = '78dWjnUfFYEq2Ucdvd6Q'
 TWITTER_APP_SECRET = 'kKq99vTtStdhTMSSeUbG1mFdKMsUY6gtAwAy6h80'
-EMAIL_PASSWORD = "youknow11"
+EMAIL_PASSWORD = "pandaking11"
+EMAIL_KEY = "pandaking11"
+
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'

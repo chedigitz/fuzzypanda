@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .row
   .span2
     %ul.nav.nav-list.well
@@ -40,6 +41,18 @@
         Add New Video
         %small select a video source 
       %table.table.table-striped
+=======
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:videos, :index)
+      %li.active=link_to pat(:new), url(:videos, :new)
+  .content
+    %h2.title
+      =pat(:new)
+      =mt(:video)
+    .inner
+>>>>>>> 1acc8a2bf63cccaacb254b5ef810b027ba774ab5
       -form_for :video, url(:videos, :create), :class => :form do |f|
         =partial "videos/form", :locals => { :f => f }
 
